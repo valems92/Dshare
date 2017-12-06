@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3E9A9E81FD7DDD600E5CD33"
-               BuildableName = "First Design.app"
-               BlueprintName = "First Design"
-               ReferencedContainer = "container:First Design.xcodeproj">
+               BlueprintIdentifier = "B3E9AA301FD7E49B00E5CD33"
+               BuildableName = "Dshare.app"
+               BlueprintName = "Dshare"
+               ReferencedContainer = "container:Dshare.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,30 +32,30 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3E9A9FC1FD7DDD600E5CD33"
-               BuildableName = "First DesignTests.xctest"
-               BlueprintName = "First DesignTests"
-               ReferencedContainer = "container:First Design.xcodeproj">
+               BlueprintIdentifier = "B3E9AA441FD7E49B00E5CD33"
+               BuildableName = "DshareTests.xctest"
+               BlueprintName = "DshareTests"
+               ReferencedContainer = "container:Dshare.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3E9AA071FD7DDD600E5CD33"
-               BuildableName = "First DesignUITests.xctest"
-               BlueprintName = "First DesignUITests"
-               ReferencedContainer = "container:First Design.xcodeproj">
+               BlueprintIdentifier = "B3E9AA4F1FD7E49B00E5CD33"
+               BuildableName = "DshareUITests.xctest"
+               BlueprintName = "DshareUITests"
+               ReferencedContainer = "container:Dshare.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3E9A9E81FD7DDD600E5CD33"
-            BuildableName = "First Design.app"
-            BlueprintName = "First Design"
-            ReferencedContainer = "container:First Design.xcodeproj">
+            BlueprintIdentifier = "B3E9AA301FD7E49B00E5CD33"
+            BuildableName = "Dshare.app"
+            BlueprintName = "Dshare"
+            ReferencedContainer = "container:Dshare.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -75,10 +75,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3E9A9E81FD7DDD600E5CD33"
-            BuildableName = "First Design.app"
-            BlueprintName = "First Design"
-            ReferencedContainer = "container:First Design.xcodeproj">
+            BlueprintIdentifier = "B3E9AA301FD7E49B00E5CD33"
+            BuildableName = "Dshare.app"
+            BlueprintName = "Dshare"
+            ReferencedContainer = "container:Dshare.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,10 +94,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3E9A9E81FD7DDD600E5CD33"
-            BuildableName = "First Design.app"
-            BlueprintName = "First Design"
-            ReferencedContainer = "container:First Design.xcodeproj">
+            BlueprintIdentifier = "B3E9AA301FD7E49B00E5CD33"
+            BuildableName = "Dshare.app"
+            BlueprintName = "Dshare"
+            ReferencedContainer = "container:Dshare.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

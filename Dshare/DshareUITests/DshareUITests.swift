@@ -1,6 +1,6 @@
 //
-//  First_DesignUITests.swift
-//  First DesignUITests
+//  DshareUITests.swift
+//  DshareUITests
 //
 //  Created by Munoz, Valentina on 06/12/2017.
 //  Copyright © 2017 Munoz, Valentina. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class First_DesignUITests: XCTestCase {
+class DshareUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

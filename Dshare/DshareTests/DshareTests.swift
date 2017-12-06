@@ -1,15 +1,15 @@
 //
-//  First_DesignTests.swift
-//  First DesignTests
+//  DshareTests.swift
+//  DshareTests
 //
 //  Created by Munoz, Valentina on 06/12/2017.
 //  Copyright © 2017 Munoz, Valentina. All rights reserved.
 //
 
 import XCTest
-@testable import First_Design
+@testable import Dshare
 
-class First_DesignTests: XCTestCase {
+class DshareTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
