@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08261302B7813103B41D7592 /* Pods_Dshare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC2A8F8DB6663B6B49D5D7E /* Pods_Dshare.framework */; };
+		0DD51DC27EBD2718A2E57431 /* Pods_DshareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45658FE13AFF5515E2DF4875 /* Pods_DshareUITests.framework */; };
+		833CB520AE08E8F663F11B95 /* Pods_DshareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AB9E87024A9EF1DC3BCCC0 /* Pods_DshareTests.framework */; };
+		AEF7BB031FD7FA0E007BCD62 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA401FD7E49B00E5CD33 /* Info.plist */; };
+		AEF7BB041FD7FA14007BCD62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AEF7BB021FD7F994007BCD62 /* GoogleService-Info.plist */; };
 		B3E9AA351FD7E49B00E5CD33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA341FD7E49B00E5CD33 /* AppDelegate.swift */; };
 		B3E9AA371FD7E49B00E5CD33 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA361FD7E49B00E5CD33 /* ViewController.swift */; };
 		B3E9AA3A1FD7E49B00E5CD33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA381FD7E49B00E5CD33 /* Main.storyboard */; };
@@ -41,6 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		35AB9E87024A9EF1DC3BCCC0 /* Pods_DshareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DshareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4484A05E1242CBBAC4512995 /* Pods-DshareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.debug.xcconfig"; sourceTree = "<group>"; };
+		45658FE13AFF5515E2DF4875 /* Pods_DshareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DshareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B30253BCA55BD58577B164F /* Pods-DshareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4FF59F6085E8BCE9EE46E5FF /* Pods-Dshare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dshare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dshare/Pods-Dshare.release.xcconfig"; sourceTree = "<group>"; };
+		AEF7BB021FD7F994007BCD62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3E9AA311FD7E49B00E5CD33 /* Dshare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dshare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E9AA341FD7E49B00E5CD33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3E9AA361FD7E49B00E5CD33 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +72,10 @@
 		B3E9AA6A1FD7E53D00E5CD33 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B3E9AA6C1FD7E55000E5CD33 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B3E9AA6E1FD7E59600E5CD33 /* UIViewExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtentions.swift; sourceTree = "<group>"; };
+		BBC2A8F8DB6663B6B49D5D7E /* Pods_Dshare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dshare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC071B2DE8679DE3C7813FD3 /* Pods-DshareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D6F81D1095C61E4EE0B85663 /* Pods-Dshare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dshare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dshare/Pods-Dshare.debug.xcconfig"; sourceTree = "<group>"; };
+		F5C3A2486E7AA0FD2A2166D5 /* Pods-DshareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08261302B7813103B41D7592 /* Pods_Dshare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				833CB520AE08E8F663F11B95 /* Pods_DshareTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,12 +99,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD51DC27EBD2718A2E57431 /* Pods_DshareUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11AF7DC3D3CA915B59F12560 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D6F81D1095C61E4EE0B85663 /* Pods-Dshare.debug.xcconfig */,
+				4FF59F6085E8BCE9EE46E5FF /* Pods-Dshare.release.xcconfig */,
+				4484A05E1242CBBAC4512995 /* Pods-DshareTests.debug.xcconfig */,
+				F5C3A2486E7AA0FD2A2166D5 /* Pods-DshareTests.release.xcconfig */,
+				4B30253BCA55BD58577B164F /* Pods-DshareUITests.debug.xcconfig */,
+				BC071B2DE8679DE3C7813FD3 /* Pods-DshareUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		96764F06840FC52121E64679 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBC2A8F8DB6663B6B49D5D7E /* Pods_Dshare.framework */,
+				35AB9E87024A9EF1DC3BCCC0 /* Pods_DshareTests.framework */,
+				45658FE13AFF5515E2DF4875 /* Pods_DshareUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3E9AA281FD7E49B00E5CD33 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +136,8 @@
 				B3E9AA481FD7E49B00E5CD33 /* DshareTests */,
 				B3E9AA531FD7E49B00E5CD33 /* DshareUITests */,
 				B3E9AA321FD7E49B00E5CD33 /* Products */,
+				11AF7DC3D3CA915B59F12560 /* Pods */,
+				96764F06840FC52121E64679 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +160,7 @@
 				B3E9AA3B1FD7E49B00E5CD33 /* Assets.xcassets */,
 				B3E9AA3D1FD7E49B00E5CD33 /* LaunchScreen.storyboard */,
 				B3E9AA401FD7E49B00E5CD33 /* Info.plist */,
+				AEF7BB021FD7F994007BCD62 /* GoogleService-Info.plist */,
 				B3E9AA621FD7E4D900E5CD33 /* ChatViewController.swift */,
 				B3E9AA641FD7E4F300E5CD33 /* SearchViewController.swift */,
 				B3E9AA661FD7E50E00E5CD33 /* LoadingViewController.swift */,
@@ -153,9 +197,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3E9AA591FD7E49B00E5CD33 /* Build configuration list for PBXNativeTarget "Dshare" */;
 			buildPhases = (
+				831D9A103BCFF49BDF64D267 /* [CP] Check Pods Manifest.lock */,
 				B3E9AA2D1FD7E49B00E5CD33 /* Sources */,
 				B3E9AA2E1FD7E49B00E5CD33 /* Frameworks */,
 				B3E9AA2F1FD7E49B00E5CD33 /* Resources */,
+				0781A24B24E0103DE2967A58 /* [CP] Embed Pods Frameworks */,
+				FD18DEDD9F82AE1F81F0F2ED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +217,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3E9AA5C1FD7E49B00E5CD33 /* Build configuration list for PBXNativeTarget "DshareTests" */;
 			buildPhases = (
+				44AB0918FABD727EEA873902 /* [CP] Check Pods Manifest.lock */,
 				B3E9AA411FD7E49B00E5CD33 /* Sources */,
 				B3E9AA421FD7E49B00E5CD33 /* Frameworks */,
 				B3E9AA431FD7E49B00E5CD33 /* Resources */,
+				45433978B457D0B33F1E6A3C /* [CP] Embed Pods Frameworks */,
+				960B90CC678C9643AA6B410B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -188,9 +238,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3E9AA5F1FD7E49B00E5CD33 /* Build configuration list for PBXNativeTarget "DshareUITests" */;
 			buildPhases = (
+				B07CD91A26E7E8206D8778AE /* [CP] Check Pods Manifest.lock */,
 				B3E9AA4C1FD7E49B00E5CD33 /* Sources */,
 				B3E9AA4D1FD7E49B00E5CD33 /* Frameworks */,
 				B3E9AA4E1FD7E49B00E5CD33 /* Resources */,
+				AF4608DFED03BFB57CFBAAAF /* [CP] Embed Pods Frameworks */,
+				B9C3A67FE8AC976760CAD1B2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,7 +306,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEF7BB031FD7FA0E007BCD62 /* Info.plist in Resources */,
 				B3E9AA3F1FD7E49B00E5CD33 /* LaunchScreen.storyboard in Resources */,
+				AEF7BB041FD7FA14007BCD62 /* GoogleService-Info.plist in Resources */,
 				B3E9AA3C1FD7E49B00E5CD33 /* Assets.xcassets in Resources */,
 				B3E9AA3A1FD7E49B00E5CD33 /* Main.storyboard in Resources */,
 			);
@@ -274,6 +329,158 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0781A24B24E0103DE2967A58 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dshare/Pods-Dshare-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dshare/Pods-Dshare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44AB0918FABD727EEA873902 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DshareTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45433978B457D0B33F1E6A3C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		831D9A103BCFF49BDF64D267 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dshare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		960B90CC678C9643AA6B410B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF4608DFED03BFB57CFBAAAF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B07CD91A26E7E8206D8778AE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DshareUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9C3A67FE8AC976760CAD1B2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD18DEDD9F82AE1F81F0F2ED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dshare/Pods-Dshare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B3E9AA2D1FD7E49B00E5CD33 /* Sources */ = {
@@ -440,6 +647,7 @@
 		};
 		B3E9AA5A1FD7E49B00E5CD33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6F81D1095C61E4EE0B85663 /* Pods-Dshare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Dshare/Info.plist;
@@ -452,6 +660,7 @@
 		};
 		B3E9AA5B1FD7E49B00E5CD33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FF59F6085E8BCE9EE46E5FF /* Pods-Dshare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Dshare/Info.plist;
@@ -464,6 +673,7 @@
 		};
 		B3E9AA5D1FD7E49B00E5CD33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4484A05E1242CBBAC4512995 /* Pods-DshareTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -478,6 +688,7 @@
 		};
 		B3E9AA5E1FD7E49B00E5CD33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5C3A2486E7AA0FD2A2166D5 /* Pods-DshareTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -492,6 +703,7 @@
 		};
 		B3E9AA601FD7E49B00E5CD33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B30253BCA55BD58577B164F /* Pods-DshareUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = DshareUITests/Info.plist;
@@ -505,6 +717,7 @@
 		};
 		B3E9AA611FD7E49B00E5CD33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC071B2DE8679DE3C7813FD3 /* Pods-DshareUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = DshareUITests/Info.plist;
@@ -535,6 +748,7 @@
 				B3E9AA5B1FD7E49B00E5CD33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3E9AA5C1FD7E49B00E5CD33 /* Build configuration list for PBXNativeTarget "DshareTests" */ = {
 			isa = XCConfigurationList;
@@ -543,6 +757,7 @@
 				B3E9AA5E1FD7E49B00E5CD33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3E9AA5F1FD7E49B00E5CD33 /* Build configuration list for PBXNativeTarget "DshareUITests" */ = {
 			isa = XCConfigurationList;
@@ -551,6 +766,7 @@
 				B3E9AA611FD7E49B00E5CD33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
