@@ -10,3 +10,6 @@ Get Started :
 3. cd Dshare/Dshare
 4. pod install
 5. replace config file (GoogleService-Info.plist) with the one you downloaded
+
+
+When you do some changes and want to push it, please make sure you don't push the 'Dshare/Dshare.xcodeproj/project.pbxproj' file as well (After the 4 & 5 steps in the Get started, this file is marked as changed - I think it contains an unique ID of the config file for each of us)
