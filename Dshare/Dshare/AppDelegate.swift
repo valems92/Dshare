@@ -1,12 +1,5 @@
-//
-//  AppDelegate.swift
-//  Dshare
-//
-//  Created by Munoz, Valentina on 06/12/2017.
-//  Copyright © 2017 Munoz, Valentina. All rights reserved.
-//
-
 import UIKit
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSPlacesClient.provideAPIKey("AIzaSyCRvUYb2faXCiG1wp3vzEY7-KltH7RkFBM")
         return true
     }
 
