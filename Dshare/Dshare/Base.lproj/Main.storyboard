@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -218,6 +218,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="createUser:" destination="Pnz-oR-h5n" eventType="touchUpInside" id="HIt-uy-8H1"/>
                                     <segue destination="31a-UM-sf3" kind="show" id="Btm-SC-rUi"/>
                                 </connections>
                             </button>
@@ -257,7 +258,14 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="gender" destination="0E5-Qs-W7M" id="9o9-fy-BJu"/>
+                        <outlet property="email" destination="l6O-Ce-VJc" id="w8A-tT-xgM"/>
+                        <outlet property="firstName" destination="vKG-iT-UW6" id="yw1-ax-VTa"/>
+                        <outlet property="gender" destination="0E5-Qs-W7M" id="rEs-vT-I9D"/>
+                        <outlet property="image" destination="2Di-SG-VVX" id="Msa-CF-NJB"/>
+                        <outlet property="lastName" destination="MT6-AV-RUo" id="rvO-Ld-f97"/>
+                        <outlet property="password" destination="4hj-bn-znb" id="Nn8-Yh-0yI"/>
+                        <outlet property="phoneNumber" destination="J3f-Iw-oKe" id="jpe-MY-xhm"/>
+                        <outlet property="rePassword" destination="vKn-SE-Jlx" id="9tl-UE-EkQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vRJ-UY-49c" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -357,18 +365,18 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bGI-hh-fDt" id="5Hc-eO-RYd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FEd-mf-Ldc">
-                                                    <rect key="frame" x="15" y="5" width="33.5" height="20"/>
+                                                    <rect key="frame" x="15" y="5" width="33.333333333333336" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="naQ-3t-DNE">
-                                                    <rect key="frame" x="15" y="25" width="43.5" height="14.5"/>
+                                                    <rect key="frame" x="14.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -617,10 +625,10 @@
     </scenes>
     <resources>
         <image name="chat" width="376" height="633"/>
-        <image name="defaultIcon" width="256" height="256"/>
+        <image name="defaultIcon" width="192" height="192"/>
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="87d-rv-oMD"/>
+        <segue reference="Btm-SC-rUi"/>
     </inferredMetricsTieBreakers>
 </document>
