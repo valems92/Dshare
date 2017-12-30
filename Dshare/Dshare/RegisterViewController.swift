@@ -37,6 +37,11 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     
     @IBAction func createUser(_ sender: UIButton) {
         let user = User(email:email.text!, password:password.text!, fName:firstName.text!, lName:lastName.text!, phoneNum:phoneNumber.text!, gender:gender.selectedRow(inComponent: 0).description, imagePath:image.description)
+        
+        
+        /*let userInfoVC = storyboard?.instantiateViewController(withIdentifier: "UserInfoViewController") as! UserInfoViewController
+        userInfoVC.model = model
+        navigationController?.pushViewController(userInfoVC, animated: true)*/
     }
     
     /*@IBAction func onCancel(_ sender: UIButton) {
