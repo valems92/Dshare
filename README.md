@@ -13,3 +13,6 @@ Get Started :
 
 
 When you do some changes and want to push it, please make sure you don't push the 'Dshare/Dshare.xcodeproj/project.pbxproj' file as well (After the 4 & 5 steps in the Get started, this file is marked as changed - I think it contains an unique ID of the config file for each of us)
+
+
+Sometimes xcode can't see files that are physically exist, so you have to add them to your project at right click on the project -> Add Files To "Dshare"

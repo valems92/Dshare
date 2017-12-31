@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="-26" y="-1397"/>
         </scene>
-        <!--appName-->
+        <!--View Controller-->
         <scene sceneID="aSX-oh-rg9">
             <objects>
                 <viewController storyboardIdentifier="WelcomePage" id="kn4-xe-CQF" customClass="ViewController" customModule="Dshare" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,14 +45,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxxx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cs7-C7-3gU">
-                                <rect key="frame" x="20" y="169" width="374" height="60"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vjf-Rn-YOR" customClass="UIViewExtentions" customModule="Dshare" customModuleProvider="target">
-                                <rect key="frame" x="30" y="374" width="354" height="66"/>
+                                <rect key="frame" x="30" y="504" width="354" height="66"/>
                                 <color key="backgroundColor" red="0.99843901400000001" green="0.34291309120000002" blue="0.33975431319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="FVG-If-LEr"/>
@@ -79,7 +73,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svS-0F-W4P" customClass="UIViewExtentions" customModule="Dshare" customModuleProvider="target">
-                                <rect key="frame" x="30" y="460" width="354" height="66"/>
+                                <rect key="frame" x="30" y="590" width="354" height="66"/>
                                 <color key="backgroundColor" red="0.99843901400000001" green="0.34291309120000002" blue="0.33975431319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="B3r-85-0rq"/>
@@ -109,14 +103,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="cs7-C7-3gU" secondAttribute="trailing" id="7qC-pb-dYA"/>
-                            <constraint firstItem="cs7-C7-3gU" firstAttribute="top" secondItem="hDR-VI-6PB" secondAttribute="bottom" id="AqC-0o-jDn"/>
                             <constraint firstItem="P49-3A-pUN" firstAttribute="trailing" secondItem="krx-tL-qIo" secondAttribute="trailingMargin" priority="250" id="Diq-NA-Lr4"/>
-                            <constraint firstItem="cs7-C7-3gU" firstAttribute="leading" secondItem="krx-tL-qIo" secondAttribute="leadingMargin" id="I35-UU-Ipj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="svS-0F-W4P" secondAttribute="trailing" constant="10" id="Kzt-ve-soy"/>
                             <constraint firstItem="Vjf-Rn-YOR" firstAttribute="leading" secondItem="krx-tL-qIo" secondAttribute="leadingMargin" constant="10" id="Nb5-PT-wgl"/>
                             <constraint firstItem="svS-0F-W4P" firstAttribute="leading" secondItem="krx-tL-qIo" secondAttribute="leadingMargin" constant="10" id="PMU-E7-YMJ"/>
-                            <constraint firstItem="Vjf-Rn-YOR" firstAttribute="top" secondItem="cs7-C7-3gU" secondAttribute="bottom" constant="145" id="XTz-UA-WSh"/>
                             <constraint firstItem="svS-0F-W4P" firstAttribute="top" secondItem="Vjf-Rn-YOR" secondAttribute="bottom" constant="20" id="ft1-Pp-DF8"/>
                             <constraint firstItem="hDR-VI-6PB" firstAttribute="leading" secondItem="krx-tL-qIo" secondAttribute="leadingMargin" id="kd0-HH-Aok"/>
                             <constraint firstItem="P49-3A-pUN" firstAttribute="top" secondItem="svS-0F-W4P" secondAttribute="bottom" priority="250" constant="40" id="lQv-jN-mpg"/>
@@ -126,7 +116,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="hDR-VI-6PB" secondAttribute="trailing" id="vI6-M1-iK6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="appName" id="MDB-VU-3Pb"/>
+                    <navigationItem key="navigationItem" id="MDB-VU-3Pb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="apG-wr-6Jt" sceneMemberID="firstResponder"/>
             </objects>
@@ -161,13 +151,13 @@
                                 <rect key="frame" x="30" y="159" width="232" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vKn-SE-Jlx">
                                 <rect key="frame" x="30" y="214" width="354" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vKG-iT-UW6">
                                 <rect key="frame" x="30" y="269" width="354" height="30"/>
@@ -676,7 +666,7 @@
     </scenes>
     <resources>
         <image name="chat" width="376" height="633"/>
-        <image name="defaultIcon" width="192" height="192"/>
+        <image name="defaultIcon" width="256" height="256"/>
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -52,6 +52,10 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func createUser(_ sender: UIButton) {
+        if !validateUserInput() {
+            return
+        }
+        
         let user = User(email:email.text!, password:password.text!, fName:firstName.text!, lName:lastName.text!, phoneNum:phoneNumber.text!, gender:gender.selectedRow(inComponent: 0).description, imagePath:image.description)
         
         if userImage != nil {
@@ -67,6 +71,81 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         userInfoVC.model = model
         navigationController?.pushViewController(userInfoVC, animated: true)*/
     }
+    
+    func validateUserInput() -> Bool {
+        var returnValue = true
+        if (email.text?.isEmpty)! {
+            displayAlertMessage(messageToDisplay:"You have to enter your email")
+            returnValue = false
+        }
+        if (password.text?.isEmpty)! {
+            displayAlertMessage(messageToDisplay:"You have to enter a password")
+            returnValue = false
+        }
+        if (rePassword.text?.isEmpty)! {
+            displayAlertMessage(messageToDisplay:"You have to re-enter your password")
+            returnValue = false
+        }
+        else {
+            if !rePassword.text!.contains(password.text!) {
+                displayAlertMessage(messageToDisplay:"Password and re-Password are not equal")
+                returnValue = false
+            }
+        }
+        if (firstName.text?.isEmpty)! {
+            displayAlertMessage(messageToDisplay:"You have to enter your first name")
+            returnValue = false
+        }
+        if (lastName.text?.isEmpty)! {
+            displayAlertMessage(messageToDisplay:"You have to enter your last name")
+            returnValue = false
+        }
+        if (phoneNumber.text?.isEmpty)! {
+            displayAlertMessage(messageToDisplay:"You have to enter your phone number")
+            returnValue = false
+        }
+        
+        let isEmailAddressValid = isValidEmailAddress(emailAddressString: email.text!)
+        
+        if !isEmailAddressValid {
+            displayAlertMessage(messageToDisplay:"Email address is not valid")
+            returnValue = false
+        }
+        
+        return returnValue
+    }
+    
+    func isValidEmailAddress(emailAddressString:String) -> Bool {
+        var returnValue = true
+        let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: emailRegEx)
+            let nsString = emailAddressString as NSString
+            let results = regex.matches(in: emailAddressString, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0 {
+                returnValue = false
+            }
+        } catch let error as NSError {
+            print("invalud regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return returnValue
+    }
+    
+    func displayAlertMessage(messageToDisplay:String){
+        let alertController = UIAlertController(title:"Alert", message:messageToDisplay, preferredStyle:.alert)
+        let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
+            print("OK tapped")
+        }
+        
+        alertController.addAction(OKAction)
+        
+        self.present(alertController, animated:true, completion:nil)
+    }
+    
     
     /*@IBAction func onCancel(_ sender: UIButton) {
      changeView(_storyboardName: "Main", _viewName: "WelcomePage");
