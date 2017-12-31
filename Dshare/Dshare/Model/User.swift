@@ -1,8 +1,5 @@
 import Foundation
-
-enum Gender {
-    case male, female
-}
+import FirebaseDatabase
 
 class User {
     var id:String
@@ -11,8 +8,9 @@ class User {
     var fName:String
     var lName:String
     var phoneNum:String
-    var gender:Gender?
+    var gender:String?
     var imagePath:String?
+    var lastUpdate:Date?
     
     init(email:String, password:String, fName:String, lName:String, phoneNum:String,gender:String?,imagePath:String?) {
         self.id = UUID().uuidString
@@ -22,19 +20,14 @@ class User {
         self.lName = lName
         self.phoneNum = phoneNum
         if(gender != nil){
-            if(gender == "Male"){
-                self.gender = Gender.male
-            }
-            else{
-                self.gender = Gender.female
-            }
+            self.gender = gender
         }
         if(imagePath != nil){
             self.imagePath = imagePath
         }
     }
     
-    init(fromJson:[String:Any]){
+    init(fromJson:Dictionary<String,Any>){
         id = fromJson["id"] as! String
         email = fromJson["email"] as! String
         password = fromJson["password"] as! String
@@ -43,16 +36,19 @@ class User {
         phoneNum = fromJson["phoneNum"] as! String
         
         if(fromJson["gender"] != nil) {
-            gender = (fromJson["gender"] as! Gender)
+            gender = (fromJson["gender"] as! String)
         }
         
         if(fromJson["imagePath"] != nil) {
             imagePath = (fromJson["imagePath"] as! String)
         }
+        if let ts = fromJson["lastUpdate"] as? Double {
+            self.lastUpdate = Date.fromFirebase(ts)
+        }
     }
     
-    func toJson()->[String:Any] {
-        var json = [String:Any]()
+    func toFirebase() -> Dictionary<String,Any> {
+        var json = Dictionary<String,Any>()
         
         json["id"] = id
         json["email"] = email
@@ -68,6 +64,9 @@ class User {
             json["imagePath"] = imagePath
         }
         
+        json["lastUpdate"] = ServerValue.timestamp()
+        
         return json
     }
+    
 }

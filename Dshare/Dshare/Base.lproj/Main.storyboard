@@ -222,11 +222,21 @@
                                     <segue destination="31a-UM-sf3" kind="show" id="Btm-SC-rUi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVZ-6n-9tm">
+                                <rect key="frame" x="294" y="64" width="72" height="30"/>
+                                <state key="normal" title="Add photo">
+                                    <color key="titleColor" red="0.06154822335" green="0.033166448780000003" blue="0.02608096775" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPhoto:" destination="Pnz-oR-h5n" eventType="touchUpInside" id="rEE-Ew-xTv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0E5-Qs-W7M" firstAttribute="leading" secondItem="UIy-po-b8h" secondAttribute="leadingMargin" constant="10" id="08B-3z-hF0"/>
                             <constraint firstItem="4hj-bn-znb" firstAttribute="top" secondItem="l6O-Ce-VJc" secondAttribute="bottom" constant="25" id="0Eq-HL-O9g"/>
+                            <constraint firstItem="lVZ-6n-9tm" firstAttribute="leading" secondItem="l6O-Ce-VJc" secondAttribute="trailing" constant="32" id="0GV-Dp-w7U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J3f-Iw-oKe" secondAttribute="trailing" constant="10" id="26M-w4-Hyp"/>
                             <constraint firstItem="vKG-iT-UW6" firstAttribute="leading" secondItem="UIy-po-b8h" secondAttribute="leadingMargin" constant="10" id="3zR-HC-6RZ"/>
                             <constraint firstItem="J3f-Iw-oKe" firstAttribute="leading" secondItem="UIy-po-b8h" secondAttribute="leadingMargin" constant="10" id="5Jw-gZ-Xnp"/>
@@ -250,6 +260,7 @@
                             <constraint firstItem="l6O-Ce-VJc" firstAttribute="leading" secondItem="UIy-po-b8h" secondAttribute="leadingMargin" constant="10" id="j7y-oZ-O23"/>
                             <constraint firstItem="2Di-SG-VVX" firstAttribute="leading" secondItem="l6O-Ce-VJc" secondAttribute="trailing" constant="15" id="l6H-F8-OZ1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Di-SG-VVX" secondAttribute="trailing" constant="10" id="lc0-kL-2CT"/>
+                            <constraint firstItem="2Di-SG-VVX" firstAttribute="top" secondItem="lVZ-6n-9tm" secondAttribute="bottom" id="oAl-N2-jnn"/>
                             <constraint firstItem="MT6-AV-RUo" firstAttribute="leading" secondItem="UIy-po-b8h" secondAttribute="leadingMargin" constant="10" id="oc5-QQ-yyW"/>
                             <constraint firstItem="J3f-Iw-oKe" firstAttribute="top" secondItem="MT6-AV-RUo" secondAttribute="bottom" constant="25" id="qnd-CJ-squ"/>
                             <constraint firstItem="vKn-SE-Jlx" firstAttribute="top" secondItem="2Di-SG-VVX" secondAttribute="bottom" constant="15" id="rrs-qQ-K5B"/>

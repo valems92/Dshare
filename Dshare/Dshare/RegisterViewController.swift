@@ -1,8 +1,9 @@
 import UIKit
 
-class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerViewDelegate {
-    let model = UserFirebase()
+class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    //let model = UserFirebase()
     var pickerDataSource = ["Male", "Female"]
+    var userImage:UIImage?
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -17,6 +18,21 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         super.viewDidLoad()
         self.gender.dataSource = self
         self.gender.delegate = self
+    }
+    
+    @IBAction func addPhoto(_ sender: UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) || UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let controller = UIImagePickerController()
+            controller.delegate = self
+            present(controller, animated: true, completion: nil)
+        }
+        
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        userImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        self.image.image = userImage
+        dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,6 +54,14 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     @IBAction func createUser(_ sender: UIButton) {
         let user = User(email:email.text!, password:password.text!, fName:firstName.text!, lName:lastName.text!, phoneNum:phoneNumber.text!, gender:gender.selectedRow(inComponent: 0).description, imagePath:image.description)
         
+        if userImage != nil {
+            Model.instance.saveImage(image: userImage!, name: user.id){(url) in
+                //image was saved
+                
+            }
+        }
+        
+        Model.instance.addNewUser(user: user)
         
         /*let userInfoVC = storyboard?.instantiateViewController(withIdentifier: "UserInfoViewController") as! UserInfoViewController
         userInfoVC.model = model
