@@ -48,9 +48,26 @@ class Model{
     private init(){
     }
     
-    func addNewUser(user:User){
+    func addNewUser(user:User, completionBlock:@escaping (Error?)->Void){
         modelFirebase?.addNewUser(user: user){(error) in
+            if error != nil {
+                completionBlock(error)
+            }
+            else {
+                completionBlock(nil)
+            }
             //st.addStudentToLocalDb(database: self.modelSql?.database)
+        }
+    }
+    
+    func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
+        modelFirebase?.signInUser(email: email, password: password){(error) in
+            if error != nil {
+                completionBlock(error)
+            }
+            else {
+                completionBlock(nil)
+            }
         }
     }
     

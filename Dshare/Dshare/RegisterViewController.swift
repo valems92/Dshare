@@ -1,9 +1,9 @@
 import UIKit
 
 class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    //let model = UserFirebase()
     var pickerDataSource = ["Male", "Female"]
     var userImage:UIImage?
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -18,6 +18,19 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         super.viewDidLoad()
         self.gender.dataSource = self
         self.gender.delegate = self
+        
+        //Dismiss keyboard when touching anywhere outside text field
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    func tap(gesture: UITapGestureRecognizer) {
+        email.resignFirstResponder()
+        password.resignFirstResponder()
+        rePassword.resignFirstResponder()
+        firstName.resignFirstResponder()
+        lastName.resignFirstResponder()
+        phoneNumber.resignFirstResponder()
     }
     
     @IBAction func addPhoto(_ sender: UIButton) {
@@ -52,24 +65,42 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func createUser(_ sender: UIButton) {
-        if !validateUserInput() {
-            return
-        }
+        //Set activity indicator
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents() //When the activity indicator presents, the user can't interact with the app
         
+        //Create user
+        if validateUserInput(){
+            addUserToFirebase()
+        }
+    }
+    
+    func addUserToFirebase() {
         let user = User(email:email.text!, password:password.text!, fName:firstName.text!, lName:lastName.text!, phoneNum:phoneNumber.text!, gender:gender.selectedRow(inComponent: 0).description, imagePath:image.description)
         
         if userImage != nil {
             Model.instance.saveImage(image: userImage!, name: user.id){(url) in
-                //image was saved
-                
+                user.imagePath = url
             }
         }
         
-        Model.instance.addNewUser(user: user)
-        
-        /*let userInfoVC = storyboard?.instantiateViewController(withIdentifier: "UserInfoViewController") as! UserInfoViewController
-        userInfoVC.model = model
-        navigationController?.pushViewController(userInfoVC, animated: true)*/
+        Model.instance.addNewUser(user: user) {(error) in
+            if error != nil {
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!)
+            }
+            else {
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.performSegue(withIdentifier: "toSearchFromRegister", sender: self)
+            }
+            //st.addStudentToLocalDb(database: self.modelSql?.database)
+        }
     }
     
     func validateUserInput() -> Bool {
@@ -112,6 +143,13 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
             returnValue = false
         }
         
+        let isPhoneNumberValid = isValidPhoneNumber(phoneNumberString: phoneNumber.text!)
+        
+        if !isPhoneNumberValid {
+            displayAlertMessage(messageToDisplay:"Phone number is not valid")
+            returnValue = false
+        }
+        
         return returnValue
     }
     
@@ -135,8 +173,28 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         return returnValue
     }
     
+    func isValidPhoneNumber(phoneNumberString:String) -> Bool {
+        var returnValue = true
+        let phoneRegEx = "^[0-9]{10}$"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: phoneRegEx)
+            let nsString = phoneNumberString as NSString
+            let results = regex.matches(in: phoneNumberString, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0 {
+                returnValue = false
+            }
+        } catch let error as NSError {
+            print("invalud regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return returnValue
+    }
+    
     func displayAlertMessage(messageToDisplay:String){
-        let alertController = UIAlertController(title:"Alert", message:messageToDisplay, preferredStyle:.alert)
+        let alertController = UIAlertController(title:"Error", message:messageToDisplay, preferredStyle:.alert)
         let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
             print("OK tapped")
         }
@@ -145,20 +203,4 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         
         self.present(alertController, animated:true, completion:nil)
     }
-    
-    
-    /*@IBAction func onCancel(_ sender: UIButton) {
-     changeView(_storyboardName: "Main", _viewName: "WelcomePage");
-     }
-     
-     @IBAction func onCreate(_ sender: UIButton) {
-     changeView(_storyboardName: "Main", _viewName: "SearchPage");
-     }
-     
-     private func changeView(_storyboardName: String, _viewName: String) {
-     let storyBoard = UIStoryboard(name: _storyboardName, bundle: nil);
-     let viewController = storyBoard.instantiateViewController(withIdentifier: _viewName);
-     
-     self.present(viewController, animated: true, completion: nil);
-     }*/
 }

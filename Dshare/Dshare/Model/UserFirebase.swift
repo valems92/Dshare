@@ -1,6 +1,7 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import FirebaseAuth
 
 class UserFirebase {
     //let ref:DatabaseReference?
@@ -11,10 +12,28 @@ class UserFirebase {
     
     //The function adds a new User to the firebase database
     func addNewUser(user:User, completionBlock:@escaping (Error?)->Void){
-        let ref = Database.database().reference().child("users").child(user.id)
-        //ref.setValue(user.toFirebase())
-        ref.setValue(user.toFirebase()){(error, dbref) in
-            completionBlock(error)
+        Auth.auth().createUser(withEmail: user.email, password: user.password) { (newUser, error) in
+            if newUser == nil {
+                completionBlock(error)
+            }
+            else {
+                let ref = Database.database().reference().child("users").child(user.id)
+                ref.setValue(user.toFirebase()){(error, dbref) in
+                    //completionBlock(error)
+                }
+                completionBlock(nil)
+            }
+        }
+    }
+    
+    func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
+        Auth.auth().signIn(withEmail: email, password: password) { (newUser, error) in
+            if newUser == nil {
+                completionBlock(error)
+            }
+            else {
+                completionBlock(nil)
+            }
         }
     }
     
