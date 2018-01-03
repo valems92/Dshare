@@ -60,6 +60,16 @@ class Model{
         }
     }
     
+    func addNewSearch(search:Search, completionBlock:@escaping (Error?)->Void){
+        modelFirebase?.addNewSearch(search: search){ (error) in
+            completionBlock(error)
+        }
+    }
+    
+    func getSearchesByUserId(id:String, completionBlock:@escaping (Error?, [Search])->Void){
+        modelFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
+    }
+    
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
         modelFirebase?.signInUser(email: email, password: password){(error) in
             if error != nil {
@@ -77,6 +87,11 @@ class Model{
                 callback(user!)
             }
         }
+    }
+    
+    func getCurrentUserUid() -> String {
+        let id:String? = modelFirebase?.getCurrentUserUid()
+        return id!
     }
     
     func getUserById(id:String, callback:@escaping (User)->Void){

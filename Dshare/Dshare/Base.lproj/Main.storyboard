@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -558,7 +558,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="jU2-Da-XTd" kind="show" id="T0r-bx-MFE"/>
+                                    <action selector="onSearch:" destination="31a-UM-sf3" eventType="touchUpInside" id="V1U-pA-TUG"/>
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aku-5U-ohg">
@@ -586,7 +586,7 @@
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-ZG-sHp">
-                                <rect key="frame" x="20" y="529" width="69" height="30"/>
+                                <rect key="frame" x="20" y="696" width="69" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="My Profile">
                                     <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -632,11 +632,14 @@
                         <viewLayoutGuide key="safeArea" id="QpP-kw-gjj"/>
                     </view>
                     <connections>
+                        <outlet property="baggage" destination="KkZ-8f-8vZ" id="ozr-PU-Ckm"/>
                         <outlet property="changeSpBtn" destination="yNj-Xk-6W7" id="vJb-TC-hOZ"/>
                         <outlet property="detination" destination="skj-25-fJh" id="LAV-NM-Ss9"/>
                         <outlet property="flightNumber" destination="au1-0F-ggc" id="Loj-mD-byr"/>
+                        <outlet property="passangers" destination="pc7-R5-70H" id="ygs-8b-RCx"/>
                         <outlet property="startingPoint" destination="kuk-LB-EPN" id="Q3q-44-ThS"/>
                         <outlet property="timePicker" destination="aku-5U-ohg" id="wKN-Em-6iS"/>
+                        <segue destination="jU2-Da-XTd" kind="show" identifier="toSuggestionsFromSearch" id="f5Q-8l-bfg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SFl-2Z-lF0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -680,6 +683,6 @@
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LqA-cX-QpL"/>
+        <segue reference="3oI-0G-4aq"/>
     </inferredMetricsTieBreakers>
 </document>

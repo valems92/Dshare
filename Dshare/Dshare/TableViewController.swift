@@ -2,6 +2,7 @@ import UIKit
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
     let suggestions = [
         [
             "name": "Dana",
@@ -34,9 +35,11 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             "passangers": "3"
         ]
     ];
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView();
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
+         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self);
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,19 +60,4 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return cell;
     }
-    
-    /*@IBAction func onCancel(_ sender: UIButton) {
-     changeView(_storyboardName: "Main", _viewName: "SearchPage");
-     }
-     
-     @IBAction func onStartChat(_ sender: UIButton) {
-     changeView(_storyboardName: "Main", _viewName: "ChatPage");
-     }
-     
-     private func changeView(_storyboardName: String, _viewName: String) {
-     let storyBoard = UIStoryboard(name: _storyboardName, bundle: nil);
-     let viewController = storyBoard.instantiateViewController(withIdentifier: _viewName);
-     
-     self.present(viewController, animated: true, completion: nil);
-     }*/
 }

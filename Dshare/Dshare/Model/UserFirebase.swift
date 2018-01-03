@@ -26,6 +26,20 @@ class UserFirebase {
         }
     }
     
+    func addNewSearch(search: Search, completionBlock:@escaping (Error?)->Void){
+        let searchesRef = Database.database().reference().child("searches");
+        let userSearchesRef = searchesRef.child(search.userId);
+        let searchRef = userSearchesRef.child(search.id)
+        
+        searchRef.setValue(search.toJson()) {(error, dbref) in
+            if(error != nil) {
+                completionBlock(error)
+            } else {
+                completionBlock(nil)
+            }
+        }
+    }
+    
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
         Auth.auth().signIn(withEmail: email, password: password) { (newUser, error) in
             if newUser == nil {
@@ -67,6 +81,20 @@ class UserFirebase {
             let user = User(fromJson: json!)
             callback(user)
         });
+    }
+    
+    func getSearchesByUserId(id:String, callback:@escaping (Error?, [Search])->Void) {
+        let myRef = Database.database().reference().child("searches").child(id);
+        myRef.queryOrdered(byChild:"createdOn").observeSingleEvent(of: .value) {(snapshot:DataSnapshot) in
+            var searches = [Search]();
+            for child in snapshot.children.allObjects {
+                if let childData = child as? DataSnapshot {
+                    if let json = childData.value as? Dictionary<String,Any> {
+                        searches.append(Search(fromJson: json));
+                    }
+                }
+            }
+        }
     }
     
     func getAllUsers(_ lastUpdateDate:Date? , callback:@escaping ([User])->Void){
