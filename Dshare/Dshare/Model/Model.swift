@@ -71,7 +71,20 @@ class Model{
         }
     }
     
+    func getCurrentUser(callback:@escaping (User)->Void){
+        modelFirebase?.getCurrentUser(){(user) in
+            if user != nil {
+                callback(user!)
+            }
+        }
+    }
+    
     func getUserById(id:String, callback:@escaping (User)->Void){
+        modelFirebase?.getUser(id: id){(user) in
+            if user != nil {
+                callback(user!)
+            }
+        }
     }
     
     /* func getAllStudents(callback:@escaping ([Student])->Void){

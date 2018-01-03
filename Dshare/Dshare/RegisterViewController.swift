@@ -1,6 +1,7 @@
 import UIKit
 
 class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     var pickerDataSource = ["Male", "Female"]
     var userImage:UIImage?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()

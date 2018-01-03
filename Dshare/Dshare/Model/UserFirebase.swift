@@ -37,6 +37,29 @@ class UserFirebase {
         }
     }
     
+    func getCurrentUserUid() -> String? {
+        let user = Auth.auth().currentUser
+        if user != nil {
+            return user?.uid
+        } else {
+           return nil
+        }
+    }
+    
+    //id is correct but need to fix methods
+    func getCurrentUser(callback:@escaping (User?)->Void) {
+        let id:String? = getCurrentUserUid()
+        if id != nil {
+            Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let fName = value?["fName"] as? String ?? ""
+            //let user = User(username: username)
+            // ...
+        })}
+      callback(nil)
+    }
+    
     func getUser(id:String, callback:@escaping (User?)->Void) {
         let myRef = Database.database().reference().child("users").child(id)
         myRef.observeSingleEvent(of: .value, with: {(snapshot) in

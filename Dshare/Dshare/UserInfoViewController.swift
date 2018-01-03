@@ -10,7 +10,17 @@ class UserInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      
+        Model.instance.getCurrentUser() {(user) in
+            if user == nil{
+                print("errorrrrrrr")
+            }
+            else{
+                self.user = user
+            }
+        }
+        firstName.text = user?.fName
+        
         /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "RegisterPage") as! RegisterViewController
         model = controller.model*/
