@@ -83,6 +83,7 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         
         if userImage != nil { // User uploaded a picture
             Model.instance.saveImage(image: userImage!, name: user.id){(url) in
+                user.imagePath = url
                 self.addNewUser(user: user)
             }
         }

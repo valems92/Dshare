@@ -14,6 +14,8 @@ target 'Dshare' do
   # Pods for Place autocomplete
   pod 'GooglePlaces'
 
+  pod 'Alamofire', '~> 4.5'
+
   # Pods for Dshare
 
   target 'DshareTests' do
