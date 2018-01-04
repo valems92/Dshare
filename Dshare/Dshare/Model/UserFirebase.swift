@@ -75,6 +75,12 @@ class UserFirebase {
         })
     }
     
+    func updateUserFirstName(fName:String){
+        let id:String? = getCurrentUserUid()
+        let db = Database.database().reference().child("users").child(id!)
+        db.updateChildValues(["fName":fName])
+    }
+    
     func getSearchesByUserId(id:String, callback:@escaping (Error?, [Search])->Void) {
         let myRef = Database.database().reference().child("searches").child(id);
         myRef.queryOrdered(byChild:"createdOn").observeSingleEvent(of: .value) {(snapshot:DataSnapshot) in

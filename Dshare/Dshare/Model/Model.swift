@@ -103,6 +103,10 @@ class Model{
     }
     
     
+    func updateUserFirstName(fName:String){
+        modelFirebase?.updateUserFirstName(fName:fName)
+    }
+    
     /* func getAllStudents(callback:@escaping ([Student])->Void){
         // get last update date from SQL
         let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: modelSql?.database, table: Student.ST_TABLE)

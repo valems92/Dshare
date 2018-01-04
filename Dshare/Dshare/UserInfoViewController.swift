@@ -31,5 +31,27 @@ class UserInfoViewController: UIViewController {
     }
     
     @IBAction func editFName(_ sender: Any) {
+        /*Model.instance.updateUser(user:user!) {(user) in
+            if user != nil{
+                self.user = user
+                self.fName.text = user?.fName
+                self.lName.text = user?.lName
+                self.email.text = user?.email
+                self.gender.text = user?.gender
+                self.phoneNum.text = user?.phoneNum
+            }
+        }*/
+        
+        Model.instance.updateUserFirstName(fName: self.fName.text!)
+        Model.instance.getCurrentUser() {(user) in
+            if user != nil{
+                self.user = user
+                self.fName.text = user.fName
+                self.lName.text = user.lName
+                self.email.text = user.email
+                self.gender.text = user.gender
+                self.phoneNum.text = user.phoneNum
+            }
+        }
     }
 }
