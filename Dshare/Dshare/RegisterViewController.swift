@@ -86,9 +86,12 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         if userImage != nil {
             Model.instance.saveImage(image: userImage!, name: user.id){(url) in
                 user.imagePath = url
+                self.addNewUser(user: user)
             }
         }
-        
+    }
+    
+    func addNewUser(user:User){
         Model.instance.addNewUser(user: user) {(newUserID, error) in
             if error != nil {
                 self.activityIndicator.stopAnimating()

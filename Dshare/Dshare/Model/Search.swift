@@ -9,6 +9,7 @@ class Search {
     var passengers:Int;
     var baggage:Int;
     var leavingTime:Date;
+    var foundSuggestion:Bool;
     var waitingTime:Int?;
     var flightNumber:String?;
     var createdOn:Date?;
@@ -21,6 +22,7 @@ class Search {
         self.passengers = passengers;
         self.baggage = baggage;
         self.leavingTime = leavingTime;
+        self.foundSuggestion = false;
         
         if (waitingTime != nil) {
             self.waitingTime = waitingTime!;
@@ -39,6 +41,8 @@ class Search {
         passengers = fromJson["passengers"] as! Int;
         baggage = fromJson["baggage"] as! Int;
         leavingTime = Date.fromFirebase(fromJson["leavingTime"] as! Double);
+    
+        foundSuggestion = fromJson["foundSuggestion"] as! Bool;
         
         if let wt = fromJson["waitingTime"] as? Int {
             waitingTime = wt;
@@ -63,7 +67,8 @@ class Search {
         json["passengers"] = passengers;
         json["baggage"] = baggage;
         json["leavingTime"] = leavingTime.toFirebase();
-       
+        json["foundSuggestion"] = foundSuggestion;
+        
         if (waitingTime != nil) {
             json["waitingTime"] = waitingTime;
         }

@@ -80,8 +80,17 @@ class Model{
         }
     }
     
+    func getUserById(id:String, callback:@escaping (User)->Void){
+        modelFirebase?.getUserById(id: id){(user) in
+            if user != nil {
+                callback(user!)
+            }
+        }
+    }
+    
     func getCurrentUser(callback:@escaping (User)->Void){
-        modelFirebase?.getCurrentUser(){(user) in
+        let id:String = self.getCurrentUserUid();
+        modelFirebase?.getUserById(id:id){(user) in
             if user != nil {
                 callback(user!)
             }
@@ -93,13 +102,6 @@ class Model{
         return id!
     }
     
-    func getUserById(id:String, callback:@escaping (User)->Void){
-        modelFirebase?.getUser(id: id){(user) in
-            if user != nil {
-                callback(user!)
-            }
-        }
-    }
     
     /* func getAllStudents(callback:@escaping ([Student])->Void){
         // get last update date from SQL

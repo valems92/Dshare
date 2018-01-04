@@ -61,32 +61,18 @@ class UserFirebase {
         }
     }
     
-    func getCurrentUser(callback:@escaping (User?)->Void) {
-        let id:String? = getCurrentUserUid()
-        if id != nil {
-            Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? NSDictionary
-                let fName = value?["fName"] as? String ?? ""
-                let lName = value?["lName"] as? String ?? ""
-                let email = value?["email"] as? String ?? ""
-                let gender = value?["gender"] as? String ?? ""
-                let imagePath = value?["imagePath"] as? String ?? ""
-                let phoneNum = value?["phoneNum"] as? String ?? ""
-                let user = User(email:email, fName:fName, lName:lName, phoneNum:phoneNum, gender:gender, imagePath:imagePath)
-                callback(user)
-            })}
-        else {
-            callback(nil)
-        }
-    }
-    
-    func getUser(id:String, callback:@escaping (User?)->Void) {
-        let myRef = Database.database().reference().child("users").child(id)
-        myRef.observeSingleEvent(of: .value, with: {(snapshot) in
-            let json = snapshot.value as? Dictionary<String,String>
-            let user = User(fromJson: json!)
+    func getUserById(id:String, callback:@escaping (User?)->Void) {
+        Database.database().reference().child("users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let fName = value?["fName"] as? String ?? ""
+            let lName = value?["lName"] as? String ?? ""
+            let email = value?["email"] as? String ?? ""
+            let gender = value?["gender"] as? String ?? ""
+            let imagePath = value?["imagePath"] as? String ?? ""
+            let phoneNum = value?["phoneNum"] as? String ?? ""
+            let user = User(email:email, fName:fName, lName:lName, phoneNum:phoneNum, gender:gender, imagePath:imagePath)
             callback(user)
-        });
+        })
     }
     
     func getSearchesByUserId(id:String, callback:@escaping (Error?, [Search])->Void) {

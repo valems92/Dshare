@@ -35,6 +35,17 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         
         placesClient = GMSPlacesClient.shared();
         setCurrentPlace();
+        
+        //Dismiss keyboard when touching anywhere outside text field
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    func tap(gesture: UITapGestureRecognizer) {
+        flightNumber.resignFirstResponder();
+        waitingTime.resignFirstResponder();
+        passangers.resignFirstResponder();
+        baggage.resignFirstResponder();
     }
     
     override func didReceiveMemoryWarning() {
