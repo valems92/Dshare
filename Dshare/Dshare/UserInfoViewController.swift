@@ -2,36 +2,34 @@ import UIKit
 
 class UserInfoViewController: UIViewController {
 
-    //let model = UserFirebase()
-    @IBOutlet weak var firstName: UITextField!
-    
     var user:User?
-    var model:UserFirebase?
+    
+    @IBOutlet weak var fName: UITextField!
+    @IBOutlet weak var lName: UITextField!
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var gender: UITextField!
+    @IBOutlet weak var phoneNum: UITextField!
+    @IBOutlet weak var editFName: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
       
         Model.instance.getCurrentUser() {(user) in
-            if user == nil{
-                print("errorrrrrrr")
-            }
-            else{
+            if user != nil{
                 self.user = user
+                self.fName.text = user.fName
+                self.lName.text = user.lName
+                self.email.text = user.email
+                self.gender.text = user.gender
+                self.phoneNum.text = user.phoneNum
             }
         }
-        firstName.text = user?.fName
-        
-        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "RegisterPage") as! RegisterViewController
-        model = controller.model*/
-
-        /*let registerVC:RegisterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController*/
-        
-        /*model.getUser(id: "1", callback: { user in
-            print("\nSuccess. Response received...: " + String(describing: user?.fName))})*/
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func editFName(_ sender: Any) {
     }
 }
