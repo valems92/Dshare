@@ -48,14 +48,9 @@ class Model{
     private init(){
     }
     
-    func addNewUser(user:User, completionBlock:@escaping (Error?)->Void){
-        modelFirebase?.addNewUser(user: user){(error) in
-            if error != nil {
-                completionBlock(error)
-            }
-            else {
-                completionBlock(nil)
-            }
+    func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
+        modelFirebase?.addNewUser(user: user){(newUserID, error) in
+            completionBlock(newUserID, error)
             //st.addStudentToLocalDb(database: self.modelSql?.database)
         }
     }

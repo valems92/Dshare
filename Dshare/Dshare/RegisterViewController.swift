@@ -89,7 +89,7 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
             }
         }
         
-        Model.instance.addNewUser(user: user) {(error) in
+        Model.instance.addNewUser(user: user) {(newUserID, error) in
             if error != nil {
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
@@ -98,6 +98,7 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
             else {
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
+                user.id = newUserID!
                 self.performSegue(withIdentifier: "toSearchFromRegister", sender: self)
             }
             //st.addStudentToLocalDb(database: self.modelSql?.database)

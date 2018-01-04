@@ -11,17 +11,18 @@ class UserFirebase {
     }
     
     //The function adds a new User to the firebase database
-    func addNewUser(user:User, completionBlock:@escaping (Error?)->Void){
+    func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
         Auth.auth().createUser(withEmail: user.email, password: user.password) { (newUser, error) in
+            let newUserID:String? = (newUser?.uid)!
             if newUser == nil {
-                completionBlock(error)
+                completionBlock(newUserID, error)
             }
             else {
-                let ref = Database.database().reference().child("users").child(user.id)
+                let ref = Database.database().reference().child("users").child(newUserID!)
                 ref.setValue(user.toFirebase()){(error, dbref) in
                     //completionBlock(error)
                 }
-                completionBlock(nil)
+                completionBlock(newUserID, nil)
             }
         }
     }
