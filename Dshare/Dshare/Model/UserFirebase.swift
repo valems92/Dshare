@@ -57,22 +57,27 @@ class UserFirebase {
         if user != nil {
             return user?.uid
         } else {
-           return nil
+            return nil
         }
     }
     
-    //id is correct but need to fix methods
     func getCurrentUser(callback:@escaping (User?)->Void) {
         let id:String? = getCurrentUserUid()
         if id != nil {
             Database.database().reference().child("users").child(id!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let fName = value?["fName"] as? String ?? ""
-            //let user = User(username: username)
-            // ...
-        })}
-      callback(nil)
+                let value = snapshot.value as? NSDictionary
+                let fName = value?["fName"] as? String ?? ""
+                let lName = value?["lName"] as? String ?? ""
+                let email = value?["email"] as? String ?? ""
+                let gender = value?["gender"] as? String ?? ""
+                let imagePath = value?["imagePath"] as? String ?? ""
+                let phoneNum = value?["phoneNum"] as? String ?? ""
+                let user = User(email:email, fName:fName, lName:lName, phoneNum:phoneNum, gender:gender, imagePath:imagePath)
+                callback(user)
+            })}
+        else {
+            callback(nil)
+        }
     }
     
     func getUser(id:String, callback:@escaping (User?)->Void) {
