@@ -27,6 +27,21 @@ class User {
         }
     }
     
+    init(email:String, fName:String, lName:String, phoneNum:String,gender:String?,imagePath:String?) {
+        self.id = UUID().uuidString
+        self.email = email
+        self.password = ""
+        self.fName = fName
+        self.lName = lName
+        self.phoneNum = phoneNum
+        if(gender != nil){
+            self.gender = gender
+        }
+        if(imagePath != nil){
+            self.imagePath = imagePath
+        }
+    }
+    
     init(fromJson:Dictionary<String,Any>){
         id = fromJson["id"] as! String
         email = fromJson["email"] as! String
