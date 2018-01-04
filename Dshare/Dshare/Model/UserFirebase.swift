@@ -75,10 +75,20 @@ class UserFirebase {
         })
     }
     
-    func updateUserFirstName(fName:String){
+    func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String){
         let id:String? = getCurrentUserUid()
         let db = Database.database().reference().child("users").child(id!)
         db.updateChildValues(["fName":fName])
+        db.updateChildValues(["lName":lName])
+        db.updateChildValues(["email":email])
+        db.updateChildValues(["phoneNum":phoneNum])
+        db.updateChildValues(["gender":gender])
+    }
+    
+    func updatePassword(newPassword:String){
+        Auth.auth().currentUser?.updatePassword(to: newPassword) { (error) in
+            // ...
+        }
     }
     
     func getSearchesByUserId(id:String, callback:@escaping (Error?, [Search])->Void) {

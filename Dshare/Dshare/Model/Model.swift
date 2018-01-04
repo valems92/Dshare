@@ -103,8 +103,12 @@ class Model{
     }
     
     
-    func updateUserFirstName(fName:String){
-        modelFirebase?.updateUserFirstName(fName:fName)
+    func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String){
+        modelFirebase?.updateUserInfo(fName:fName, lName:lName, email:email, phoneNum:phoneNum, gender:gender)
+    }
+    
+    func updatePassword(newPassword:String){
+        modelFirebase?.updatePassword(newPassword: newPassword)
     }
     
     /* func getAllStudents(callback:@escaping ([Student])->Void){
