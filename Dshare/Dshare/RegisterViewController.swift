@@ -20,6 +20,8 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         self.gender.dataSource = self
         self.gender.delegate = self
         
+        Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
+        
         //Dismiss keyboard when touching anywhere outside text field
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
         self.view.addGestureRecognizer(tapGesture)
@@ -67,10 +69,6 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     
     @IBAction func createUser(_ sender: UIButton) {
         //Set activity indicator
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents() //When the activity indicator presents, the user can't interact with the app
         
@@ -83,24 +81,27 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     func addUserToFirebase() {
         let user = User(email:email.text!, password:password.text!, fName:firstName.text!, lName:lastName.text!, phoneNum:phoneNumber.text!, gender:gender.selectedRow(inComponent: 0).description, imagePath:image.description)
         
-        if userImage != nil {
+        if userImage != nil { // User uploaded a picture
             Model.instance.saveImage(image: userImage!, name: user.id){(url) in
-                user.imagePath = url
                 self.addNewUser(user: user)
             }
+        }
+        else { // User didn't upload a picture
+             //Set user image path to be the default image from storage
+             user.imagePath = "https://firebasestorage.googleapis.com/v0/b/dshare-ac2cb.appspot.com/o/defaultIcon.png?alt=media&token=c72d96c9-f431-4fe6-968e-54df749475cf"
+             //Add new user
+             self.addNewUser(user: user)
         }
     }
     
     func addNewUser(user:User){
         Model.instance.addNewUser(user: user) {(newUserID, error) in
             if error != nil {
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-                self.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!)
+                self.stopAnimatingActivityIndicator()
+                Utils.instance.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!, controller:self)
             }
             else {
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
+                self.stopAnimatingActivityIndicator()
                 user.id = newUserID!
                 self.performSegue(withIdentifier: "toSearchFromRegister", sender: self)
             }
@@ -108,54 +109,67 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         }
     }
     
+    /*********************************
+               VALIDATIONS
+     *********************************/
+    
     func validateUserInput() -> Bool {
         var returnValue = true
         if (email.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter your email")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your email", controller:self)
             returnValue = false
         }
         if (password.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter a password")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter a password", controller:self)
             returnValue = false
         }
         if (rePassword.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to re-enter your password")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to re-enter your password", controller:self)
             returnValue = false
         }
         else {
             if !rePassword.text!.contains(password.text!) {
-                displayAlertMessage(messageToDisplay:"Password and re-Password are not equal")
+                Utils.instance.displayAlertMessage(messageToDisplay:"Password and re-Password are not equal", controller:self)
                 returnValue = false
             }
         }
         if (firstName.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter your first name")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your first name", controller:self)
             returnValue = false
         }
         if (lastName.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter your last name")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your last name", controller:self)
             returnValue = false
         }
         if (phoneNumber.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter your phone number")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your phone number", controller:self)
             returnValue = false
         }
         
         let isEmailAddressValid = isValidEmailAddress(emailAddressString: email.text!)
         
         if !isEmailAddressValid {
-            displayAlertMessage(messageToDisplay:"Email address is not valid")
+            Utils.instance.displayAlertMessage(messageToDisplay:"Email address is not valid", controller:self)
             returnValue = false
         }
         
         let isPhoneNumberValid = isValidPhoneNumber(phoneNumberString: phoneNumber.text!)
         
         if !isPhoneNumberValid {
-            displayAlertMessage(messageToDisplay:"Phone number is not valid")
+            Utils.instance.displayAlertMessage(messageToDisplay:"Phone number is not valid", controller:self)
             returnValue = false
         }
         
+        if !returnValue {
+            stopAnimatingActivityIndicator()
+        }
+        
         return returnValue
+    }
+    
+    func stopAnimatingActivityIndicator() {
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     func isValidEmailAddress(emailAddressString:String) -> Bool {
@@ -196,16 +210,5 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         }
         
         return returnValue
-    }
-    
-    func displayAlertMessage(messageToDisplay:String){
-        let alertController = UIAlertController(title:"Error", message:messageToDisplay, preferredStyle:.alert)
-        let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
-            print("OK tapped")
-        }
-        
-        alertController.addAction(OKAction)
-        
-        self.present(alertController, animated:true, completion:nil)
     }
 }
