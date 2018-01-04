@@ -95,6 +95,26 @@ class UserFirebase {
                     }
                 }
             }
+            callback(nil, searches);
+        }
+    }
+    
+    func getAllSearches(callback:@escaping ([Search])->Void) {
+        let ref = Database.database().reference().child("searches");
+        ref.observeSingleEvent(of: .value) {(snapshot: DataSnapshot) in
+            var searches = [Search]();
+            for user in snapshot.children.allObjects {
+                if let userSearches = user as? DataSnapshot {
+                    for search in userSearches.children.allObjects {
+                        if let searchData = search as? DataSnapshot {
+                            if let json = searchData.value as? Dictionary<String,Any> {
+                                searches.append(Search(fromJson: json));
+                            }
+                        }
+                    }
+                }
+            }
+            callback(searches);
         }
     }
     

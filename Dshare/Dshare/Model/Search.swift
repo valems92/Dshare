@@ -9,10 +9,11 @@ class Search {
     var passengers:Int;
     var baggage:Int;
     var leavingTime:Date;
+    var waitingTime:Int?;
     var flightNumber:String?;
     var createdOn:Date?;
     
-    init(userId:String, startingPoint:String, destination:String, passengers:Int, baggage:Int, leavingTime:Date, flightNumber:String?) {
+    init(userId:String, startingPoint:String, destination:String, passengers:Int, baggage:Int, leavingTime:Date, waitingTime:Int?, flightNumber:String?) {
         self.id = UUID().uuidString;
         self.userId = userId;
         self.startingPoint = startingPoint;
@@ -20,6 +21,10 @@ class Search {
         self.passengers = passengers;
         self.baggage = baggage;
         self.leavingTime = leavingTime;
+        
+        if (waitingTime != nil) {
+            self.waitingTime = waitingTime!;
+        }
         
         if (flightNumber != nil){
             self.flightNumber = flightNumber!;
@@ -35,12 +40,16 @@ class Search {
         baggage = fromJson["baggage"] as! Int;
         leavingTime = Date.fromFirebase(fromJson["leavingTime"] as! Double);
         
+        if let wt = fromJson["waitingTime"] as? Int {
+            waitingTime = wt;
+        }
+        
         if let fn = fromJson["flightNumber"] as? String {
-            self.flightNumber = fn;
+            flightNumber = fn;
         }
         
         if let ts = fromJson["createdOn"] as? Double {
-            self.createdOn = Date.fromFirebase(ts);
+            createdOn = Date.fromFirebase(ts);
         }
     }
     
@@ -54,7 +63,15 @@ class Search {
         json["passengers"] = passengers;
         json["baggage"] = baggage;
         json["leavingTime"] = leavingTime.toFirebase();
-        json["flightNumber"] = flightNumber;
+       
+        if (waitingTime != nil) {
+            json["waitingTime"] = waitingTime;
+        }
+        
+        if (flightNumber != nil) {
+            json["flightNumber"] = flightNumber;
+        }
+        
         json["createdOn"] = ServerValue.timestamp();
         
         return json;

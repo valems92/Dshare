@@ -7,6 +7,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var changeSpBtn: UIButton!
     @IBOutlet weak var timePicker: UIDatePicker!
     @IBOutlet weak var flightNumber: UITextField!
+    @IBOutlet weak var waitingTime: UITextField!
     @IBOutlet weak var passangers: UITextField!
     @IBOutlet weak var baggage: UITextField!
     
@@ -15,6 +16,8 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     var isStaringPointChanged:Bool!
     var startingPointPlace: GMSPlace!
     var placesClient: GMSPlacesClient!
+    var leaveNow:Bool!
+    var nowDate:Date!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +25,10 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self);
         
-        timePicker.minimumDate = Date();
+        self.leaveNow = true;
+        nowDate = Date();
+        
+        timePicker.minimumDate = nowDate;
         var oneWeekfromNow: Date { return (Calendar.current as NSCalendar).date(byAdding: .day, value: 7, to: timePicker.minimumDate!, options: [])! }
         timePicker.maximumDate = oneWeekfromNow;
         timePicker.date = timePicker.minimumDate!;
@@ -33,6 +39,15 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func onLeaveTimeChange(_ sender: UISegmentedControl) {
+        leaveNow = (sender.selectedSegmentIndex == 0) ? true : false;
+        
+        waitingTime.isHidden = !leaveNow;
+        timePicker.isHidden = leaveNow;
+        
+        showSelectFlight(place: startingPointPlace);
     }
     
     @IBAction func onChangeDestination(_ sender: UIButton) {
@@ -81,7 +96,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
         
-        flightNumber.isHidden = (isAirport) ? false: true;
+        flightNumber.isHidden = (isAirport && !leaveNow) ? false: true;
     }
     
     func setStartingPoint(place: GMSPlace) {
@@ -96,8 +111,14 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func validateUserInput() -> Bool {
-        if ((startingPoint.text?.isEmpty)! || (detination.text?.isEmpty)! || (passangers.text?.isEmpty)! || (baggage.text?.isEmpty)!) {
-            Utils.instance.displayAlertMessage(messageToDisplay:"Please fill out all fields to proceed", controller: self);
+        if ((startingPoint.text?.isEmpty)! || (detination.text?.isEmpty)! || (passangers.text?.isEmpty)! || (baggage.text?.isEmpty)!
+            || (leaveNow && (waitingTime.text?.isEmpty)!)) {
+            Utils.instance.displayAlertMessage(messageToDisplay:"Please fill out the mandatory fields to proceed", controller: self);
+            return false;
+        }
+        
+        if (Int(passangers.text!) == nil || Int(baggage.text!) == nil || (leaveNow && Int(waitingTime.text!) == nil)) {
+            Utils.instance.displayAlertMessage(messageToDisplay:"Passangers, Baggage and Waiting time should be an integer", controller: self);
             return false;
         }
         
@@ -115,8 +136,13 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         UIApplication.shared.beginIgnoringInteractionEvents()
         let userId = Model.instance.getCurrentUserUid();
     
-        let search = Search(userId: userId, startingPoint: startingPoint.text!, destination: detination.text!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime:timePicker.date, flightNumber:flightNumber.text!);
-    
+        var search: Search;
+        if (leaveNow) {
+            search = Search(userId: userId, startingPoint: startingPoint.text!, destination: detination.text!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: nowDate, waitingTime: Int(waitingTime.text!)!, flightNumber: nil);
+        } else {
+            search = Search(userId: userId, startingPoint: startingPoint.text!, destination: detination.text!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: timePicker.date, waitingTime: nil, flightNumber: flightNumber.text);
+        }
+        
         Model.instance.addNewSearch(search: search) { (error) in
             self.activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()

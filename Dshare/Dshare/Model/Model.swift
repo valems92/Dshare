@@ -65,6 +65,10 @@ class Model{
         modelFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
     }
     
+    func getAllSearches(completionBlock:@escaping([Search])->Void) {
+        modelFirebase?.getAllSearches(callback: completionBlock);
+    }
+    
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
         modelFirebase?.signInUser(email: email, password: password){(error) in
             if error != nil {
