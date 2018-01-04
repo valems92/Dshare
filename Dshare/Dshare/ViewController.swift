@@ -11,6 +11,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
     }
+    
+    /*override func viewDidAppear(_ animated: Bool) {
+        
+        if let alreadySignedIn = FIRAuth.auth()?.currentUser {
+            // segue to main view controller
+        } else {
+            // sign in
+        }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -9,6 +9,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
+        
         //Dismiss keyboard when touching anywhere outside text field
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
         self.view.addGestureRecognizer(tapGesture)
@@ -25,10 +27,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func onLogin(_ sender: UIButton) {
         //Set activity indicator
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents() //When the activity indicator presents, the user can't interact with the app
         
@@ -67,7 +65,16 @@ class LoginViewController: UIViewController {
             returnValue = false
         }
         
+        if !returnValue {
+            stopAnimatingActivityIndicator()
+        }
+        
         return returnValue
+    }
+    
+    func stopAnimatingActivityIndicator() {
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     func isValidEmailAddress(emailAddressString:String) -> Bool {
