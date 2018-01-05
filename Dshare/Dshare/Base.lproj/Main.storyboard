@@ -684,7 +684,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Ak-SA-HUN">
-                                <rect key="frame" x="20" y="30" width="374" height="338"/>
+                                <rect key="frame" x="20" y="30" width="374" height="685.33333333333337"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6Z-NW-UmH">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -728,7 +728,7 @@
                                         <rect key="frame" x="0.0" y="225" width="374" height="48"/>
                                         <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                        <state key="normal" title="Submit">
+                                        <state key="normal" title="Submit Changes">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -736,6 +736,9 @@
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </variation>
                                         <connections>
                                             <action selector="onSearch:" destination="31a-UM-sf3" eventType="touchUpInside" id="X1P-oi-HsU"/>
                                             <action selector="submitNewInfo:" destination="gmC-DV-hb7" eventType="touchUpInside" id="D3u-1f-gcu"/>
@@ -767,6 +770,41 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Searches :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCy-FN-HdG">
+                                        <rect key="frame" x="0.0" y="348" width="144.66666666666666" height="26.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-6C-3cJ">
+                                        <rect key="frame" x="0.0" y="384.33333333333337" width="374" height="261.00000000000011"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Oiz-Zk-DjU">
+                                                <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oiz-Zk-DjU" id="U1U-Um-ooG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="gmC-DV-hb7" id="CZ2-UC-hmM"/>
+                                            <outlet property="delegate" destination="gmC-DV-hb7" id="bOP-6z-K4r"/>
+                                        </connections>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-OM-6f7">
+                                        <rect key="frame" x="0.0" y="655.33333333333337" width="58" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Log Out">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="logOutUser:" destination="gmC-DV-hb7" eventType="touchUpInside" id="h3N-dY-cIT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ZLW-qz-nJZ" secondAttribute="trailing" id="1ij-u2-QQ8"/>
@@ -775,6 +813,7 @@
                                     <constraint firstItem="ZLW-qz-nJZ" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="R9J-K0-FIG"/>
                                     <constraint firstAttribute="trailing" secondItem="iE4-cI-iIb" secondAttribute="trailing" id="Tuo-Bp-S7q"/>
                                     <constraint firstItem="dgg-AB-pfa" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="XBv-XP-rUT"/>
+                                    <constraint firstAttribute="bottom" secondItem="OW9-OM-6f7" secondAttribute="bottom" id="XMv-is-QvV"/>
                                     <constraint firstItem="zTq-Ou-hot" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="dXZ-zT-9ce"/>
                                     <constraint firstItem="Rbo-tz-3le" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="iDY-aO-2xX"/>
                                     <constraint firstAttribute="trailing" secondItem="cVE-u1-rxr" secondAttribute="trailing" id="jNG-xw-rsA"/>
@@ -785,18 +824,6 @@
                                     <constraint firstItem="f6Z-NW-UmH" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="w9F-Et-3Nc"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-OM-6f7">
-                                <rect key="frame" x="173" y="686" width="68" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.46748628759999999" blue="0.36252150620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Log Out">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="logOutUser:" destination="gmC-DV-hb7" eventType="touchUpInside" id="h3N-dY-cIT"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -812,6 +839,7 @@
                         <outlet property="lName" destination="Rbo-tz-3le" id="Zl4-ru-sLj"/>
                         <outlet property="newPassword" destination="imS-Np-hSF" id="bfo-C8-Op6"/>
                         <outlet property="phoneNum" destination="cVE-u1-rxr" id="LUv-qD-RNX"/>
+                        <outlet property="searchesTableView" destination="Dkt-6C-3cJ" id="7Wm-Bq-ocv"/>
                         <segue destination="4T4-bG-nGH" kind="show" identifier="toLoginFromUserInfo" id="m62-bZ-EpI"/>
                     </connections>
                 </viewController>

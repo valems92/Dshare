@@ -1,8 +1,9 @@
 import UIKit
 
-class UserInfoViewController: UIViewController {
-
+class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
     var user:User?
+    var searches:[Search]?
     
     @IBOutlet weak var fName: UITextField!
     @IBOutlet weak var lName: UITextField!
@@ -10,7 +11,8 @@ class UserInfoViewController: UIViewController {
     @IBOutlet weak var gender: UITextField!
     @IBOutlet weak var phoneNum: UITextField!
     @IBOutlet weak var newPassword: UITextField!
-   
+    @IBOutlet weak var searchesTableView: UITableView!
+    
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,10 @@ class UserInfoViewController: UIViewController {
                 self.user = user
                 self.updateAllTextFields(user: user)
             }
+        }
+        Model.instance.getCorrentUserSearches() {(error, searches) in
+            self.searches = searches
+            self.searchesTableView.reloadData()
         }
     }
     
@@ -58,6 +64,22 @@ class UserInfoViewController: UIViewController {
         self.email.text = user.email
         self.gender.text = user.gender
         self.phoneNum.text = user.phoneNum
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searches != nil {
+            return (searches?.count)!
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if searches != nil {
+            let cell = UITableViewCell(style:UITableViewCellStyle.default, reuseIdentifier:"cell")
+            cell.textLabel?.text = searches?[indexPath.row].destination
+            return cell
+        }
+        return UITableViewCell.init()
     }
 
 }

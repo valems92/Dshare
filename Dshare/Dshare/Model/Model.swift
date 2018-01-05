@@ -61,6 +61,11 @@ class Model{
         }
     }
     
+    func getCorrentUserSearches(completionBlock:@escaping (Error?, [Search])->Void){
+        let id = getCurrentUserUid()
+        modelFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
+    }
+    
     func getSearchesByUserId(id:String, completionBlock:@escaping (Error?, [Search])->Void){
         modelFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
     }
