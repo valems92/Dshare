@@ -71,12 +71,13 @@ class Model{
     
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
         modelFirebase?.signInUser(email: email, password: password){(error) in
-            if error != nil {
-                completionBlock(error)
-            }
-            else {
-                completionBlock(nil)
-            }
+            completionBlock(error)
+        }
+    }
+    
+    func signOutUser(completionBlock:@escaping (Error?)->Void) {
+        modelFirebase?.signOutUser {(error) in
+            completionBlock(error)
         }
     }
     

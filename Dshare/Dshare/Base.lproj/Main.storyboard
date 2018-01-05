@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -290,19 +290,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEg-3b-9Se">
-                                <rect key="frame" x="30" y="104" width="354" height="30"/>
+                                <rect key="frame" x="30" y="60" width="354" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oLT-U1-c2M">
-                                <rect key="frame" x="30" y="159" width="354" height="30"/>
+                                <rect key="frame" x="30" y="115" width="354" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vkv-GN-uO7" customClass="UIViewExtentions" customModule="Dshare" customModuleProvider="target">
-                                <rect key="frame" x="30" y="239" width="354" height="66"/>
+                                <rect key="frame" x="30" y="195" width="354" height="66"/>
                                 <color key="backgroundColor" red="0.99843901400000001" green="0.34291309120000002" blue="0.33975431319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="akO-Jl-X0t"/>
@@ -504,19 +504,19 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Starting Point" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kuk-LB-EPN">
-                                <rect key="frame" x="10" y="104" width="330" height="30"/>
+                                <rect key="frame" x="10" y="60" width="330" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="location"/>
                             </textField>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="skj-25-fJh">
-                                <rect key="frame" x="10" y="159" width="330" height="30"/>
+                                <rect key="frame" x="10" y="115" width="330" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="location"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-Xk-6W7">
-                                <rect key="frame" x="350" y="104" width="54" height="30"/>
+                                <rect key="frame" x="350" y="60" width="54" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="54" id="KiE-ZK-Ysp"/>
                                 </constraints>
@@ -526,7 +526,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jM-gG-p2x">
-                                <rect key="frame" x="350" y="159" width="54" height="30"/>
+                                <rect key="frame" x="350" y="115" width="54" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="54" id="gIC-Bw-3QQ"/>
                                 </constraints>
@@ -579,7 +579,7 @@
                                 </connections>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtO-3C-duu">
-                                <rect key="frame" x="10" y="269" width="394" height="21"/>
+                                <rect key="frame" x="10" y="225" width="394" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -684,7 +684,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Ak-SA-HUN">
-                                <rect key="frame" x="20" y="74" width="374" height="338"/>
+                                <rect key="frame" x="20" y="30" width="374" height="338"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6Z-NW-UmH">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -785,6 +785,18 @@
                                     <constraint firstItem="f6Z-NW-UmH" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="w9F-Et-3Nc"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-OM-6f7">
+                                <rect key="frame" x="173" y="686" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.46748628759999999" blue="0.36252150620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOutUser:" destination="gmC-DV-hb7" eventType="touchUpInside" id="h3N-dY-cIT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -800,6 +812,7 @@
                         <outlet property="lName" destination="Rbo-tz-3le" id="Zl4-ru-sLj"/>
                         <outlet property="newPassword" destination="imS-Np-hSF" id="bfo-C8-Op6"/>
                         <outlet property="phoneNum" destination="cVE-u1-rxr" id="LUv-qD-RNX"/>
+                        <segue destination="4T4-bG-nGH" kind="show" identifier="toLoginFromUserInfo" id="m62-bZ-EpI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zwp-q0-LPU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -812,6 +825,7 @@
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3oI-0G-4aq"/>
+        <segue reference="LqA-cX-QpL"/>
+        <segue reference="m62-bZ-EpI"/>
     </inferredMetricsTieBreakers>
 </document>

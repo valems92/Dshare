@@ -52,6 +52,15 @@ class UserFirebase {
         }
     }
     
+    func signOutUser(completionBlock:@escaping (Error?)->Void) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            completionBlock(signOutError)
+        }
+    }
+    
     func getCurrentUserUid() -> String? {
         let user = Auth.auth().currentUser
         if user != nil {

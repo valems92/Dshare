@@ -41,6 +41,17 @@ class UserInfoViewController: UIViewController {
           Model.instance.updatePassword(newPassword: self.newPassword.text!)
     }
     
+    @IBAction func logOutUser(_ sender: UIButton) {
+        Model.instance.signOutUser() { (error) in
+            if error != nil {
+                Utils.instance.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!, controller:self)
+            }
+            else {
+                // User logged out succesfully, move to login page
+                self.performSegue(withIdentifier: "toLoginFromUserInfo", sender: self)
+            }
+        }
+    }
     func updateAllTextFields(user:User){
         self.fName.text = user.fName
         self.lName.text = user.lName
