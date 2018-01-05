@@ -14,7 +14,11 @@ target 'Dshare' do
   # Pods for Place autocomplete
   pod 'GooglePlaces'
 
+#pod for HTTP request
   pod 'Alamofire', '~> 4.5'
+
+ #pod for the Chat
+ pod 'JSQMessagesViewController'
 
   # Pods for Dshare
 
