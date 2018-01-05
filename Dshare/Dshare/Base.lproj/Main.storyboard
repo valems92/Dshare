@@ -687,11 +687,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Ak-SA-HUN">
-<<<<<<< Updated upstream
-                                <rect key="frame" x="20" y="30" width="374" height="630"/>
-=======
-                                <rect key="frame" x="20" y="74" width="374" height="685.33333333333337"/>
->>>>>>> Stashed changes
+                                <rect key="frame" x="20" y="74" width="374" height="630"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6Z-NW-UmH">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -772,7 +768,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orr-r7-FeH">
                                         <rect key="frame" x="0.0" y="313" width="240" height="5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-<<<<<<< Updated upstream
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="5" id="lbA-hU-Ywp"/>
                                             <constraint firstAttribute="height" constant="5" id="m72-UJ-ewz"/>
@@ -790,13 +785,13 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Searches :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCy-FN-HdG">
-                                                <rect key="frame" x="0.0" y="15" width="374" height="15"/>
+                                                <rect key="frame" x="0.0" y="15" width="374" height="26.333333333333314"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-6C-3cJ">
-                                                <rect key="frame" x="0.0" y="30" width="374" height="207"/>
+                                                <rect key="frame" x="0.0" y="41.333333333333314" width="374" height="195.66666666666669"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Oiz-Zk-DjU">
@@ -834,6 +829,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="logOutUser:" destination="gmC-DV-hb7" eventType="touchUpInside" id="h3N-dY-cIT"/>
+                                                            <segue destination="92p-hl-XOq" kind="unwind" unwindAction="unwindSegue:" id="cOq-DA-UPN"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -857,35 +853,6 @@
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="302" id="uqN-yH-gF1"/>
                                         </constraints>
                                     </stackView>
-=======
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Oiz-Zk-DjU">
-                                                <rect key="frame" x="0.0" y="28" width="374" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oiz-Zk-DjU" id="U1U-Um-ooG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.666666666666664"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                        <connections>
-                                            <outlet property="dataSource" destination="gmC-DV-hb7" id="CZ2-UC-hmM"/>
-                                            <outlet property="delegate" destination="gmC-DV-hb7" id="bOP-6z-K4r"/>
-                                        </connections>
-                                    </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-OM-6f7">
-                                        <rect key="frame" x="0.0" y="655.33333333333337" width="58" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Log Out">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="logOutUser:" destination="gmC-DV-hb7" eventType="touchUpInside" id="h3N-dY-cIT"/>
-                                            <segue destination="92p-hl-XOq" kind="unwind" unwindAction="unwindSegue:" id="1lI-ew-d7W"/>
-                                        </connections>
-                                    </button>
->>>>>>> Stashed changes
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="iLB-iM-FWk" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="0no-ph-CDZ"/>

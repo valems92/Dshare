@@ -54,14 +54,9 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents() //When the activity indicator presents, the user can't interact with the app
         Model.instance.signOutUser() { (error) in
+            self.stopAnimatingActivityIndicator()
             if error != nil {
-                self.stopAnimatingActivityIndicator()
                 Utils.instance.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!, controller:self)
-            }
-            else {
-                self.stopAnimatingActivityIndicator()
-                // User logged out succesfully, move to login page
-                //self.performSegue(withIdentifier: "toHomeFromUserInfo", sender: self)
             }
         }
     }
