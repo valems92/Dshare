@@ -10,6 +10,16 @@ class UserFirebase {
         FirebaseApp.configure()
     }
     
+    //The function checks if the user signed in before
+    func checkIfUserLoggedIn(completionBlock:@escaping (Bool?)->Void){
+        if Auth.auth().currentUser == nil {
+            completionBlock(false)
+        }
+        else {
+            completionBlock(true)
+        }
+    }
+    
     //The function adds a new User to the firebase database
     func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
         Auth.auth().createUser(withEmail: user.email, password: user.password) { (newUser, error) in
@@ -56,6 +66,7 @@ class UserFirebase {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            completionBlock(nil)
         } catch let signOutError as NSError {
             completionBlock(signOutError)
         }

@@ -48,6 +48,12 @@ class Model{
     private init(){
     }
     
+    func checkIfUserLoggedIn(completionBlock:@escaping (Bool?)->Void){
+        modelFirebase?.checkIfUserLoggedIn() {(isUserLoggedIn) in
+            completionBlock(isUserLoggedIn)
+        }
+    }
+    
     func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
         modelFirebase?.addNewUser(user: user){(newUserID, error) in
             completionBlock(newUserID, error)

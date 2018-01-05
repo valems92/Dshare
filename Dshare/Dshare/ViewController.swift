@@ -10,6 +10,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+        checkIfUserLoggedIn()
+    }
+    
+    @IBAction func unwindSegue(_ sender:UIStoryboardSegue){
+        
     }
     
     /*override func viewDidAppear(_ animated: Bool) {
@@ -20,6 +25,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             // sign in
         }
     }*/
+    
+    func checkIfUserLoggedIn() {
+        Model.instance.checkIfUserLoggedIn() {(isUserLoggedIn) in
+            if isUserLoggedIn! {
+                self.performSegue(withIdentifier: "toSearchFromHome", sender: self)
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

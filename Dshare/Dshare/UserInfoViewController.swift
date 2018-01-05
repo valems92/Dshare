@@ -4,6 +4,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
    
     var user:User?
     var searches:[Search]?
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBOutlet weak var fName: UITextField!
     @IBOutlet weak var lName: UITextField!
@@ -27,6 +28,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             self.searches = searches
             self.searchesTableView.reloadData()
         }
+        Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,16 +50,27 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func logOutUser(_ sender: UIButton) {
+        //Set activity indicator
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents() //When the activity indicator presents, the user can't interact with the app
         Model.instance.signOutUser() { (error) in
             if error != nil {
+                self.stopAnimatingActivityIndicator()
                 Utils.instance.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!, controller:self)
             }
             else {
+                self.stopAnimatingActivityIndicator()
                 // User logged out succesfully, move to login page
-                self.performSegue(withIdentifier: "toLoginFromUserInfo", sender: self)
+                //self.performSegue(withIdentifier: "toHomeFromUserInfo", sender: self)
             }
         }
     }
+    
+    func stopAnimatingActivityIndicator() {
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
     func updateAllTextFields(user:User){
         self.fName.text = user.fName
         self.lName.text = user.lName
