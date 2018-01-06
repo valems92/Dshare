@@ -625,16 +625,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-ZG-sHp">
-                                <rect key="frame" x="20" y="696" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="My Profile">
-                                    <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="gmC-DV-hb7" kind="show" id="Lhm-Vk-E38"/>
-                                </connections>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TBI-f3-hsa">
                                 <rect key="frame" x="115" y="265" width="121" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -660,6 +650,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-ZG-sHp">
+                                <rect key="frame" x="258" y="265" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="My Profile">
+                                    <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="gmC-DV-hb7" kind="show" id="Lhm-Vk-E38"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -745,12 +745,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iE4-cI-iIb">
+                                    <pickerView contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e8g-zU-lKZ">
                                         <rect key="frame" x="0.0" y="120" width="374" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="QSH-6d-P9I"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="TAX-kJ-Gyo"/>
+                                            <constraint firstAttribute="width" constant="374" id="UMa-mp-F8G"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="gmC-DV-hb7" id="cLm-2j-WTG"/>
+                                            <outlet property="delegate" destination="gmC-DV-hb7" id="7LC-qo-X8T"/>
+                                        </connections>
+                                    </pickerView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cVE-u1-rxr">
                                         <rect key="frame" x="0.0" y="160" width="374" height="30"/>
                                         <nil key="textColor"/>
@@ -907,7 +913,6 @@
                                     <constraint firstItem="iLB-iM-FWk" firstAttribute="top" secondItem="ZLW-qz-nJZ" secondAttribute="bottom" constant="10" id="PSb-ps-1Mi"/>
                                     <constraint firstItem="ZLW-qz-nJZ" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="R9J-K0-FIG"/>
                                     <constraint firstAttribute="trailing" secondItem="iLB-iM-FWk" secondAttribute="trailing" id="RaA-Xu-SJl"/>
-                                    <constraint firstAttribute="trailing" secondItem="iE4-cI-iIb" secondAttribute="trailing" id="Tuo-Bp-S7q"/>
                                     <constraint firstItem="dgg-AB-pfa" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="XBv-XP-rUT"/>
                                     <constraint firstItem="iLB-iM-FWk" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="Y0V-oH-rYL"/>
                                     <constraint firstItem="iLB-iM-FWk" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="YMz-AW-cPh"/>
@@ -919,7 +924,6 @@
                                     <constraint firstItem="Rbo-tz-3le" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="iDY-aO-2xX"/>
                                     <constraint firstAttribute="trailing" secondItem="cVE-u1-rxr" secondAttribute="trailing" id="jNG-xw-rsA"/>
                                     <constraint firstAttribute="trailing" secondItem="dgg-AB-pfa" secondAttribute="trailing" id="jxc-hO-reG"/>
-                                    <constraint firstItem="iE4-cI-iIb" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="l17-EM-AwU"/>
                                     <constraint firstItem="iLB-iM-FWk" firstAttribute="leading" secondItem="8Ak-SA-HUN" secondAttribute="leading" id="odr-x9-m0c"/>
                                     <constraint firstAttribute="trailing" secondItem="Rbo-tz-3le" secondAttribute="trailing" id="vxX-sU-D68"/>
                                     <constraint firstAttribute="trailing" secondItem="zTq-Ou-hot" secondAttribute="trailing" id="w5i-lc-Nth"/>
@@ -937,7 +941,7 @@
                     <connections>
                         <outlet property="email" destination="dgg-AB-pfa" id="aoE-Yb-cBH"/>
                         <outlet property="fName" destination="f6Z-NW-UmH" id="X27-18-H0Z"/>
-                        <outlet property="gender" destination="iE4-cI-iIb" id="oqw-WR-LeU"/>
+                        <outlet property="genderPickerView" destination="e8g-zU-lKZ" id="vgt-WW-uAF"/>
                         <outlet property="lName" destination="Rbo-tz-3le" id="Zl4-ru-sLj"/>
                         <outlet property="newPassword" destination="imS-Np-hSF" id="bfo-C8-Op6"/>
                         <outlet property="phoneNum" destination="cVE-u1-rxr" id="LUv-qD-RNX"/>
@@ -954,6 +958,6 @@
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3oI-0G-4aq"/>
+        <segue reference="LqA-cX-QpL"/>
     </inferredMetricsTieBreakers>
 </document>
