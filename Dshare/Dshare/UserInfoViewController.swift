@@ -58,6 +58,9 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             if error != nil {
                 Utils.instance.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!, controller:self)
             }
+            else{
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
     }
     

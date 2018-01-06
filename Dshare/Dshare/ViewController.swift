@@ -10,21 +10,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         checkIfUserLoggedIn()
     }
-    
-    @IBAction func unwindSegue(_ sender:UIStoryboardSegue){
-        
-    }
-    
-    /*override func viewDidAppear(_ animated: Bool) {
-        
-        if let alreadySignedIn = FIRAuth.auth()?.currentUser {
-            // segue to main view controller
-        } else {
-            // sign in
-        }
-    }*/
     
     func checkIfUserLoggedIn() {
         Model.instance.checkIfUserLoggedIn() {(isUserLoggedIn) in
