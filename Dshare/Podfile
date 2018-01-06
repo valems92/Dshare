@@ -16,6 +16,7 @@ target 'Dshare' do
 
 #pod for HTTP request
   pod 'Alamofire', '~> 4.5'
+  pod 'SwiftyJSON'
 
  #pod for the Chat
  pod 'JSQMessagesViewController'

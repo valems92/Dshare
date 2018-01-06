@@ -8,6 +8,7 @@ class ChatViewController: JSQMessagesViewController {
     lazy var incomingBubbleImageView: JSQMessagesBubbleImage = self.setupIncomingBubble()
     
     var messages = [JSQMessage]()
+    var users:[User]?
     
     // var channelRef: DatabaseReference?
     /*  var channel: Channel? {
