@@ -1,10 +1,12 @@
 import UIKit
 
-class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
     
     var pickerDataSource = ["Male", "Female"]
     var userImage:UIImage?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -19,6 +21,7 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         super.viewDidLoad()
         self.gender.dataSource = self
         self.gender.delegate = self
+        self.scrollView.delegate = self
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
         
