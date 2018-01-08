@@ -19,7 +19,7 @@ Sometimes xcode can't see files that are physically exist, so you have to add th
 
 
 git commands:
- git stash
- git pull
- git stash pop
- pod update
+-  git stash
+- git pull
+- git stash pop
+- pod update
