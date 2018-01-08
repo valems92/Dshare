@@ -16,3 +16,10 @@ When you do some changes and want to push it, please make sure you don't push th
 
 
 Sometimes xcode can't see files that are physically exist, so you have to add them to your project at right click on the project -> Add Files To "Dshare"
+
+
+git commands:
+ git stash
+ git pull
+ git stash pop
+ pod update
