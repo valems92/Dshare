@@ -1,19 +1,18 @@
 import UIKit
+import CoreLocation
 import SwiftyJSON
 import Alamofire
 
-struct SuggestionData {
-    let user:User
-    let name:String
-    let passangers:Int
-    let baggage:Int
-    let distance:String
-    let image:UIImage?
+struct UserData {
+    var user:User?
+    var image:UIImage?
 }
 
-struct UserData {
-    let user:User
-    let image:UIImage?
+struct SuggestionData {
+    var userId:String
+    var search:Search
+    var distance:Double
+    var userData:UserData?
 }
 
 class SuggestionTableViewCell: UITableViewCell {
@@ -29,14 +28,18 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var chat: UIButton!
     @IBOutlet weak var table: UITableView!
     
+    var usersData = [String : UserData]()
     var suggestions: [SuggestionData] = []
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var search:Search!
+    
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    let MAX_KM_DISTANCE_DESTINATION:Double = 10000
+    let MAX_KM_DISTANCE_STARTING_POINT:Double = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
         chat.isEnabled = false
         chat.alpha = 0.5
         
@@ -76,79 +79,60 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     private func getAllMatches() {
-        //activityIndicator.startAnimating()
-        //UIApplication.shared.beginIgnoringInteractionEvents()
-        
         Model.instance.getAllSearches() {(searches) in
-            let allSearchesGroup = DispatchGroup()
-            var users = [String : UserData]()
-
+            
+            let group = DispatchGroup()
             for suggestion in searches {
-                if suggestion.userId == self.search.userId {
-                    continue
-                }
+                if suggestion.userId == self.search.userId ||  suggestion.foundSuggestion { continue }
+        
+                let destDistance = self.calcDestinationDistance(suggestion:suggestion)
+                let stDistance = self.calcStartingPointDistance(suggestion:suggestion)
+                if (destDistance > self.MAX_KM_DISTANCE_DESTINATION || stDistance > self.MAX_KM_DISTANCE_STARTING_POINT) { continue }
                 
-                allSearchesGroup.enter()
-                
-                let suggestionGroup = DispatchGroup()
-                
-                var currentUser = users[suggestion.id]
-                var distance = "0"
-                
-                if currentUser == nil {
-                    suggestionGroup.enter()
+                group.enter()
+                self.suggestions.append(SuggestionData(userId: suggestion.userId, search: suggestion, distance: destDistance, userData: nil))
+        
+                if self.usersData[suggestion.userId] == nil {
+                    self.usersData[suggestion.userId] = UserData()
                     Model.instance.getUserById(id: suggestion.userId) {(user) in
                         Model.instance.getImage(urlStr: user.imagePath!, callback: { (image) in
-                            users[suggestion.id] = UserData(user: user, image: image)
-                            currentUser = users[suggestion.id]
-                            
-                            suggestionGroup.leave()
+                            self.usersData[suggestion.userId]?.user = user
+                            self.usersData[suggestion.userId]?.image = image
+                            group.leave()
                         })
                     }
-                }
-                
-                suggestionGroup.enter()
-                self.calcDistance(suggestion:suggestion) {(dis) in
-                    distance = dis
-                    suggestionGroup.leave()
-                }
-                
-                suggestionGroup.notify(queue: .main) {
-                    let data = SuggestionData(user:(currentUser?.user)! ,name: (currentUser?.user.fName)! + " " + (currentUser?.user.lName)!, passangers: suggestion.passengers, baggage: suggestion.baggage, distance: distance, image: currentUser?.image)
-                    self.suggestions.append(data)
-                    
-                    allSearchesGroup.leave()
+                } else {
+                    group.leave()
                 }
             }
             
-            allSearchesGroup.notify(queue: .main) {
-                self.refreshSearches()
+            group.notify(queue: .main) {
+                self.setSuggestionsUserData()
+                self.table.reloadData()
             }
         }
     }
     
-    func calcDistance(suggestion:Search, callback:@escaping((_ distance:String)->Void))->Void {
-        let request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:\(self.search.destination)&destinations=place_id:\(suggestion.destination)&key=AIzaSyAdIPtxBw-PUnBZWvjDnCHm_uabxKQVl_s"
+    private func setSuggestionsUserData() {
+        for i in 0...suggestions.count - 1 {
+            suggestions[i].userData = usersData[suggestions[i].userId]
+        }
+    }
+    
+    func calcDestinationDistance(suggestion:Search)->Double {
+        let searchLocation = CLLocation(latitude: self.search.destinationCoordinate.latitude, longitude: self.search.destinationCoordinate.longitude)
+        let suggestionLocation = CLLocation(latitude: suggestion.destinationCoordinate.latitude, longitude: suggestion.destinationCoordinate.longitude)
         
-        Alamofire.request(request).responseJSON { response in
-            var distance:String = "0 m"
-            if let result = response.result.value {
-                let json = JSON(result)
-                if json["status"].string == "OK" && json["rows"][0]["elements"][0]["status"].string == "OK" {
-                    var element = json["rows"][0]["elements"][0];
-                    if element["status"].string == "OK" {
-                        distance = element["distance"]["text"].string!
-                    }
-                }
-            }
-            callback(distance)
-        }
+        //distance in km
+        return (searchLocation.distance(from: suggestionLocation) / 1000)
     }
     
-    func refreshSearches() {
-        table.reloadData()
-        //self.activityIndicator.startAnimating()
-        //UIApplication.shared.beginIgnoringInteractionEvents()
+    func calcStartingPointDistance(suggestion:Search)->Double {
+        let searchLocation = CLLocation(latitude: self.search.startingPointCoordinate.latitude, longitude: self.search.startingPointCoordinate.longitude)
+        let suggestionLocation = CLLocation(latitude: suggestion.startingPointCoordinate.latitude, longitude: suggestion.startingPointCoordinate.longitude)
+        
+        //distance in km
+        return (searchLocation.distance(from: suggestionLocation) / 1000)
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -160,11 +144,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let suggestion = suggestions[indexPath.row]
         
-        cell.name.text = suggestion.name
-        cell.suggestionImage?.image = suggestion.image
-        cell.data.text = "Distance: " + String(suggestion.distance) + ", Passangers: " + String(suggestion.passangers) + ", Baggage: " + String(suggestion.baggage)
-        
-        cell.user = suggestion.user
+        cell.name.text = suggestion.userData!.user!.fName + " " + suggestion.userData!.user!.lName
+        cell.suggestionImage?.image = suggestion.userData?.image
+        cell.data.text = "Distance: " + String(format: "%.2f", suggestion.distance) + " km, Passangers: " + String(suggestion.search.passengers) + ", Baggage: " + String(suggestion.search.baggage)
+        cell.user = suggestion.userData?.user
         
         return cell
     }

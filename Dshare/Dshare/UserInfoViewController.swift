@@ -1,8 +1,17 @@
 import UIKit
 
+class LastSearchesViewCell: UITableViewCell {
+    @IBOutlet weak var destination: UILabel!
+    @IBOutlet weak var startPoint: UILabel!
+    @IBOutlet weak var icon: UIImageView!
+    
+    var search:Search?
+}
+
 class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     var user:User?
     var searches:[Search]?
+    var selectedSearch:Search?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     let genderOptions = ["Male", "Female"]
@@ -28,7 +37,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         Model.instance.getCorrentUserSearches() {(error, searches) in
-            if error != nil {
+            if error == nil {
                 self.searches = searches
                 self.searchesTableView.reloadData()
             }
@@ -103,13 +112,40 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         return 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if searches != nil {
-            let cell = UITableViewCell(style:UITableViewCellStyle.default, reuseIdentifier:"cell")
-            cell.textLabel?.text = searches?[indexPath.row].destination
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LastSearchesViewCell
+            let search = searches?[indexPath.row]
+        
+            cell.destination.text = search?.destinationAddress
+            cell.startPoint.text = search?.startingPointAddress
+            cell.search = search
+            
+            if search?.foundSuggestion == false {
+                cell.icon?.image = UIImage(named: "x")
+            } else {
+                cell.icon?.image = UIImage(named: "v")
+            }
+            
             return cell
         }
+        
         return UITableViewCell.init()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedSearch = searches?[indexPath.row]
+        if self.selectedSearch?.foundSuggestion == false {
+            self.performSegue(withIdentifier: "toSuggestionsFromUserInfo", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSuggestionsFromUserInfo" {
+            if let nextViewController = segue.destination as? TableViewController {
+                nextViewController.search = self.selectedSearch;
+            }
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

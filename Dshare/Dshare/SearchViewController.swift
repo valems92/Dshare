@@ -170,12 +170,19 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     func setSearch() {
         let userId = Model.instance.getCurrentUserUid()
+        var lt:Date
+        var wt:Int? = nil
+        var fn:String? = nil
         
         if (leaveNow) {
-            self.search = Search(userId: userId, startingPoint: startingPointPlace.placeID, destination: destinationPlace.placeID, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: nowDate, waitingTime: Int(waitingTime.text!)!, flightNumber: nil)
+            lt = nowDate
+            wt = Int(waitingTime.text!)!
         } else {
-            self.search = Search(userId: userId, startingPoint: startingPointPlace.placeID, destination: destinationPlace.placeID, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: timePicker.date, waitingTime: nil, flightNumber: flightNumber.text)
+            lt = timePicker.date
+            fn = flightNumber.text
         }
+        
+        self.search = Search(userId: userId, startingPointCoordinate: startingPointPlace.coordinate, startingPointAddress: startingPointPlace.formattedAddress!, destinationCoordinate: destinationPlace.coordinate, destinationAddress: destinationPlace.formattedAddress!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: lt, waitingTime: wt, flightNumber: fn)
     }
 }
 
