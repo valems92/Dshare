@@ -3,16 +3,17 @@ import GooglePlaces
 
 class SearchViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var startingPoint: UITextField!
-    @IBOutlet weak var detination: UITextField!
-    @IBOutlet weak var changeSpBtn: UIButton!
+    @IBOutlet weak var destination: UITextField!
     @IBOutlet weak var timePicker: UIDatePicker!
     @IBOutlet weak var flightNumber: UITextField!
     @IBOutlet weak var waitingTime: UITextField!
     @IBOutlet weak var passangers: UITextField!
     @IBOutlet weak var baggage: UITextField!
+    @IBOutlet weak var searchBtn: UIButton!
+    @IBOutlet weak var searchTopConstraint: NSLayoutConstraint!
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
-    
+
     var isStaringPointChanged:Bool!
     var startingPointPlace: GMSPlace!
     var destinationPlace: GMSPlace!
@@ -20,11 +21,16 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     var nowDate:Date!
     var search:Search!
 
+    let LEAVE_NOW_CONSTANT:CGFloat = 25
+    let LEAVE_LATER_FLIGHT_CONSTANT:CGFloat = 265
+    let LEAVE_LATER_NO_FLIGHT_CONSTANT:CGFloat = 200
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false);
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
+        searchTopConstraint.constant = LEAVE_NOW_CONSTANT
         
         leaveNow = true
         nowDate = Date()
@@ -35,6 +41,9 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         timePicker.date = timePicker.minimumDate!
         
         setCurrentPlace()
+        
+        startingPoint.addTarget(self, action: #selector(onChangeStartingPoint), for: .editingDidBegin)
+        destination.addTarget(self, action: #selector(onChangeDestination), for: .editingDidBegin)
         
         //Dismiss keyboard when touching anywhere outside text field
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
@@ -61,13 +70,13 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         showSelectFlight(place: startingPointPlace)
     }
     
-    @IBAction func onChangeDestination(_ sender: UIButton) {
-        self.isStaringPointChanged = false
+    func onChangeStartingPoint() {
+        self.isStaringPointChanged = true
         presentAutoCompleteView()
     }
     
-    @IBAction func onChangeStartingPoint(_ sender: UIButton) {
-        self.isStaringPointChanged = true
+    func onChangeDestination() {
+        self.isStaringPointChanged = false
         presentAutoCompleteView()
     }
     
@@ -91,7 +100,6 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     func setCurrentPlace() {
         let placesClient: GMSPlacesClient! = GMSPlacesClient.shared()
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
-            self.changeSpBtn.isEnabled = true
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
                 return
@@ -115,7 +123,14 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
         
-        flightNumber.isHidden = (isAirport && !leaveNow) ? false: true
+        if isAirport && !leaveNow {
+            flightNumber.isHidden = false
+            searchTopConstraint.constant = LEAVE_LATER_FLIGHT_CONSTANT
+            
+        } else {
+            searchTopConstraint.constant = (leaveNow) ? LEAVE_NOW_CONSTANT : LEAVE_LATER_NO_FLIGHT_CONSTANT
+            flightNumber.isHidden = true
+        }
     }
     
     func setStartingPoint(place: GMSPlace) {
@@ -125,12 +140,12 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func setDestinationPoint(place: GMSPlace) {
-        self.detination.text = place.name
+        self.destination.text = place.name
         self.destinationPlace = place
     }
     
     func validateUserInput() -> Bool {
-        if ((startingPoint.text?.isEmpty)! || (detination.text?.isEmpty)! || (passangers.text?.isEmpty)! || (baggage.text?.isEmpty)!
+        if ((startingPoint.text?.isEmpty)! || (destination.text?.isEmpty)! || (passangers.text?.isEmpty)! || (baggage.text?.isEmpty)!
             || (leaveNow && (waitingTime.text?.isEmpty)!)) {
             Utils.instance.displayAlertMessage(messageToDisplay:"Please fill out the mandatory fields to proceed", controller: self)
             return false

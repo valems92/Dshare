@@ -114,8 +114,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     private func setSuggestionsUserData() {
-        for i in 0...suggestions.count - 1 {
-            suggestions[i].userData = usersData[suggestions[i].userId]
+        if suggestions.count > 0 {
+            for i in 0...suggestions.count - 1 {
+                suggestions[i].userData = usersData[suggestions[i].userId]
+            }
         }
     }
     
