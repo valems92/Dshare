@@ -1,7 +1,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!

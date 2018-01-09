@@ -12,7 +12,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     var user:User?
     var searches:[Search]?
     var selectedSearch:Search?
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
     
     let genderOptions = ["Male", "Female"]
     

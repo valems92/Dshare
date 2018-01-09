@@ -11,7 +11,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var passangers: UITextField!
     @IBOutlet weak var baggage: UITextField!
     
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
     
     var isStaringPointChanged:Bool!
     var startingPointPlace: GMSPlace!

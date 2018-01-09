@@ -4,7 +4,7 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     
     var pickerDataSource = ["Male", "Female"]
     var userImage:UIImage?
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
 
     @IBOutlet weak var scrollView: UIScrollView!
     

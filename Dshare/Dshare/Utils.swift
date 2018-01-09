@@ -6,8 +6,10 @@ class Utils {
     
     func initActivityIndicator(activityIndicator:UIActivityIndicatorView, controller:UIViewController) {
         activityIndicator.center = controller.view.center;
+        activityIndicator.backgroundColor = UIColor(red: 191.0/255.0, green:191.0/255.0, blue:191.0/255.0, alpha:1.0)
+        activityIndicator.layer.cornerRadius = 10
         activityIndicator.hidesWhenStopped = true;
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray;
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white;
         controller.view.addSubview(activityIndicator);
     }
     
