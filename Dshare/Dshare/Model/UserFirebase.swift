@@ -145,6 +145,18 @@ class UserFirebase {
         }
     }
     
+    func listenToChangeInSearches(callback:@escaping(Search?,String)->Void) {
+        let ref = Database.database().reference().child("searches");
+        
+        /*ref.observe(.childAdded, with: { snapshot in
+            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Added")
+        })*/
+        
+        ref.observe(.childChanged, with: { snapshot in
+            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
+        })
+    }
+    
     func getAllUsers(_ lastUpdateDate:Date? , callback:@escaping ([User])->Void){
         let handler = {(snapshot:DataSnapshot) in
             var users = [User]()

@@ -1,7 +1,5 @@
 import UIKit
 import CoreLocation
-import SwiftyJSON
-import Alamofire
 
 struct UserData {
     var user:User?
@@ -29,9 +27,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var table: UITableView!
     
     var usersData = [String : UserData]()
-    var suggestions: [SuggestionData] = []
+    var suggestions = [String : SuggestionData]()
     var search:Search!
-    
+
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     let MAX_KM_DISTANCE_DESTINATION:Double = 10000
@@ -40,10 +38,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        chat.isEnabled = false
-        chat.alpha = 0.5
-        
-        getAllMatches()
+        enabledChatBtn(false)
+        getAllSuggestions()
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,73 +63,100 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        chat.isEnabled = true
-         chat.alpha = 1
+        enabledChatBtn(true)
     }
     
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if tableView.indexPathsForSelectedRows == nil {
-            chat.isEnabled = false
-             chat.alpha = 0.5
+            enabledChatBtn(false)
         }
     }
     
-    private func getAllMatches() {
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.contentView.backgroundColor = (indexPath.row % 2 == 0) ? UIColor(red: 1, green: 0.9608, blue: 0.9569, alpha: 1.0) : UIColor.white
+    }
+    
+    private func enabledChatBtn(_ isEnabled:Bool) {
+        chat.isEnabled = isEnabled
+        chat.alpha = (isEnabled) ? 1 : 0.5
+    }
+    
+    public func searchesChanged(search:Search?, status:String) {
+        if search != nil {
+            switch (status) {
+            case "Added":
+                if suggestions[search!.id] == nil {
+                    self.addSuggestionOnListening(search!)
+                }
+                break;
+            default:
+                if suggestions[search!.id] != nil && search!.foundSuggestion {
+                    self.suggestions.removeValue(forKey: search!.id)
+                } else if suggestions[search!.id] == nil && search!.foundSuggestion == false {
+                    self.addSuggestionOnListening(search!)
+                }
+                break;
+            }
+        }
+    }
+    
+    private func addSuggestionOnListening(_ search:Search) {
+        self.addSuggestion(search, nil)
+        suggestions[search.id]?.userData = usersData[search.userId]
+        self.table.reloadData()
+    }
+    
+    private func getAllSuggestions() {
         Model.instance.getAllSearches() {(searches) in
-            
             let group = DispatchGroup()
             for suggestion in searches {
-                if suggestion.userId == self.search.userId ||  suggestion.foundSuggestion { continue }
-        
-                let destDistance = self.calcDestinationDistance(suggestion:suggestion)
-                let stDistance = self.calcStartingPointDistance(suggestion:suggestion)
-                if (destDistance > self.MAX_KM_DISTANCE_DESTINATION || stDistance > self.MAX_KM_DISTANCE_STARTING_POINT) { continue }
-                
-                group.enter()
-                self.suggestions.append(SuggestionData(userId: suggestion.userId, search: suggestion, distance: destDistance, userData: nil))
-        
-                if self.usersData[suggestion.userId] == nil {
-                    self.usersData[suggestion.userId] = UserData()
-                    Model.instance.getUserById(id: suggestion.userId) {(user) in
-                        Model.instance.getImage(urlStr: user.imagePath!, callback: { (image) in
-                            self.usersData[suggestion.userId]?.user = user
-                            self.usersData[suggestion.userId]?.image = image
-                            group.leave()
-                        })
-                    }
-                } else {
-                    group.leave()
-                }
+                self.addSuggestion(suggestion, group)
             }
             
             group.notify(queue: .main) {
                 self.setSuggestionsUserData()
                 self.table.reloadData()
+                
+                //Model.instance.listenToChangeInSearches(callback: self.searchesChanged)
             }
         }
     }
     
     private func setSuggestionsUserData() {
-        if suggestions.count > 0 {
-            for i in 0...suggestions.count - 1 {
-                suggestions[i].userData = usersData[suggestions[i].userId]
-            }
+        for (suggestionId, suggestionData) in suggestions {
+            suggestions[suggestionId]?.userData = usersData[suggestionData.userId]
         }
     }
     
-    func calcDestinationDistance(suggestion:Search)->Double {
-        let searchLocation = CLLocation(latitude: self.search.destinationCoordinate.latitude, longitude: self.search.destinationCoordinate.longitude)
-        let suggestionLocation = CLLocation(latitude: suggestion.destinationCoordinate.latitude, longitude: suggestion.destinationCoordinate.longitude)
+    private func addSuggestion(_ suggestion:Search, _ group:DispatchGroup?)->Void {
+        if suggestion.userId == self.search.userId ||  suggestion.foundSuggestion { return }
         
-        //distance in km
-        return (searchLocation.distance(from: suggestionLocation) / 1000)
+        let destDistance = self.calcDistance(suggestion.destinationCoordinate)
+        let stDistance = self.calcDistance(suggestion.startingPointCoordinate)
+        
+        if (destDistance > self.MAX_KM_DISTANCE_DESTINATION || stDistance > self.MAX_KM_DISTANCE_STARTING_POINT) { return }
+        
+        group?.enter()
+        self.suggestions[suggestion.id] = SuggestionData(userId: suggestion.userId, search: suggestion, distance: destDistance, userData: nil)
+        
+        if self.usersData[suggestion.userId] == nil {
+            self.usersData[suggestion.userId] = UserData()
+            Model.instance.getUserById(id: suggestion.userId) {(user) in
+                Model.instance.getImage(urlStr: user.imagePath!, callback: { (image) in
+                    self.usersData[suggestion.userId]?.user = user
+                    self.usersData[suggestion.userId]?.image = image
+                    
+                    group?.leave()
+                })
+            }
+        } else {
+            group?.leave()
+        }
     }
     
-    func calcStartingPointDistance(suggestion:Search)->Double {
-        let searchLocation = CLLocation(latitude: self.search.startingPointCoordinate.latitude, longitude: self.search.startingPointCoordinate.longitude)
-        let suggestionLocation = CLLocation(latitude: suggestion.startingPointCoordinate.latitude, longitude: suggestion.startingPointCoordinate.longitude)
-        
-        //distance in km
+    private func calcDistance(_ coordinate:CLLocationCoordinate2D)->Double {
+        let searchLocation = CLLocation(latitude: search.destinationCoordinate.latitude, longitude: search.destinationCoordinate.longitude)
+        let suggestionLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         return (searchLocation.distance(from: suggestionLocation) / 1000)
     }
     
@@ -144,7 +167,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SuggestionTableViewCell
         
-        let suggestion = suggestions[indexPath.row]
+        let suggestion = suggestions[Array(suggestions.keys)[indexPath.row]]!
         
         cell.name.text = suggestion.userData!.user!.fName + " " + suggestion.userData!.user!.lName
         cell.suggestionImage?.image = suggestion.userData?.image

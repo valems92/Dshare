@@ -80,6 +80,10 @@ class Model{
         modelFirebase?.getAllSearches(callback: completionBlock);
     }
     
+    func listenToChangeInSearches(callback:@escaping(Search?,String)->Void) {
+        modelFirebase?.listenToChangeInSearches(callback: callback)
+    }
+    
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
         modelFirebase?.signInUser(email: email, password: password){(error) in
             completionBlock(error)
