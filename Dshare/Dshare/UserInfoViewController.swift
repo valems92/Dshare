@@ -36,7 +36,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             if user != nil{
                 self.user = user
                 self.updateAllTextFields(user: user)
-                self.pickerView(self.genderPickerView, titleForRow: Int(user.gender!)!, forComponent: 0)//TO FIX :: still dont update the gender of the user correctly
+                self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
             }
         }
         
