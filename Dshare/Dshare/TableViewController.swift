@@ -32,14 +32,19 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
-    let MAX_KM_DISTANCE_DESTINATION:Double = 10000
-    let MAX_KM_DISTANCE_STARTING_POINT:Double = 100
+    let MAX_KM_DISTANCE_DESTINATION:Double = 10000000
+    let MAX_KM_DISTANCE_STARTING_POINT:Double = 1000000
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         enabledChatBtn(false)
         getAllSuggestions()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        Model.instance.stopObserveSearches()
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,9 +94,16 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     self.addSuggestionOnListening(search!)
                 }
                 break;
+            case "Removed":
+                if self.suggestions[search!.id] != nil {
+                    self.suggestions.removeValue(forKey: search!.id)
+                    self.table.reloadData()
+                }
+                break;
             default:
                 if suggestions[search!.id] != nil && search!.foundSuggestion {
                     self.suggestions.removeValue(forKey: search!.id)
+                    self.table.reloadData()
                 } else if suggestions[search!.id] == nil && search!.foundSuggestion == false {
                     self.addSuggestionOnListening(search!)
                 }
@@ -117,7 +129,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.setSuggestionsUserData()
                 self.table.reloadData()
                 
-                //Model.instance.listenToChangeInSearches(callback: self.searchesChanged)
+                Model.instance.startObserveSearches(callback: self.searchesChanged)
             }
         }
     }

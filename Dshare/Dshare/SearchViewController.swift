@@ -17,7 +17,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     var isStaringPointChanged:Bool!
     var startingPointPlace: GMSPlace!
     var destinationPlace: GMSPlace!
-    var leaveNow:Bool!
+    var leaveNow:Bool = true
     var nowDate:Date!
     var search:Search!
 
@@ -32,7 +32,6 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
         searchTopConstraint.constant = LEAVE_NOW_CONSTANT
         
-        leaveNow = true
         nowDate = Date()
         
         timePicker.minimumDate = nowDate
