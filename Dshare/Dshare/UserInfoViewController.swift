@@ -26,22 +26,27 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         genderPickerView.dataSource = self
         genderPickerView.delegate = self
         
         newPassword.isSecureTextEntry = true
+        
         Model.instance.getCurrentUser() {(user) in
             if user != nil{
                 self.user = user
                 self.updateAllTextFields(user: user)
+                self.pickerView(self.genderPickerView, titleForRow: Int(user.gender!)!, forComponent: 0)//TO FIX :: still dont update the gender of the user correctly
             }
         }
+        
         Model.instance.getCorrentUserSearches() {(error, searches) in
             if error == nil {
                 self.searches = searches
                 self.searchesTableView.reloadData()
             }
         }
+        
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
     }
     
