@@ -144,9 +144,16 @@ class UserFirebase {
     func startObserveSearches(callback:@escaping(Search?,String)->Void) {
         let ref = Database.database().reference()
         
+        ref.child("searches").observe(.childAdded, with: { (snapshot) in
+            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Added")
+        })
+        
+        ref.child("searches").observe(.childRemoved, with: { (snapshot) in
+            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Removed")
+        })
+        
         ref.child("searches").observe(.childChanged, with: { (snapshot) in
-            print("childChanged \(snapshot)")
-            //callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
+            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
         })
     }
     
