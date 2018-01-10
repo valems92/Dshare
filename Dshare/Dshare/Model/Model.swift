@@ -80,8 +80,12 @@ class Model{
         modelFirebase?.getAllSearches(callback: completionBlock);
     }
     
-    func listenToChangeInSearches(callback:@escaping(Search?,String)->Void) {
-        modelFirebase?.listenToChangeInSearches(callback: callback)
+    func startObserveSearches(callback:@escaping(Search?,String)->Void) {
+        modelFirebase?.startObserveSearches(callback: callback)
+    }
+    
+    func stopObserveSearches() {
+        modelFirebase?.stopObserveSearches()
     }
     
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){

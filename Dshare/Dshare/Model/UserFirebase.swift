@@ -39,8 +39,7 @@ class UserFirebase {
     
     func addNewSearch(search: Search, completionBlock:@escaping (Error?)->Void){
         let searchesRef = Database.database().reference().child("searches");
-        let userSearchesRef = searchesRef.child(search.userId);
-        let searchRef = userSearchesRef.child(search.id)
+        let searchRef = searchesRef.child(search.id)
         
         searchRef.setValue(search.toJson()) {(error, dbref) in
             if(error != nil) {
@@ -112,17 +111,18 @@ class UserFirebase {
     }
     
     func getSearchesByUserId(id:String, callback:@escaping (Error?, [Search])->Void) {
-        let myRef = Database.database().reference().child("searches").child(id);
-        myRef.queryOrdered(byChild:"createdOn").observeSingleEvent(of: .value) {(snapshot:DataSnapshot) in
-            var searches = [Search]();
-            for child in snapshot.children.allObjects {
-                if let childData = child as? DataSnapshot {
-                    if let json = childData.value as? Dictionary<String,Any> {
-                        searches.append(Search(fromJson: json));
+        let myRef = Database.database().reference().child("searches")
+        myRef.queryOrdered(byChild: "userId").queryEqual(toValue: id).observeSingleEvent(of: .value) {(snapshot:DataSnapshot) in
+            var searches = [Search]()
+            for search in snapshot.children.allObjects {
+                if let searchData = search as? DataSnapshot {
+                    if let json = searchData.value as? Dictionary<String,Any> {
+                        searches.append(Search(fromJson: json))
                     }
                 }
             }
-            callback(nil, searches);
+            
+            callback(nil, searches)
         }
     }
     
@@ -130,31 +130,29 @@ class UserFirebase {
         let ref = Database.database().reference().child("searches");
         ref.observeSingleEvent(of: .value) {(snapshot: DataSnapshot) in
             var searches = [Search]();
-            for user in snapshot.children.allObjects {
-                if let userSearches = user as? DataSnapshot {
-                    for search in userSearches.children.allObjects {
-                        if let searchData = search as? DataSnapshot {
-                            if let json = searchData.value as? Dictionary<String,Any> {
-                                searches.append(Search(fromJson: json));
-                            }
-                        }
+            for search in snapshot.children.allObjects {
+                if let searchData = search as? DataSnapshot {
+                    if let json = searchData.value as? Dictionary<String,Any> {
+                        searches.append(Search(fromJson: json))
                     }
                 }
             }
-            callback(searches);
+            callback(searches)
         }
     }
     
-    func listenToChangeInSearches(callback:@escaping(Search?,String)->Void) {
-        let ref = Database.database().reference().child("searches");
+    func startObserveSearches(callback:@escaping(Search?,String)->Void) {
+        let ref = Database.database().reference()
         
-        /*ref.observe(.childAdded, with: { snapshot in
-            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Added")
-        })*/
-        
-        ref.observe(.childChanged, with: { snapshot in
-            callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
+        ref.child("searches").observe(.childChanged, with: { (snapshot) in
+            print("childChanged \(snapshot)")
+            //callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
         })
+    }
+    
+    func stopObserveSearches() {
+        let ref = Database.database().reference()
+        ref.child("searches").removeAllObservers()
     }
     
     func getAllUsers(_ lastUpdateDate:Date? , callback:@escaping ([User])->Void){

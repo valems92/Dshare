@@ -42,8 +42,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         getAllSuggestions()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        Model.instance.stopObserveSearches()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -117,7 +124,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.setSuggestionsUserData()
                 self.table.reloadData()
                 
-                //Model.instance.listenToChangeInSearches(callback: self.searchesChanged)
+                Model.instance.startObserveSearches(callback: self.searchesChanged)
             }
         }
     }
