@@ -45,6 +45,7 @@ class Model{
     //lazy private var modelSql:ModelSql? = ModelSql()
     lazy private var userFirebase:UserFirebase? = UserFirebase()
     lazy private var messageFirebase:MessageFirebase? = MessageFirebase()
+    lazy private var searchFirebase:SearchFirebase? = SearchFirebase()
     
     private init(){
     }
@@ -63,7 +64,7 @@ class Model{
     }
     
     func addNewSearch(search:Search, completionBlock:@escaping (Error?)->Void){
-        userFirebase?.addNewSearch(search: search){ (error) in
+        searchFirebase?.addNewSearch(search: search){ (error) in
             completionBlock(error)
         }
     }
@@ -76,23 +77,23 @@ class Model{
     
     func getCorrentUserSearches(completionBlock:@escaping (Error?, [Search])->Void){
         let id = getCurrentUserUid()
-        userFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
+        searchFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
     }
     
     func getSearchesByUserId(id:String, completionBlock:@escaping (Error?, [Search])->Void){
-        userFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
+        searchFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
     }
     
     func getAllSearches(completionBlock:@escaping([Search])->Void) {
-        userFirebase?.getAllSearches(callback: completionBlock);
+        searchFirebase?.getAllSearches(callback: completionBlock);
     }
     
     func startObserveSearches(callback:@escaping(Search?,String)->Void) {
-        userFirebase?.startObserveSearches(callback: callback)
+        searchFirebase?.startObserveSearches(callback: callback)
     }
     
     func stopObserveSearches() {
-        userFirebase?.stopObserveSearches()
+        searchFirebase?.stopObserveSearches()
     }
     
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){

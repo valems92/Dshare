@@ -21,9 +21,9 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     var nowDate:Date!
     var search:Search!
 
-    let LEAVE_NOW_CONSTANT:CGFloat = 25
-    let LEAVE_LATER_FLIGHT_CONSTANT:CGFloat = 265
-    let LEAVE_LATER_NO_FLIGHT_CONSTANT:CGFloat = 200
+    let LEAVE_NOW_CONSTANT:CGFloat = 75
+    let LEAVE_LATER_FLIGHT_CONSTANT:CGFloat = 315
+    let LEAVE_LATER_NO_FLIGHT_CONSTANT:CGFloat = 250
     
     override func viewDidLoad() {
         super.viewDidLoad()
