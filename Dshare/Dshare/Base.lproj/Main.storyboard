@@ -488,16 +488,6 @@
                                     <segue destination="aV4-OJ-HWe" kind="show" identifier="toSuggestionsFromSearch" id="V04-P9-KOK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0K-of-ktm">
-                                <rect key="frame" x="306" y="64" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="My Profile">
-                                    <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="gmC-DV-hb7" kind="show" id="YPA-fH-QxS"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -512,6 +502,13 @@
                             <constraint firstItem="F28-DL-7uj" firstAttribute="top" secondItem="I8K-8K-SrR" secondAttribute="top" constant="5" id="wr2-Uf-Tet"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Suggestions" id="EB4-oZ-s7d">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="pOQ-gs-Hce">
+                            <connections>
+                                <segue destination="gmC-DV-hb7" kind="show" id="3gZ-r2-ZMu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="chat" destination="6zq-GS-6B1" id="U2H-60-I7f"/>
                         <outlet property="table" destination="F28-DL-7uj" id="9A6-7a-J48"/>
@@ -673,16 +670,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-ZG-sHp">
-                                        <rect key="frame" x="306" y="2" width="69" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="My Profile">
-                                            <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="gmC-DV-hb7" kind="show" id="Lhm-Vk-E38"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="aku-5U-ohg" firstAttribute="leading" secondItem="F7N-GT-qtt" secondAttribute="leading" constant="10" id="061-nd-nre"/>
@@ -727,6 +714,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QpP-kw-gjj"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Search" id="4Pj-Uz-3j2">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="Nst-gS-xgJ">
+                            <connections>
+                                <segue destination="gmC-DV-hb7" kind="show" id="m1g-Iq-M4e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="baggage" destination="KkZ-8f-8vZ" id="ozr-PU-Ckm"/>
                         <outlet property="destination" destination="skj-25-fJh" id="jVM-f9-uEg"/>
@@ -1017,8 +1011,8 @@
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lhm-Vk-E38"/>
-        <segue reference="3oI-0G-4aq"/>
-        <segue reference="IWC-pX-nDy"/>
+        <segue reference="3gZ-r2-ZMu"/>
+        <segue reference="LqA-cX-QpL"/>
+        <segue reference="f5Q-8l-bfg"/>
     </inferredMetricsTieBreakers>
 </document>

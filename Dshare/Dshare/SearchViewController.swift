@@ -27,7 +27,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.setHidesBackButton(true, animated: false);
+        self.navigationItem.setHidesBackButton(false, animated: false);
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
         searchTopConstraint.constant = LEAVE_NOW_CONSTANT

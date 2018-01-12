@@ -38,6 +38,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.hidesBackButton = false
+        
         enabledChatBtn(false)
         getAllSuggestions()
     }
