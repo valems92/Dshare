@@ -48,21 +48,23 @@ class SearchFirebase {
     }
     
     func startObserveSearches(callback:@escaping(Search?,String)->Void) {
-       searchesRef.observe(.childAdded, with: { (snapshot) in
+        let ref = Database.database().reference()
+        ref.child("searches").observe(.childAdded, with: { (snapshot) in
             callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Added")
         })
         
-        searchesRef.observe(.childRemoved, with: { (snapshot) in
+        ref.child("searches").observe(.childRemoved, with: { (snapshot) in
             callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Removed")
         })
         
-        searchesRef.observe(.childChanged, with: { (snapshot) in
+        ref.child("searches").observe(.childChanged, with: { (snapshot) in
             callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
         })
     }
     
-    func stopObserveSearches() {
-        searchesRef.removeAllObservers()
+    func stopObserves() {
+        let ref = Database.database().reference()
+        ref.child("searches").removeAllObservers()
     }
 }
 

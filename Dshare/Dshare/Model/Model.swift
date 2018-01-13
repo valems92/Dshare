@@ -1,18 +1,9 @@
-//
-//  Model.swift
-//  Dshare
-//
-//  Created by admin on 31/12/2017.
-//  Copyright © 2017 Munoz, Valentina. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 //let notifyStudentListUpdate = "com.menachi.NotifyStudentListUpdate"
 
 extension Date {
-    
     func toFirebase()->Double{
         return self.timeIntervalSince1970 * 1000
     }
@@ -35,9 +26,35 @@ extension Date {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter.string(from: self)
     }
-    
 }
 
+class ModelNotificationBase<T>{
+    var name:String?
+    
+    init(name:String) {
+        self.name = name
+    }
+    
+    func observe(callback:@escaping (T?, Any?)->Void)->Any {
+        return NotificationCenter.default.addObserver(forName: NSNotification.Name(name!), object: nil, queue: nil) { (data) in
+            if let dataContent = data.userInfo?["data"] as? T {
+                callback(dataContent, data.userInfo?["params"])
+            }
+        }
+    }
+    
+    func post(data:T, params:Any?){
+        NotificationCenter.default.post(name: NSNotification.Name(name!), object: self, userInfo: ["data": data, "params": params ?? ""])
+    }
+}
+
+class ModelNotification{
+    static let SuggestionsUpdate = ModelNotificationBase<Search>(name: "SuggestionsUpdateNotification")
+    
+    static func removeObserver(observer:Any){
+        NotificationCenter.default.removeObserver(observer)
+    }
+}
 
 class Model{
     static let instance = Model()
@@ -49,6 +66,12 @@ class Model{
     
     private init(){
     }
+    
+    func clear() {
+        self.searchFirebase?.stopObserves()
+    }
+    
+    /*************************** User ***************************/
     
     func checkIfUserLoggedIn(completionBlock:@escaping (Bool?)->Void){
         userFirebase?.checkIfUserLoggedIn() {(isUserLoggedIn) in
@@ -63,37 +86,18 @@ class Model{
         }
     }
     
-    func addNewSearch(search:Search, completionBlock:@escaping (Error?)->Void){
-        searchFirebase?.addNewSearch(search: search){ (error) in
-            completionBlock(error)
+    func getCurrentUser(callback:@escaping (User)->Void){
+        let id:String = self.getCurrentUserUid();
+        userFirebase?.getUserById(id:id){(user) in
+            if user != nil {
+                callback(user!)
+            }
         }
     }
     
-    func addNewMessage(message:Message, completionBlock:@escaping (Error?)->Void){
-        messageFirebase?.addNewMessage(message: message){ (error) in
-            completionBlock(error)
-        }
-    }
-    
-    func getCorrentUserSearches(completionBlock:@escaping (Error?, [Search])->Void){
-        let id = getCurrentUserUid()
-        searchFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
-    }
-    
-    func getSearchesByUserId(id:String, completionBlock:@escaping (Error?, [Search])->Void){
-        searchFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
-    }
-    
-    func getAllSearches(completionBlock:@escaping([Search])->Void) {
-        searchFirebase?.getAllSearches(callback: completionBlock);
-    }
-    
-    func startObserveSearches(callback:@escaping(Search?,String)->Void) {
-        searchFirebase?.startObserveSearches(callback: callback)
-    }
-    
-    func stopObserveSearches() {
-        searchFirebase?.stopObserveSearches()
+    func getCurrentUserUid() -> String {
+        let id:String? = userFirebase?.getCurrentUserUid()
+        return id!
     }
     
     func signInUser(email:String, password:String, completionBlock:@escaping (Error?)->Void){
@@ -116,32 +120,98 @@ class Model{
         }
     }
     
-    func getCurrentUser(callback:@escaping (User)->Void){
-        let id:String = self.getCurrentUserUid();
-        userFirebase?.getUserById(id:id){(user) in
-            if user != nil {
-                callback(user!)
-            }
-        }
-    }
-    
-    func getCurrentUserUid() -> String {
-        let id:String? = userFirebase?.getCurrentUserUid()
-        return id!
-    }
-    
-    func observeMessages(callback:@escaping (Message?)->Void) {
-        messageFirebase?.observeMessages() { (message) in
-            callback(message)
-        }
-    }
-    
     func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String){
         userFirebase?.updateUserInfo(fName:fName, lName:lName, email:email, phoneNum:phoneNum, gender:gender)
     }
     
     func updatePassword(newPassword:String){
         userFirebase?.updatePassword(newPassword: newPassword)
+    }
+    
+     /****** Images ******/
+    
+    func saveImage(image:UIImage, name:String, callback:@escaping (String?)->Void){
+        userFirebase?.saveImageToFirebase(image: image, name: name, callback: {(url) in
+            if (url != nil){
+                self.saveImageToFile(image: image, name: name)
+            }
+            callback(url)
+        })
+    }
+    
+    func getImage(urlStr:String, callback:@escaping (UIImage?)->Void){
+        let url = URL(string: urlStr)
+        let localImageName = url!.lastPathComponent
+        if let image = self.getImageFromFile(name: localImageName){
+            callback(image)
+        }else{
+            userFirebase?.getImageFromFirebase(url: urlStr, callback: { (image) in
+                if (image != nil){
+                    self.saveImageToFile(image: image!, name: localImageName)
+                }
+                callback(image)
+            })
+        }
+    }
+    
+    private func saveImageToFile(image:UIImage, name:String){
+        if let data = UIImageJPEGRepresentation(image, 0.8) {
+            let filename = getDocumentsDirectory().appendingPathComponent(name)
+            try? data.write(to: filename)
+        }
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in:
+            .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    private func getImageFromFile(name:String)->UIImage?{
+        let filename = getDocumentsDirectory().appendingPathComponent(name)
+        return UIImage(contentsOfFile:filename.path)
+    }
+    
+    /*************************** Search ***************************/
+
+    func addNewSearch(search:Search, completionBlock:@escaping (Error?)->Void){
+        searchFirebase?.addNewSearch(search: search){ (error) in
+            completionBlock(error)
+        }
+    }
+    
+    func getCorrentUserSearches(completionBlock:@escaping (Error?, [Search])->Void){
+        let id = getCurrentUserUid()
+        searchFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
+    }
+    
+    func getSearchesByUserId(id:String, completionBlock:@escaping (Error?, [Search])->Void){
+        searchFirebase?.getSearchesByUserId(id: id, callback: completionBlock);
+    }
+    
+    func getAllSearches(completionBlock:@escaping([Search])->Void) {
+        searchFirebase?.getAllSearches(callback: completionBlock);
+    }
+    
+    func startObserveSearches() {
+        searchFirebase?.startObserveSearches(callback: { (search, status) in
+            ModelNotification.SuggestionsUpdate.post(data: search!, params: status)
+        })
+    }
+    
+    /*************************** Message ***************************/
+
+    func addNewMessage(message:Message, completionBlock:@escaping (Error?)->Void){
+        messageFirebase?.addNewMessage(message: message){ (error) in
+            completionBlock(error)
+        }
+    }
+  
+    func observeMessages(callback:@escaping (Message?)->Void) {
+        messageFirebase?.observeMessages() { (message) in
+            callback(message)
+        }
     }
     
     /* func getAllStudents(callback:@escaping ([Student])->Void){
@@ -210,58 +280,4 @@ class Model{
      notifyStudentListUpdate), object:nil , userInfo:["students":totalList])
      })
      } */
-    
-    func saveImage(image:UIImage, name:String, callback:@escaping (String?)->Void){
-        //1. save image to Firebase
-        userFirebase?.saveImageToFirebase(image: image, name: name, callback: {(url) in
-            if (url != nil){
-                //2. save image localy
-                self.saveImageToFile(image: image, name: name)
-            }
-            //3. notify the user on complete
-            callback(url)
-        })
-    }
-    
-    func getImage(urlStr:String, callback:@escaping (UIImage?)->Void){
-        //1. try to get the image from local store
-        let url = URL(string: urlStr)
-        let localImageName = url!.lastPathComponent
-        if let image = self.getImageFromFile(name: localImageName){
-            callback(image)
-        }else{
-            //2. get the image from Firebase
-            userFirebase?.getImageFromFirebase(url: urlStr, callback: { (image) in
-                if (image != nil){
-                    //3. save the image localy
-                    self.saveImageToFile(image: image!, name: localImageName)
-                }
-                //4. return the image to the user
-                callback(image)
-            })
-        }
-    }
-    
-    private func saveImageToFile(image:UIImage, name:String){
-        if let data = UIImageJPEGRepresentation(image, 0.8) {
-            let filename = getDocumentsDirectory().appendingPathComponent(name)
-            try? data.write(to: filename)
-        }
-    }
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in:
-            .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    private func getImageFromFile(name:String)->UIImage?{
-        let filename = getDocumentsDirectory().appendingPathComponent(name)
-        return UIImage(contentsOfFile:filename.path)
-    }
-    
-    
-    
 }
-
-

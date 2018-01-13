@@ -733,7 +733,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="hlD-7j-OYR" firstAttribute="height" secondItem="VP0-tM-kh0" secondAttribute="height" priority="750" id="1nJ-4v-mqS"/>
+                            <constraint firstItem="hlD-7j-OYR" firstAttribute="height" secondItem="VP0-tM-kh0" secondAttribute="height" priority="250" id="1nJ-4v-mqS"/>
                             <constraint firstItem="8qV-lO-2Gj" firstAttribute="top" secondItem="EoT-T3-aQr" secondAttribute="bottom" id="OqQ-61-biZ"/>
                             <constraint firstItem="QpP-kw-gjj" firstAttribute="trailing" secondItem="8qV-lO-2Gj" secondAttribute="trailing" id="cdt-Hz-pJg"/>
                             <constraint firstItem="8qV-lO-2Gj" firstAttribute="leading" secondItem="QpP-kw-gjj" secondAttribute="leading" id="qrb-i4-gYU"/>
@@ -744,7 +744,6 @@
                     </view>
                     <connections>
                         <outlet property="baggage" destination="KkZ-8f-8vZ" id="ozr-PU-Ckm"/>
-                        <outlet property="contentView" destination="1nJ-4v-mqS" id="Kt6-ym-i4Q"/>
                         <outlet property="destination" destination="skj-25-fJh" id="jVM-f9-uEg"/>
                         <outlet property="flightNumber" destination="au1-0F-ggc" id="Loj-mD-byr"/>
                         <outlet property="passangers" destination="pc7-R5-70H" id="ygs-8b-RCx"/>

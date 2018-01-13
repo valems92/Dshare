@@ -22,7 +22,6 @@ class SuggestionTableViewCell: UITableViewCell {
 }
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
     @IBOutlet weak var chat: UIButton!
     @IBOutlet weak var table: UITableView!
     
@@ -30,6 +29,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var suggestions = [String : SuggestionData]()
     var search:Search!
 
+    var observerId:Any?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     let MAX_KM_DISTANCE_DESTINATION:Double = 10000000
@@ -42,11 +42,17 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         enabledChatBtn(false)
         getAllSuggestions()
+        
+        self.observerId = ModelNotification.SuggestionsUpdate.observe(callback: self.searchesChanged)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        Model.instance.stopObserveSearches()
+        
+        if (observerId != nil){
+            ModelNotification.removeObserver(observer: observerId!)
+        }
+        Model.instance.clear()
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,8 +94,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         chat.alpha = (isEnabled) ? 1 : 0.5
     }
     
-    public func searchesChanged(search:Search?, status:String) {
-        if search != nil {
+    public func searchesChanged(search:Search?, params:Any?)->Void {
+        if let status = params as? String {
             switch (status) {
             case "Added":
                 if suggestions[search!.id] == nil {
@@ -131,7 +137,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.setSuggestionsUserData()
                 self.table.reloadData()
                 
-                Model.instance.startObserveSearches(callback: self.searchesChanged)
+                Model.instance.startObserveSearches()
             }
         }
     }
