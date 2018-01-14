@@ -61,16 +61,17 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSuggestionsFromSearch" {
-            var users:[User] = []
+            var users:[String] = []
             if let nextViewController = segue.destination as? ChatViewController {
                 if table.indexPathsForSelectedRows != nil {
                     for rowIndex in table.indexPathsForSelectedRows! {
                         let cell = table.cellForRow(at: rowIndex) as! SuggestionTableViewCell
-                        users.append(cell.user!)
+                        users.append(cell.user!.id)
                     }
                 }
                 
                 nextViewController.users = users;
+                nextViewController.senderId = Model.instance.getCurrentUserUid()
             }
         }
     }
