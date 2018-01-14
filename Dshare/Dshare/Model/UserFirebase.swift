@@ -76,7 +76,7 @@ class UserFirebase {
             let gender = value?["gender"] as? String ?? ""
             let imagePath = value?["imagePath"] as? String ?? ""
             let phoneNum = value?["phoneNum"] as? String ?? ""
-            let user = User(email:email, fName:fName, lName:lName, phoneNum:phoneNum, gender:gender, imagePath:imagePath)
+            let user = User(id:id, email:email, fName:fName, lName:lName, phoneNum:phoneNum, gender:gender, imagePath:imagePath)
             callback(user)
         })
     }

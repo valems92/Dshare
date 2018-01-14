@@ -12,6 +12,21 @@ class User {
     var imagePath:String?
     var lastUpdate:Date?
     
+    init(id:String, email:String, fName:String, lName:String, phoneNum:String,gender:String?,imagePath:String?) {
+        self.id = id
+        self.email = email
+        self.password = ""
+        self.fName = fName
+        self.lName = lName
+        self.phoneNum = phoneNum
+        if(gender != nil){
+            self.gender = gender
+        }
+        if(imagePath != nil){
+            self.imagePath = imagePath
+        }
+    }
+    
     init(email:String, password:String, fName:String, lName:String, phoneNum:String,gender:String?,imagePath:String?) {
         self.id = UUID().uuidString
         self.email = email

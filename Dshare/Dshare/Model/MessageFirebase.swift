@@ -1,14 +1,19 @@
 import Foundation
 import Firebase
 
+protocol MessageReceivedDelegate: class {
+    func messageRecieved(senderID:String, senderName:String, recieversIds:[String], text:String)
+}
 
 class MessageFirebase {
     //let ref:DatabaseReference?
-    var newMessageRefHandle: DatabaseHandle?
+    //var newMessageRefHandle: DatabaseHandle?
     let messagesRef = Database.database().reference().child("messages")
     
+    weak var delegate:MessageReceivedDelegate?
+    
     //CHAT function
-    func addNewMessage(message: Message, completionBlock:@escaping (Error?)->Void){
+    /*func addNewMessage(message: Message, completionBlock:@escaping (Error?)->Void){
         let messageRef = messagesRef.child(message.id)
         // let messageRef = messagesRef.child(message.id)
         messageRef.setValue(message.toJson()) {(error, dbref) in
@@ -34,6 +39,21 @@ class MessageFirebase {
                 callback(nil)
             }
         })
+    }*/
+    
+    func sendMessage(senderID:String, senderName:String, recieversIds:[String], text:String) {
+        let data:Dictionary<String,Any> = ["senderID":senderID, "senderName": senderName, "recieversIds": recieversIds, "text": text]
+        
+        messagesRef.childByAutoId().setValue(data)
     }
     
+    func observeMessages() {
+        messagesRef.observe(.childAdded, with: { (snapshot) in
+            let messageData = snapshot.value as! Dictionary<String, Any>
+            
+            if let senderID = messageData["senderID"] as! String!, let senderName = messageData["senderName"] as! String!, let recieversIds = messageData["recieversIds"] as! [String]!, let text = messageData["text"] as! String! {
+                self.delegate?.messageRecieved(senderID: senderID, senderName:senderName, recieversIds:recieversIds, text: text)
+            }
+        })
+    }
 }

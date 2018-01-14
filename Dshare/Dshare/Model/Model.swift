@@ -61,7 +61,7 @@ class Model{
     
     //lazy private var modelSql:ModelSql? = ModelSql()
     lazy private var userFirebase:UserFirebase? = UserFirebase()
-    lazy private var messageFirebase:MessageFirebase? = MessageFirebase()
+    lazy var messageFirebase:MessageFirebase? = MessageFirebase()
     lazy private var searchFirebase:SearchFirebase? = SearchFirebase()
     
     private init(){
@@ -202,7 +202,7 @@ class Model{
     
     /*************************** Message ***************************/
 
-    func addNewMessage(message:Message, completionBlock:@escaping (Error?)->Void){
+    /*func addNewMessage(message:Message, completionBlock:@escaping (Error?)->Void){
         messageFirebase?.addNewMessage(message: message){ (error) in
             completionBlock(error)
         }
@@ -212,7 +212,17 @@ class Model{
         messageFirebase?.observeMessages() { (message) in
             callback(message)
         }
+    }*/
+    
+    
+    
+    func sendMessage(senderID:String, senderName:String, recieversIds:[String], text:String) {
+        messageFirebase?.sendMessage(senderID: senderID, senderName: senderName, recieversIds:recieversIds, text: text)
     }
+    
+    
+    
+    
     
     /* func getAllStudents(callback:@escaping ([Student])->Void){
      // get last update date from SQL
