@@ -10,7 +10,6 @@ struct SuggestionData {
     var userId:String
     var search:Search
     var distance:Double
-    var userData:UserData?
 }
 
 class SuggestionTableViewCell: UITableViewCell {
@@ -27,6 +26,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var usersData = [String : UserData]()
     var suggestions = [String : SuggestionData]()
+    var sortedSuggestions:[SuggestionData]?
     var search:Search!
 
     var observerId:Any?
@@ -104,14 +104,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 break;
             case "Removed":
                 if self.suggestions[search!.id] != nil {
-                    self.suggestions.removeValue(forKey: search!.id)
-                    self.table.reloadData()
+                    self.removeSuggestionOnListening(search!)
                 }
                 break;
             default:
                 if suggestions[search!.id] != nil && search!.foundSuggestion {
-                    self.suggestions.removeValue(forKey: search!.id)
-                    self.table.reloadData()
+                    self.removeSuggestionOnListening(search!)
                 } else if suggestions[search!.id] == nil && search!.foundSuggestion == false {
                     self.addSuggestionOnListening(search!)
                 }
@@ -120,10 +118,22 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    private func removeSuggestionOnListening(_ search:Search) {
+        self.suggestions.removeValue(forKey: search.id)
+        self.orderSuggestions()
+        self.table.reloadData()
+    }
+    
     private func addSuggestionOnListening(_ search:Search) {
         self.addSuggestion(search, nil)
-        suggestions[search.id]?.userData = usersData[search.userId]
+        self.orderSuggestions()
         self.table.reloadData()
+    }
+    
+    private func orderSuggestions() {
+        sortedSuggestions = Array(suggestions.values).sorted { (first, second) -> Bool in
+            first.distance < second.distance
+        }
     }
     
     private func getAllSuggestions() {
@@ -134,17 +144,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             group.notify(queue: .main) {
-                self.setSuggestionsUserData()
+                self.orderSuggestions()
                 self.table.reloadData()
-                
                 Model.instance.startObserveSearches()
             }
-        }
-    }
-    
-    private func setSuggestionsUserData() {
-        for (suggestionId, suggestionData) in suggestions {
-            suggestions[suggestionId]?.userData = usersData[suggestionData.userId]
         }
     }
     
@@ -157,17 +160,13 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if (destDistance > self.MAX_KM_DISTANCE_DESTINATION || stDistance > self.MAX_KM_DISTANCE_STARTING_POINT) { return }
         
         group?.enter()
-        self.suggestions[suggestion.id] = SuggestionData(userId: suggestion.userId, search: suggestion, distance: destDistance, userData: nil)
+        self.suggestions[suggestion.id] = SuggestionData(userId: suggestion.userId, search: suggestion, distance: destDistance)
         
         if self.usersData[suggestion.userId] == nil {
             self.usersData[suggestion.userId] = UserData()
             Model.instance.getUserById(id: suggestion.userId) {(user) in
-                Model.instance.getImage(urlStr: user.imagePath!, callback: { (image) in
-                    self.usersData[suggestion.userId]?.user = user
-                    self.usersData[suggestion.userId]?.image = image
-                    
-                    group?.leave()
-                })
+                self.usersData[suggestion.userId]?.user = user
+                group?.leave()
             }
         } else {
             group?.leave()
@@ -187,12 +186,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SuggestionTableViewCell
         
-        let suggestion = suggestions[Array(suggestions.keys)[indexPath.row]]!
+        let suggestion = sortedSuggestions![indexPath.row]
+        let suggUserData = self.usersData[suggestion.userId]
         
-        cell.name.text = suggestion.userData!.user!.fName + " " + suggestion.userData!.user!.lName
-        cell.suggestionImage?.image = suggestion.userData?.image
+        cell.name.text = suggUserData!.user!.fName + " " + suggUserData!.user!.lName
         cell.data.text = "Distance: " + String(format: "%.2f", suggestion.distance) + " km, Passangers: " + String(suggestion.search.passengers) + ", Baggage: " + String(suggestion.search.baggage)
-        cell.user = suggestion.userData?.user
+        cell.user = suggUserData!.user!
+        
+        if let image = suggUserData!.image {
+             cell.suggestionImage?.image = image
+        } else {
+            Model.instance.getImage(urlStr: suggUserData!.user!.imagePath!, callback: { (image) in
+                cell.suggestionImage?.image = image
+                self.usersData[suggestion.userId]!.image = image
+            })
+        }
         
         return cell
     }
