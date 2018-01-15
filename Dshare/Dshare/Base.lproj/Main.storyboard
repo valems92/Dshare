@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -488,16 +488,6 @@
                                     <segue destination="aV4-OJ-HWe" kind="show" identifier="toSuggestionsFromSearch" id="V04-P9-KOK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0K-of-ktm">
-                                <rect key="frame" x="306" y="64" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="My Profile">
-                                    <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="gmC-DV-hb7" kind="show" id="YPA-fH-QxS"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -512,6 +502,13 @@
                             <constraint firstItem="F28-DL-7uj" firstAttribute="top" secondItem="I8K-8K-SrR" secondAttribute="top" constant="5" id="wr2-Uf-Tet"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Suggestions" id="P6L-jQ-sNt">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="1UK-x1-xKe">
+                            <connections>
+                                <segue destination="gmC-DV-hb7" kind="show" id="lfj-DD-AMK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="chat" destination="6zq-GS-6B1" id="U2H-60-I7f"/>
                         <outlet property="table" destination="F28-DL-7uj" id="9A6-7a-J48"/>
@@ -650,16 +647,6 @@
                                                     <action selector="onChangeLeaveTime:" destination="31a-UM-sf3" eventType="valueChanged" id="QC3-rT-GEl"/>
                                                 </connections>
                                             </datePicker>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-ZG-sHp">
-                                                <rect key="frame" x="298" y="0.0" width="69" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="My Profile">
-                                                    <color key="titleColor" red="0.2147446066" green="0.1547814481" blue="0.10671037680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <segue destination="gmC-DV-hb7" kind="show" id="Lhm-Vk-E38"/>
-                                                </connections>
-                                            </button>
                                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Flight Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="au1-0F-ggc">
                                                 <rect key="frame" x="10" y="489" width="355" height="30"/>
                                                 <constraints>
@@ -742,6 +729,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QpP-kw-gjj"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Search" id="XT8-ya-PhK">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="ZE3-nf-0aI">
+                            <connections>
+                                <segue destination="gmC-DV-hb7" kind="show" id="E3S-iy-diP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="baggage" destination="KkZ-8f-8vZ" id="ozr-PU-Ckm"/>
                         <outlet property="destination" destination="skj-25-fJh" id="jVM-f9-uEg"/>
@@ -885,7 +879,7 @@
                                                 <rect key="frame" x="0.0" y="41.5" width="343" height="195.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Oiz-Zk-DjU" customClass="LastSearchesViewCell" customModule="Dshare" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Oiz-Zk-DjU" customClass="LastSearchesViewCell" customModule="Dshare" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oiz-Zk-DjU" id="U1U-Um-ooG">
@@ -1032,7 +1026,7 @@
         <image name="logo" width="164" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lhm-Vk-E38"/>
+        <segue reference="lfj-DD-AMK"/>
         <segue reference="LqA-cX-QpL"/>
         <segue reference="f5Q-8l-bfg"/>
     </inferredMetricsTieBreakers>
