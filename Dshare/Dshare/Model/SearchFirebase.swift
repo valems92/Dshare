@@ -3,12 +3,10 @@ import Firebase
 import FirebaseStorage
 import FirebaseAuth
 
-protocol ChatOpenedDelegate: class {
-    func chatOpened(search:Search)
-}
-
 class SearchFirebase {
     let searchesRef = Database.database().reference().child("searches")
+    var observers:[DatabaseReference] = []
+    var newChanges:Bool = false
 
     func addNewSearch(search: Search, completionBlock:@escaping (Error?)->Void){
         let searchRef = searchesRef.child(search.id)
@@ -64,38 +62,44 @@ class SearchFirebase {
         ref.child("searches").observe(.childChanged, with: { (snapshot) in
             callback(Search(fromJson: (snapshot.value as? [String : Any])!), "Changed")
         })
+        
+        observers.append(ref.child("searches"))
     }
     
     func stopObserves() {
-        let ref = Database.database().reference()
-        ref.child("searches").removeAllObservers()
+        for observe in observers {
+            observe.removeAllObservers()
+        }
+        observers.removeAll()
     }
     
-    func observeForChat() {
-        var refHandle: DatabaseHandle?
-        
-        refHandle = searchesRef.observe(.childChanged, with: { (snapshot) in
-            let searchData = snapshot.value as! Dictionary<String, Any>
-            let foundSuggestion = searchData["foundSuggestion"] as! Bool!
-            
-            if foundSuggestion! {
-                
+    func updateSearch(searchId:String, value:[AnyHashable : Any]) {
+        searchesRef.child(searchId).updateChildValues(value) {(error, dbref) in
+            if(error != nil) {
+                print("There was an error while updating search in DB")
             }
-        })
-    }
-    /*
-    func observeMessages() {
-        newMessageRefHandle = messagesRef.observe(.childAdded, with: { (snapshot) in
-            let messageData = snapshot.value as! Dictionary<String, Any>
-            
-            if let senderID = messageData["senderID"] as! String!, let senderName = messageData["senderName"] as! String!, let recieversIds = messageData["recieversIds"] as! [String]!, let text = messageData["text"] as! String! {
-                self.delegate?.messageRecieved(senderID: senderID, senderName:senderName, recieversIds:recieversIds, text: text)
-            }
-        })
+        }
     }
     
-    func removeObserveChat(){
-        searchesRef.removeObserver(withHandle: refHandle!)
-    }*/
+    func startObserveCurrentUserSearches(id:String, callback:@escaping([String])->Void) {
+        newChanges = false
+        getSearchesByUserId(id: id) { (error, searches) in
+            if error == nil {
+                for search in searches {
+                    self.searchesRef.child(search.id).observe(.childAdded, with: { (snapshot) in
+                        if self.newChanges {
+                            if snapshot.key == "suggestionsId" {
+                                callback(snapshot.value as! [String])
+                            }
+                        }
+                    })
+                    self.searchesRef.child(search.id).observeSingleEvent(of: .value, with: { (snapshot) in
+                        self.newChanges = true
+                    })
+                    self.observers.append(self.searchesRef.child(search.id))
+                }
+            }
+        }
+    }
 }
 

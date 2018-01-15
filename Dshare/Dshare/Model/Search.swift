@@ -5,17 +5,18 @@ import CoreLocation
 class Search {
     var id:String;
     var userId:String;
-    var startingPointCoordinate:CLLocationCoordinate2D;
-    var startingPointAddress:String;
-    var destinationCoordinate:CLLocationCoordinate2D;
-    var destinationAddress:String;
-    var passengers:Int;
-    var baggage:Int;
-    var leavingTime:Date;
-    var foundSuggestion:Bool;
-    var waitingTime:Int?;
-    var flightNumber:String?;
-    var createdOn:Date?;
+    var startingPointCoordinate:CLLocationCoordinate2D
+    var startingPointAddress:String
+    var destinationCoordinate:CLLocationCoordinate2D
+    var destinationAddress:String
+    var passengers:Int
+    var baggage:Int
+    var leavingTime:Date
+    var foundSuggestion:Bool
+    var suggestionsId:[String]?
+    var waitingTime:Int?
+    var flightNumber:String?
+    var createdOn:Date?
     
     init(userId:String, startingPointCoordinate:CLLocationCoordinate2D, startingPointAddress:String, destinationCoordinate:CLLocationCoordinate2D, destinationAddress:String, passengers:Int, baggage:Int, leavingTime:Date, waitingTime:Int?, flightNumber:String?) {
         self.id = UUID().uuidString
@@ -58,6 +59,10 @@ class Search {
     
         foundSuggestion = fromJson["foundSuggestion"] as! Bool
         
+        if let si = fromJson["suggestionsId"] as? [String] {
+            suggestionsId = si
+        }
+        
         if let wt = fromJson["waitingTime"] as? Int {
             waitingTime = wt
         }
@@ -86,6 +91,10 @@ class Search {
         json["baggage"] = baggage
         json["leavingTime"] = leavingTime.toFirebase()
         json["foundSuggestion"] = foundSuggestion
+        
+        if suggestionsId != nil {
+            json["suggestionsId"] = suggestionsId
+        }
         
         if waitingTime != nil {
             json["waitingTime"] = waitingTime

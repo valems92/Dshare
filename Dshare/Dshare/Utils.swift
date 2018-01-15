@@ -3,6 +3,7 @@ import UIKit
 
 class Utils {
     static let instance = Utils();
+    public let defaultIconUrl = "https://firebasestorage.googleapis.com/v0/b/dshare-ac2cb.appspot.com/o/defaultIcon.png?alt=media&token=c72d96c9-f431-4fe6-968e-54df749475cf"
     
     func initActivityIndicator(activityIndicator:UIActivityIndicatorView, controller:UIViewController) {
         activityIndicator.center = controller.view.center;
@@ -22,16 +23,17 @@ class Utils {
         controller.present(alertController, animated:true, completion:nil);
     }
     
-    func alertMessageForChatOpening(controller:UIViewController){
-        let alertController = UIAlertController(title:"Message", message:"You've got a message! Do you want to see it?", preferredStyle:.alert);
-        let OKAction = UIAlertAction(title:"YES", style:.default) { (action:UIAlertAction!) in
-            //print("OK tapped")
-            /*Model.instance.getSearchesByUserId(id: Model.instance.getCurrentUserUid()){ (error, searches) in
-                for search in searches {
-                    search.foundSuggestion = true
-                }
-            }*/
+    func currentUserSearchChanged(suggestionsId:[String], controller:UIViewController) {
+        let alertController = UIAlertController(title:"Message", message:"A match was found for one of your searches!", preferredStyle:.alert);
+        let OKAction = UIAlertAction(title:"Open Chat", style:.default) { (action:UIAlertAction!) in
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil);
+            let viewController = storyBoard.instantiateViewController(withIdentifier: "ChatPage") as! ChatViewController;
             
+            viewController.users = suggestionsId
+            viewController.senderId = Model.instance.getCurrentUserUid()
+            
+            controller.navigationController!.pushViewController(viewController, animated: true)
+            //controller.present(viewController, animated: true, completion: nil);
         }
         alertController.addAction(OKAction)
         controller.present(alertController, animated:true, completion:nil)

@@ -50,6 +50,7 @@ class ModelNotificationBase<T>{
 
 class ModelNotification{
     static let SuggestionsUpdate = ModelNotificationBase<Search>(name: "SuggestionsUpdateNotification")
+    static let SearchUpdate = ModelNotificationBase<[String]>(name: "SearchUpdateNotification")
     
     static func removeObserver(observer:Any){
         NotificationCenter.default.removeObserver(observer)
@@ -139,8 +140,10 @@ class Model{
         })
     }
     
-    func getImage(urlStr:String, callback:@escaping (UIImage?)->Void){
-        let url = URL(string: urlStr)
+    func getImage(urlStr:String, callback:@escaping (UIImage?)->Void) {
+        let finalUrlStr = (urlStr == "") ? Utils.instance.defaultIconUrl : urlStr
+        
+        let url = URL(string: finalUrlStr)
         let localImageName = url!.lastPathComponent
         if let image = self.getImageFromFile(name: localImageName){
             callback(image)
@@ -200,15 +203,16 @@ class Model{
         })
     }
     
-    func observeChat() {
-        searchFirebase?.observeForChat()
+    func startObserveCurrentUserSearches() {
+        let id = getCurrentUserUid()
+        searchFirebase?.startObserveCurrentUserSearches(id: id, callback: { (suggestionsId) in
+            ModelNotification.SearchUpdate.post(data: suggestionsId, params: nil)
+        })
     }
     
-    func removeObserveChat() {
-       // searchFirebase?.removeObserveChat()
+    func updateSearch(searchId:String, value:[AnyHashable : Any]) {
+        searchFirebase?.updateSearch(searchId:searchId, value:value)
     }
-    
-    
     
     /*************************** Message ***************************/
 

@@ -18,6 +18,7 @@ class SuggestionTableViewCell: UITableViewCell {
     @IBOutlet weak var suggestionImage: UIImageView!
     
     var user:User?
+    var search:Search?
 }
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -29,7 +30,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var sortedSuggestions:[SuggestionData]?
     var search:Search!
 
-    var observerId:Any?
+    var suggestionUpdateObserverId:Any?
+    var searchUpdateObserverId:Any?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     let MAX_KM_DISTANCE_DESTINATION:Double = 10000000
@@ -42,36 +44,71 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         enabledChatBtn(false)
         getAllSuggestions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        suggestionUpdateObserverId = ModelNotification.SuggestionsUpdate.observe(callback: self.searchesChanged)
         
-        self.observerId = ModelNotification.SuggestionsUpdate.observe(callback: self.searchesChanged)
+        searchUpdateObserverId = ModelNotification.SearchUpdate.observe(callback: { (suggestionsId, params) in
+            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, controller: self)
+        })
+        
+        Model.instance.startObserveCurrentUserSearches()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        if (observerId != nil){
-            ModelNotification.removeObserver(observer: observerId!)
-        }
-        Model.instance.clear()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
+        clear()
+    }
+    
+    func clear() {
+        if suggestionUpdateObserverId != nil {
+            ModelNotification.removeObserver(observer: suggestionUpdateObserverId!)
+            suggestionUpdateObserverId = nil
+        }
+        
+        if searchUpdateObserverId != nil {
+            ModelNotification.removeObserver(observer: searchUpdateObserverId!)
+            searchUpdateObserverId = nil
+        }
+        
+        Model.instance.clear()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSuggestionsFromSearch" {
             var users:[String] = []
+            var searches:[Search] = []
+        
             if let nextViewController = segue.destination as? ChatViewController {
                 if table.indexPathsForSelectedRows != nil {
                     for rowIndex in table.indexPathsForSelectedRows! {
                         let cell = table.cellForRow(at: rowIndex) as! SuggestionTableViewCell
+                        searches.append(cell.search!)
                         users.append(cell.user!.id)
                     }
                 }
                 
+                let cuurentUserId = Model.instance.getCurrentUserUid()
                 nextViewController.users = users;
-                nextViewController.senderId = Model.instance.getCurrentUserUid()
+                nextViewController.senderId = cuurentUserId
+                
+                self.clear()
+                
+                searches.append(self.search)
+                users.append(cuurentUserId)
+                for i in 0...searches.count - 1 {
+                    let s = searches[i]
+                    Model.instance.updateSearch(searchId: s.id, value: ["foundSuggestion": true, "suggestionsId": users.filter({ (user) -> Bool in
+                        user != s.userId
+                    })])
+                }
             }
         }
     }
@@ -192,7 +229,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.name.text = suggUserData!.user!.fName + " " + suggUserData!.user!.lName
         cell.data.text = "Distance: " + String(format: "%.2f", suggestion.distance) + " km, Passangers: " + String(suggestion.search.passengers) + ", Baggage: " + String(suggestion.search.baggage)
+        
         cell.user = suggUserData!.user!
+        cell.search = suggestion.search
         
         if let image = suggUserData!.image {
              cell.suggestionImage?.image = image

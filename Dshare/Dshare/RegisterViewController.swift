@@ -91,7 +91,7 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
         }
         else { // User didn't upload a picture
              //Set user image path to be the default image from storage
-             user.imagePath = "https://firebasestorage.googleapis.com/v0/b/dshare-ac2cb.appspot.com/o/defaultIcon.png?alt=media&token=c72d96c9-f431-4fe6-968e-54df749475cf"
+             user.imagePath = Utils.instance.defaultIconUrl
              //Add new user
              self.addNewUser(user: user)
         }

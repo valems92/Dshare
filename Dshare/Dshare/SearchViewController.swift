@@ -1,7 +1,7 @@
 import UIKit
 import GooglePlaces
 
-class SearchViewController: UIViewController, CLLocationManagerDelegate, ChatOpenedDelegate {
+class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var startingPoint: UITextField!
     @IBOutlet weak var destination: UITextField!
@@ -21,6 +21,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, ChatOpe
     var leaveNow:Bool = true
     var nowDate:Date!
     var search:Search!
+    var observerId:Any?
 
     let LEAVE_NOW_CONSTANT:CGFloat = 75
     let LEAVE_LATER_FLIGHT_CONSTANT:CGFloat = 315
@@ -28,7 +29,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, ChatOpe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.setHidesBackButton(false, animated: false);
+        self.navigationItem.setHidesBackButton(true, animated: false)
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
         searchTopConstraint.constant = LEAVE_NOW_CONSTANT
@@ -47,11 +48,30 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, ChatOpe
         
         //Dismiss keyboard when touching anywhere outside text field
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
-        self.view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        observerId = ModelNotification.SearchUpdate.observe(callback: { (suggestionsId, params) in
+            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, controller: self)
+        })
+        
+        Model.instance.startObserveCurrentUserSearches()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if observerId != nil {
+            ModelNotification.removeObserver(observer: observerId!)
+            observerId = nil
+        }
+        
+        Model.instance.clear()
     }
     
     func tap(gesture: UITapGestureRecognizer) {
@@ -198,10 +218,6 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, ChatOpe
         }
         
         self.search = Search(userId: userId, startingPointCoordinate: startingPointPlace.coordinate, startingPointAddress: startingPointPlace.formattedAddress!, destinationCoordinate: destinationPlace.coordinate, destinationAddress: destinationPlace.formattedAddress!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: lt, waitingTime: wt, flightNumber: fn)
-    }
-    
-    func chatOpened(search: Search) {
-        Utils.instance.displayAlertMessage(messageToDisplay: "You've got a new message!", controller: self)
     }
 }
 
