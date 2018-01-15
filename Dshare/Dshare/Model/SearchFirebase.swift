@@ -3,6 +3,10 @@ import Firebase
 import FirebaseStorage
 import FirebaseAuth
 
+protocol ChatOpenedDelegate: class {
+    func chatOpened(search:Search)
+}
+
 class SearchFirebase {
     let searchesRef = Database.database().reference().child("searches")
 
@@ -66,5 +70,32 @@ class SearchFirebase {
         let ref = Database.database().reference()
         ref.child("searches").removeAllObservers()
     }
+    
+    func observeForChat() {
+        var refHandle: DatabaseHandle?
+        
+        refHandle = searchesRef.observe(.childChanged, with: { (snapshot) in
+            let searchData = snapshot.value as! Dictionary<String, Any>
+            let foundSuggestion = searchData["foundSuggestion"] as! Bool!
+            
+            if foundSuggestion! {
+                
+            }
+        })
+    }
+    /*
+    func observeMessages() {
+        newMessageRefHandle = messagesRef.observe(.childAdded, with: { (snapshot) in
+            let messageData = snapshot.value as! Dictionary<String, Any>
+            
+            if let senderID = messageData["senderID"] as! String!, let senderName = messageData["senderName"] as! String!, let recieversIds = messageData["recieversIds"] as! [String]!, let text = messageData["text"] as! String! {
+                self.delegate?.messageRecieved(senderID: senderID, senderName:senderName, recieversIds:recieversIds, text: text)
+            }
+        })
+    }
+    
+    func removeObserveChat(){
+        searchesRef.removeObserver(withHandle: refHandle!)
+    }*/
 }
 

@@ -1,7 +1,8 @@
 import UIKit
 import GooglePlaces
 
-class SearchViewController: UIViewController, CLLocationManagerDelegate {
+class SearchViewController: UIViewController, CLLocationManagerDelegate, ChatOpenedDelegate {
+    
     @IBOutlet weak var startingPoint: UITextField!
     @IBOutlet weak var destination: UITextField!
     @IBOutlet weak var timePicker: UIDatePicker!
@@ -197,6 +198,10 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         self.search = Search(userId: userId, startingPointCoordinate: startingPointPlace.coordinate, startingPointAddress: startingPointPlace.formattedAddress!, destinationCoordinate: destinationPlace.coordinate, destinationAddress: destinationPlace.formattedAddress!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: lt, waitingTime: wt, flightNumber: fn)
+    }
+    
+    func chatOpened(search: Search) {
+        Utils.instance.displayAlertMessage(messageToDisplay: "You've got a new message!", controller: self)
     }
 }
 

@@ -45,7 +45,6 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
             controller.delegate = self
             present(controller, animated: true, completion: nil)
         }
-        
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
@@ -119,14 +118,17 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     
     func validateUserInput() -> Bool {
         var returnValue = true
+        
         if (email.text?.isEmpty)! {
             Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your email", controller:self)
             returnValue = false
         }
+        
         if (password.text?.isEmpty)! {
             Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter a password", controller:self)
             returnValue = false
         }
+        
         if (rePassword.text?.isEmpty)! {
             Utils.instance.displayAlertMessage(messageToDisplay:"You have to re-enter your password", controller:self)
             returnValue = false
@@ -137,27 +139,30 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
                 returnValue = false
             }
         }
+        
         if (firstName.text?.isEmpty)! {
             Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your first name", controller:self)
             returnValue = false
         }
+        
         if (lastName.text?.isEmpty)! {
             Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your last name", controller:self)
             returnValue = false
         }
+        
         if (phoneNumber.text?.isEmpty)! {
             Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your phone number", controller:self)
             returnValue = false
         }
         
-        let isEmailAddressValid = isValidEmailAddress(emailAddressString: email.text!)
+        let isEmailAddressValid = Utils.instance.isValidEmailAddress(emailAddressString: email.text!)
         
         if !isEmailAddressValid {
             Utils.instance.displayAlertMessage(messageToDisplay:"Email address is not valid", controller:self)
             returnValue = false
         }
         
-        let isPhoneNumberValid = isValidPhoneNumber(phoneNumberString: phoneNumber.text!)
+        let isPhoneNumberValid = Utils.instance.isValidPhoneNumber(phoneNumberString: phoneNumber.text!)
         
         if !isPhoneNumberValid {
             Utils.instance.displayAlertMessage(messageToDisplay:"Phone number is not valid", controller:self)
@@ -174,45 +179,5 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     func stopAnimatingActivityIndicator() {
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
-    func isValidEmailAddress(emailAddressString:String) -> Bool {
-        var returnValue = true
-        let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
-        
-        do {
-            let regex = try NSRegularExpression(pattern: emailRegEx)
-            let nsString = emailAddressString as NSString
-            let results = regex.matches(in: emailAddressString, range: NSRange(location: 0, length: nsString.length))
-            
-            if results.count == 0 {
-                returnValue = false
-            }
-        } catch let error as NSError {
-            print("invalud regex: \(error.localizedDescription)")
-            returnValue = false
-        }
-        
-        return returnValue
-    }
-    
-    func isValidPhoneNumber(phoneNumberString:String) -> Bool {
-        var returnValue = true
-        let phoneRegEx = "^[0-9]{10}$"
-        
-        do {
-            let regex = try NSRegularExpression(pattern: phoneRegEx)
-            let nsString = phoneNumberString as NSString
-            let results = regex.matches(in: phoneNumberString, range: NSRange(location: 0, length: nsString.length))
-            
-            if results.count == 0 {
-                returnValue = false
-            }
-        } catch let error as NSError {
-            print("invalud regex: \(error.localizedDescription)")
-            returnValue = false
-        }
-        
-        return returnValue
     }
 }

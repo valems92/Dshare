@@ -7,7 +7,7 @@ protocol MessageReceivedDelegate: class {
 
 class MessageFirebase {
     //let ref:DatabaseReference?
-    //var newMessageRefHandle: DatabaseHandle?
+    var newMessageRefHandle: DatabaseHandle?
     let messagesRef = Database.database().reference().child("messages")
     
     weak var delegate:MessageReceivedDelegate?
@@ -48,12 +48,16 @@ class MessageFirebase {
     }
     
     func observeMessages() {
-        messagesRef.observe(.childAdded, with: { (snapshot) in
+        newMessageRefHandle = messagesRef.observe(.childAdded, with: { (snapshot) in
             let messageData = snapshot.value as! Dictionary<String, Any>
             
             if let senderID = messageData["senderID"] as! String!, let senderName = messageData["senderName"] as! String!, let recieversIds = messageData["recieversIds"] as! [String]!, let text = messageData["text"] as! String! {
                 self.delegate?.messageRecieved(senderID: senderID, senderName:senderName, recieversIds:recieversIds, text: text)
             }
         })
+    }
+    
+    func removeObserver(){
+        messagesRef.removeObserver(withHandle: newMessageRefHandle!)
     }
 }

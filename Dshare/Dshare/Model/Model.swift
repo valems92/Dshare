@@ -200,6 +200,16 @@ class Model{
         })
     }
     
+    func observeChat() {
+        searchFirebase?.observeForChat()
+    }
+    
+    func removeObserveChat() {
+       // searchFirebase?.removeObserveChat()
+    }
+    
+    
+    
     /*************************** Message ***************************/
 
     /*func addNewMessage(message:Message, completionBlock:@escaping (Error?)->Void){
@@ -220,7 +230,9 @@ class Model{
         messageFirebase?.sendMessage(senderID: senderID, senderName: senderName, recieversIds:recieversIds, text: text)
     }
     
-    
+    func removeObserver() {
+        messageFirebase?.removeObserver()
+    }
     
     
     

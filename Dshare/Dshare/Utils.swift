@@ -22,6 +22,21 @@ class Utils {
         controller.present(alertController, animated:true, completion:nil);
     }
     
+    func alertMessageForChatOpening(controller:UIViewController){
+        let alertController = UIAlertController(title:"Message", message:"You've got a message! Do you want to see it?", preferredStyle:.alert);
+        let OKAction = UIAlertAction(title:"YES", style:.default) { (action:UIAlertAction!) in
+            //print("OK tapped")
+            /*Model.instance.getSearchesByUserId(id: Model.instance.getCurrentUserUid()){ (error, searches) in
+                for search in searches {
+                    search.foundSuggestion = true
+                }
+            }*/
+            
+        }
+        alertController.addAction(OKAction)
+        controller.present(alertController, animated:true, completion:nil)
+    }
+    
     func isValidEmailAddress(emailAddressString:String) -> Bool {
         var returnValue = true
         let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
