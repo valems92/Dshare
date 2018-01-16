@@ -48,6 +48,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
+       
     }
     
     override func didReceiveMemoryWarning() {
