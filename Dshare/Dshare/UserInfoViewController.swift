@@ -37,7 +37,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         newPassword.isSecureTextEntry = true
         
         Model.instance.getCurrentUser() {(user) in
-            if user != nil{
+            if user != nil {
                 self.user = user
                 self.updateAllTextFields(user: user)
                 self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
@@ -56,24 +56,43 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func submitNewInfo(_ sender: Any) {
+    func validateTextFieldsInput() -> Bool {
         let isEmailAddressValid = Utils.instance.isValidEmailAddress(emailAddressString: email.text!)
         if !isEmailAddressValid {
             Utils.instance.displayAlertMessage(messageToDisplay:"Email address is not valid", controller:self)
+            return false
         }
         let isPhoneNumberValid = Utils.instance.isValidPhoneNumber(phoneNumberString: phoneNum.text!)
         if !isPhoneNumberValid {
             Utils.instance.displayAlertMessage(messageToDisplay:"Phone number is not valid", controller:self)
+            return false
         }
-        
-        Model.instance.updateUserInfo(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: genderPickerView.selectedRow(inComponent: 0).description)
-        Model.instance.getCurrentUser() {(user) in
-            if user != nil{
-                self.user = user
-                self.updateAllTextFields(user: user)
-                Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
+        if (fName.text?.isEmpty)! {
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your first name", controller:self)
+            return false
+        }
+        if (lName.text?.isEmpty)! {
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your first name", controller:self)
+            return false
+        }
+        if (phoneNum.text?.isEmpty)! {
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your first name", controller:self)
+            return false
+        }
+        return true
+    }
+    
+    @IBAction func submitNewInfo(_ sender: Any) {
+        if self.validateTextFieldsInput() == true {
+            Model.instance.updateUserInfo(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: genderPickerView.selectedRow(inComponent: 0).description)
+            Model.instance.getCurrentUser() {(user) in
+                if user != nil{
+                    self.user = user
+                    self.updateAllTextFields(user: user)
+                    Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
+                }
             }
-        }        
+        }
     }
     
     @IBAction func submitNewPassword(_ sender: Any) {
