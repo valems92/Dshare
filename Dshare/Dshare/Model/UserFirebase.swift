@@ -89,6 +89,9 @@ class UserFirebase {
         db.updateChildValues(["email":email])
         db.updateChildValues(["phoneNum":phoneNum])
         db.updateChildValues(["gender":gender])
+        Auth.auth().currentUser?.updateEmail(to: email) { (error) in
+            // ...
+        }
     }
     
     func updatePassword(newPassword:String){
