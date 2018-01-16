@@ -48,7 +48,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
-       
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,8 +69,9 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             if user != nil{
                 self.user = user
                 self.updateAllTextFields(user: user)
+                Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
             }
-        }
+        }        
     }
     
     @IBAction func submitNewPassword(_ sender: Any) {
@@ -81,6 +81,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else {
           Model.instance.updatePassword(newPassword: self.newPassword.text!)
+          Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
         }
     }
     

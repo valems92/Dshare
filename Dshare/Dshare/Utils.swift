@@ -23,6 +23,15 @@ class Utils {
         controller.present(alertController, animated:true, completion:nil);
     }
     
+    func displayMessageToUser(messageToDisplay:String, controller:UIViewController){
+        let alertController = UIAlertController(title:"", message:messageToDisplay, preferredStyle:.alert);
+        let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
+            print("OK tapped");
+        }
+        alertController.addAction(OKAction);
+        controller.present(alertController, animated:true, completion:nil);
+    }
+    
     func currentUserSearchChanged(suggestionsId:[String], controller:UIViewController) {
         let alertController = UIAlertController(title:"Message", message:"A match was found for one of your searches!", preferredStyle:.alert);
         let OKAction = UIAlertAction(title:"Open Chat", style:.default) { (action:UIAlertAction!) in
