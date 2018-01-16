@@ -835,16 +835,21 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="K19-wA-DoJ">
-                                                <rect key="frame" x="10" y="273" width="355" height="30"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="K19-wA-DoJ">
+                                                <rect key="frame" x="10" y="292" width="355" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="new password" borderStyle="roundedRect" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="imS-Np-hSF">
+                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="new password" borderStyle="roundedRect" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="imS-Np-hSF">
                                                         <rect key="frame" x="0.0" y="0.0" width="231" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="231" id="MHY-8g-fEP"/>
+                                                            <constraint firstAttribute="height" constant="30" id="aF8-G7-8XS"/>
+                                                        </constraints>
                                                         <color key="textColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkZ-dW-JAm">
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkZ-dW-JAm">
                                                         <rect key="frame" x="236" y="0.0" width="119" height="30"/>
                                                         <state key="normal" title="Submit Password"/>
                                                         <connections>
@@ -940,7 +945,6 @@
                                         <constraints>
                                             <constraint firstItem="IpL-JS-iiQ" firstAttribute="top" secondItem="GDI-Jy-bCD" secondAttribute="bottom" constant="50" id="0HW-t6-PzJ"/>
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="trailing" secondItem="Vv0-Mk-tiD" secondAttribute="trailing" id="3vV-Vi-8kZ"/>
-                                            <constraint firstItem="K19-wA-DoJ" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="5H4-2b-pOq"/>
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="centerX" secondItem="Vv0-Mk-tiD" secondAttribute="centerX" id="6ll-FR-FEe"/>
                                             <constraint firstAttribute="trailing" secondItem="GDI-Jy-bCD" secondAttribute="trailing" constant="10" id="9gE-tB-T8U"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="Djc-fo-Ddv"/>
@@ -952,7 +956,6 @@
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="top" secondItem="Zhd-Af-X5B" secondAttribute="top" constant="10" id="GHf-Gg-0xZ"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="Jzh-ny-ZPh"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="Vv0-Mk-tiD" secondAttribute="leading" id="K3C-bo-X3S"/>
-                                            <constraint firstAttribute="trailing" secondItem="K19-wA-DoJ" secondAttribute="trailing" constant="10" id="LDP-dS-MO7"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="MWj-RW-SEP"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="centerX" secondItem="Zhd-Af-X5B" secondAttribute="centerX" id="Nkt-sC-d2j"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="top" secondItem="Zhd-Af-X5B" secondAttribute="top" constant="337" id="O25-o1-8Rn"/>
@@ -982,7 +985,6 @@
                                             <constraint firstAttribute="height" constant="770" id="o9H-Vi-uOI"/>
                                             <constraint firstAttribute="bottom" secondItem="Vv0-Mk-tiD" secondAttribute="bottom" constant="512" id="p5e-3T-XQ2"/>
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="leading" secondItem="Vv0-Mk-tiD" secondAttribute="leading" id="p9E-eO-vMK"/>
-                                            <constraint firstItem="K19-wA-DoJ" firstAttribute="top" secondItem="Vv0-Mk-tiD" secondAttribute="bottom" constant="15" id="pec-iX-AEQ"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="centerX" secondItem="Zhd-Af-X5B" secondAttribute="centerX" id="qIg-Kt-5bC"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="centerX" secondItem="IpL-JS-iiQ" secondAttribute="centerX" id="qOm-uX-3L9"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="trailing" secondItem="GDI-Jy-bCD" secondAttribute="trailing" id="s6N-wb-EUH"/>
@@ -1027,7 +1029,6 @@
                         <outlet property="newPassword" destination="imS-Np-hSF" id="bfo-C8-Op6"/>
                         <outlet property="phoneNum" destination="cVE-u1-rxr" id="LUv-qD-RNX"/>
                         <outlet property="searchesTableView" destination="Dkt-6C-3cJ" id="7Wm-Bq-ocv"/>
-                        <outlet property="submitPasswordButton" destination="TkZ-dW-JAm" id="E1E-oB-xWF"/>
                         <segue destination="jU2-Da-XTd" kind="show" identifier="toSuggestionsFromUserInfo" id="IWC-pX-nDy"/>
                     </connections>
                 </viewController>
