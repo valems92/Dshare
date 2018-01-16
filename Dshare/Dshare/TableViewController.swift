@@ -34,8 +34,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var searchUpdateObserverId:Any?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
-    let MAX_KM_DISTANCE_DESTINATION:Double = 10000000
-    let MAX_KM_DISTANCE_STARTING_POINT:Double = 1000000
+    let MAX_KM_DISTANCE_DESTINATION:Double = 10
+    let MAX_KM_DISTANCE_STARTING_POINT:Double = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()

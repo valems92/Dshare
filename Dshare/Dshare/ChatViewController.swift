@@ -33,7 +33,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
         inputToolbar.contentView.leftBarButtonItem = nil
     }
     
-    //set the message text color
+    //Set the message text color
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         let message = messages[indexPath.item]
@@ -46,7 +46,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
         return cell
     }
     
-    //Setting Up the Data Source and Delegate
+    //Setting up the Data Source and Delegate
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.item]
     }
@@ -69,7 +69,7 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
         return nil // NO avatar for messages
     }
     
-    //override the following method to make the “Send” button save a message to the Firebase database.
+    //Override the following method to make the “Send” button save a message to the Firebase database.
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         Model.instance.sendMessage(senderID: senderId, senderName: senderDisplayName, recieversIds: users!, text: text, exitMessage: false)
         collectionView.reloadData()

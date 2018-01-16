@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
                 if error != nil { //If an error occured
                     self.activityIndicator.stopAnimating()
                     UIApplication.shared.endIgnoringInteractionEvents()
-                    self.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!)
+                    Utils.instance.displayAlertMessage(messageToDisplay:(error?.localizedDescription)!, controller:self)
                 }
                 else { //The user logged in successfully, go to search screen
                     self.activityIndicator.stopAnimating()
@@ -50,18 +50,18 @@ class LoginViewController: UIViewController {
     func validateUserInput() -> Bool {
         var returnValue = true
         if (email.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter your email")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter your email", controller:self)
             returnValue = false
         }
         if (password.text?.isEmpty)! {
-            displayAlertMessage(messageToDisplay:"You have to enter a password")
+            Utils.instance.displayAlertMessage(messageToDisplay:"You have to enter a password", controller:self)
             returnValue = false
         }
         
-        let isEmailAddressValid = isValidEmailAddress(emailAddressString: email.text!)
+        let isEmailAddressValid = Utils.instance.isValidEmailAddress(emailAddressString: email.text!)
         
         if !isEmailAddressValid {
-            displayAlertMessage(messageToDisplay:"Email address is not valid")
+            Utils.instance.displayAlertMessage(messageToDisplay:"Email address is not valid", controller:self)
             returnValue = false
         }
         
@@ -75,36 +75,5 @@ class LoginViewController: UIViewController {
     func stopAnimatingActivityIndicator() {
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
-    func isValidEmailAddress(emailAddressString:String) -> Bool {
-        var returnValue = true
-        let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
-        
-        do {
-            let regex = try NSRegularExpression(pattern: emailRegEx)
-            let nsString = emailAddressString as NSString
-            let results = regex.matches(in: emailAddressString, range: NSRange(location: 0, length: nsString.length))
-            
-            if results.count == 0 {
-                returnValue = false
-            }
-        } catch let error as NSError {
-            print("invalud regex: \(error.localizedDescription)")
-            returnValue = false
-        }
-        
-        return returnValue
-    }
-    
-    func displayAlertMessage(messageToDisplay:String){
-        let alertController = UIAlertController(title:"Error", message:messageToDisplay, preferredStyle:.alert)
-        let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
-            print("OK tapped")
-        }
-        
-        alertController.addAction(OKAction)
-        
-        self.present(alertController, animated:true, completion:nil)
     }
 }

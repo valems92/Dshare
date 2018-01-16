@@ -26,6 +26,8 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var searchesTableView: UITableView!
     @IBOutlet weak var genderPickerView: UIPickerView!
     
+    @IBOutlet weak var lastUpdatedlabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +44,8 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             self.user = user
             self.updateAllTextFields(user: user)
             self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
+            let lastUpdate = Model.instance.getLastUpdateFromLocalDB(username: user.fName + " " + user.lName)
+            self.lastUpdatedlabel.text = "last updated at: " + lastUpdate.stringValue
             Model.instance.getCorrentUserSearches() {(error, searches) in
                 if error == nil {
                     self.searches = searches
@@ -116,6 +120,8 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                         if user != nil{
                             self.user = user
                             self.updateAllTextFields(user: user)
+                            let lastUpdate = Model.instance.getLastUpdateFromLocalDB(username: user.fName + " " + user.lName)
+                            self.lastUpdatedlabel.text = "last updated at: " + lastUpdate.stringValue
                             Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
                         }
                     }
@@ -137,13 +143,51 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                     currentDate = Date()
                     Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
                     print(Model.instance.getLastUpdateFromLocalDB(username: username))
+                    let lastUpdate = Model.instance.getLastUpdateFromLocalDB(username: (self.user?.fName)! + " " + (self.user?.lName)!)
+                    self.lastUpdatedlabel.text = "last updated at: " + lastUpdate.stringValue
                     Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
                 }
                 else {
-                    print(error?.localizedDescription)
+                    if error?.localizedDescription == "This operation is sensitive and requires recent authentication. Log in again before retrying this request." {
+                        self.displaySignInAlertMessage(title:"You have to sign in again first")
+                    }
                 }
             }
         }
+    }
+    
+    func displaySignInAlertMessage(title:String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            let email = alert.textFields?[0].text
+            let password = alert.textFields?[1].text
+            
+            Model.instance.signOutUser(){ (error) in
+                Model.instance.signInUser(email: email!, password: password!) { (error) in
+                    if error != nil {
+                        self.displaySignInAlertMessage(title:"Error! please try to sign in again")
+                    }
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
+            //Do nothing
+        }
+        
+        alert.addTextField() { (textField) in
+            textField.placeholder = "e-mail"
+        }
+        
+        alert.addTextField() { (textField) in
+            textField.placeholder = "password"
+            textField.isSecureTextEntry = true
+        }
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func logOutUser(_ sender: UIButton) {

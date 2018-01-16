@@ -6,7 +6,6 @@
 //  Copyright © 2018 Munoz, Valentina. All rights reserved.
 //
 
-
 import Foundation
 
 extension String {
@@ -19,7 +18,6 @@ extension String {
         }
     }
 }
-
 
 class ModelSql{
     var database: OpaquePointer? = nil

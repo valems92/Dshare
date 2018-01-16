@@ -42,7 +42,6 @@ class Utils {
             viewController.senderId = Model.instance.getCurrentUserUid()
             
             controller.navigationController!.pushViewController(viewController, animated: true)
-            //controller.present(viewController, animated: true, completion: nil);
         }
         alertController.addAction(OKAction)
         controller.present(alertController, animated:true, completion:nil)

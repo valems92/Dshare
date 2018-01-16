@@ -4,8 +4,6 @@ import FirebaseStorage
 import FirebaseAuth
 
 class UserFirebase {
-    //let ref:DatabaseReference?
-    
     init(){
         FirebaseApp.configure()
     }
@@ -30,7 +28,7 @@ class UserFirebase {
             else {
                 let ref = Database.database().reference().child("users").child(user.id)
                 ref.setValue(user.toFirebase()){(error, dbref) in
-                    //completionBlock(error)
+                    
                 }
                 completionBlock(user.id, nil)
             }

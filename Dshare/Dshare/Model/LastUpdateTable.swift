@@ -6,7 +6,6 @@ class LastUpdateTable{
     static let USERNAME = "USERNAME"
     static let DATE = "DATE"
     
-    
     static func createTable(database:OpaquePointer?)->Bool{
         var errormsg: UnsafeMutablePointer<Int8>? = nil
         

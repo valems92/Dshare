@@ -82,7 +82,6 @@ class User {
         
         json["id"] = id
         json["email"] = email
-        //json["password"] = password
         json["fName"] = fName
         json["lName"] = lName
         json["phoneNum"] = phoneNum
@@ -98,5 +97,4 @@ class User {
         
         return json
     }
-    
 }

@@ -1,33 +1,6 @@
 import Foundation
 import UIKit
 
-//let notifyStudentListUpdate = "com.menachi.NotifyStudentListUpdate"
-
-/*extension Date {
-    func toFirebase()->Double{
-        return self.timeIntervalSince1970 * 1000
-    }
-    
-    static func fromFirebase(_ interval:String)->Date{
-        return Date(timeIntervalSince1970: Double(interval)!)
-    }
-    
-    static func fromFirebase(_ interval:Double)->Date{
-        if (interval>9999999999){
-            return Date(timeIntervalSince1970: interval/1000)
-        }else{
-            return Date(timeIntervalSince1970: interval)
-        }
-    }
-    
-    var stringValue: String {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.current
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter.string(from: self)
-    }
-}*/
-
 class ModelNotificationBase<T>{
     var name:String?
     
@@ -60,12 +33,8 @@ class ModelNotification{
 class Model{
     static let instance = Model()
 
-    //SQL
     let modelSql = ModelSql()
-  //  lazy private var modelSql:ModelSql? = ModelSql()
 
-
-    //lazy private var modelSql:ModelSql? = ModelSql()
     lazy private var userFirebase:UserFirebase? = UserFirebase()
     lazy var messageFirebase:MessageFirebase? = MessageFirebase()
     lazy private var searchFirebase:SearchFirebase? = SearchFirebase()
@@ -89,8 +58,6 @@ class Model{
         userFirebase?.addNewUser(user: user){(newUserID, error) in
             completionBlock(newUserID, error)
         }
-        
-      //  user.addUserToLocalDb(toDB: self.modelSql?.database)
     }
     
     func getCurrentUser(callback:@escaping (User)->Void){
@@ -104,7 +71,6 @@ class Model{
     
     func setLastUpdateToLocalDB(username: String, lastUpdate: Date){
         LastUpdateTable.setLastUpdate(database: self.modelSql!.database, username: username, lastUpdate: lastUpdate)
-
     }
     
     func getLastUpdateFromLocalDB(username:String) -> Date {
@@ -148,7 +114,7 @@ class Model{
         }
     }
     
-     /****** Images ******/
+     /**************** Images ******************/
     
     func saveImage(image:UIImage, name:String, callback:@escaping (String?)->Void){
         userFirebase?.saveImageToFirebase(image: image, name: name, callback: {(url) in
@@ -234,20 +200,6 @@ class Model{
     }
     
     /*************************** Message ***************************/
-
-    /*func addNewMessage(message:Message, completionBlock:@escaping (Error?)->Void){
-        messageFirebase?.addNewMessage(message: message){ (error) in
-            completionBlock(error)
-        }
-    }
-  
-    func observeMessages(callback:@escaping (Message?)->Void) {
-        messageFirebase?.observeMessages() { (message) in
-            callback(message)
-        }
-    }*/
-    
-    
     
     func sendMessage(senderID:String, senderName:String, recieversIds:[String], text:String, exitMessage:Bool) {
         messageFirebase?.sendMessage(senderID: senderID, senderName: senderName, recieversIds:recieversIds, text: text, exitMessage: exitMessage)
