@@ -27,6 +27,10 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents() //When the activity indicator presents, the user can't interact with the app
+        
         genderPickerView.dataSource = self
         genderPickerView.delegate = self
         
@@ -37,17 +41,15 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                 self.user = user
                 self.updateAllTextFields(user: user)
                 self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
+                Model.instance.getCorrentUserSearches() {(error, searches) in
+                    if error == nil {
+                        self.searches = searches
+                        self.searchesTableView.reloadData()
+                        self.stopAnimatingActivityIndicator()
+                    }
+                }
             }
         }
-        
-        Model.instance.getCorrentUserSearches() {(error, searches) in
-            if error == nil {
-                self.searches = searches
-                self.searchesTableView.reloadData()
-            }
-        }
-        
-        Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -166,5 +168,4 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return genderOptions[row]
     }
-    
 }
