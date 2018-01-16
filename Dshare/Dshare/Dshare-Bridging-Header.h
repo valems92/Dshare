@@ -9,5 +9,6 @@
 #ifndef Dshare_Bridging_Header_h
 #define Dshare_Bridging_Header_h
 
+#import <sqlite3.h>
 
 #endif /* Dshare_Bridging_Header_h */
