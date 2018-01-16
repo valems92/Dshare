@@ -10,6 +10,7 @@ class LastSearchesViewCell: UITableViewCell {
 
 class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     var user:User?
+    
     var searches:[Search]?
     var selectedSearch:Search?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
@@ -66,14 +67,24 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             Utils.instance.displayAlertMessage(messageToDisplay:"Phone number is not valid", controller:self)
         }
         
-        Model.instance.updateUserInfo(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: genderPickerView.selectedRow(inComponent: 0).description)
-        Model.instance.getCurrentUser() {(user) in
-            if user != nil{
-                self.user = user
-                self.updateAllTextFields(user: user)
-                Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
+        Model.instance.updateUserInfo(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: genderPickerView.selectedRow(inComponent: 0).description) { (error) in
+            if error == nil {
+                let username = self.fName.text! + " " + self.lName.text!
+                var currentDate:Date?
+                currentDate = Date()
+                Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
+                
+                print(Model.instance.getLastUpdateFromLocalDB(username: username))
+                
+                Model.instance.getCurrentUser() {(user) in
+                    if user != nil{
+                        self.user = user
+                        self.updateAllTextFields(user: user)
+                        Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
+                    }
+                }
             }
-        }        
+        }
     }
     
     @IBAction func submitNewPassword(_ sender: Any) {
@@ -82,8 +93,19 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             Utils.instance.displayAlertMessage(messageToDisplay:"Password must contains at least 6 characters", controller:self)
         }
         else {
-          Model.instance.updatePassword(newPassword: self.newPassword.text!)
-          Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
+            Model.instance.updatePassword(newPassword: self.newPassword.text!) { (error) in
+                if error == nil {
+                    let username = (self.user?.fName)! + " " + (self.user?.lName)!
+                    var currentDate:Date?
+                    currentDate = Date()
+                    Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
+                    print(Model.instance.getLastUpdateFromLocalDB(username: username))
+                    Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
+                }
+                else {
+                    print(error?.localizedDescription)
+                }
+            }
         }
     }
     

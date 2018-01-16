@@ -17,6 +17,8 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var gender: UIPickerView!
     @IBOutlet weak var image: UIImageView!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.gender.dataSource = self
@@ -108,7 +110,18 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
                 user.id = newUserID!
                 self.performSegue(withIdentifier: "toSearchFromRegister", sender: self)
             }
-            //st.addStudentToLocalDb(database: self.modelSql?.database)
+           
+            let username = user.fName + " " + user.lName
+            var currentDate:Date?
+            currentDate = Date()
+            
+            //upadte  or create the last update table in local DB (SQL)
+            Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
+            
+            
+            print("***************************************************  1 ***********  ")
+            print(Model.instance.getLastUpdateFromLocalDB(username: username))
+            print("***************************************************   1 *********** ")
         }
     }
     

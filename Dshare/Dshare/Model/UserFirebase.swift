@@ -81,7 +81,7 @@ class UserFirebase {
         })
     }
     
-    func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String){
+    func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String, completionBlock:@escaping (Error?)->Void){
         let id:String? = getCurrentUserUid()
         let db = Database.database().reference().child("users").child(id!)
         db.updateChildValues(["fName":fName])
@@ -90,13 +90,13 @@ class UserFirebase {
         db.updateChildValues(["phoneNum":phoneNum])
         db.updateChildValues(["gender":gender])
         Auth.auth().currentUser?.updateEmail(to: email) { (error) in
-            // ...
+            completionBlock(error)
         }
     }
     
-    func updatePassword(newPassword:String){
+    func updatePassword(newPassword:String, completionBlock:@escaping (Error?)->Void){
         Auth.auth().currentUser?.updatePassword(to: newPassword) { (error) in
-            // ...
+            completionBlock(error)
         }
     }
     

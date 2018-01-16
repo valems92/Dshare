@@ -3,7 +3,7 @@ import UIKit
 
 //let notifyStudentListUpdate = "com.menachi.NotifyStudentListUpdate"
 
-extension Date {
+/*extension Date {
     func toFirebase()->Double{
         return self.timeIntervalSince1970 * 1000
     }
@@ -26,7 +26,7 @@ extension Date {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter.string(from: self)
     }
-}
+}*/
 
 class ModelNotificationBase<T>{
     var name:String?
@@ -59,7 +59,12 @@ class ModelNotification{
 
 class Model{
     static let instance = Model()
-    
+
+    //SQL
+    let modelSql = ModelSql()
+  //  lazy private var modelSql:ModelSql? = ModelSql()
+
+
     //lazy private var modelSql:ModelSql? = ModelSql()
     lazy private var userFirebase:UserFirebase? = UserFirebase()
     lazy var messageFirebase:MessageFirebase? = MessageFirebase()
@@ -83,8 +88,9 @@ class Model{
     func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
         userFirebase?.addNewUser(user: user){(newUserID, error) in
             completionBlock(newUserID, error)
-            //st.addStudentToLocalDb(database: self.modelSql?.database)
         }
+        
+      //  user.addUserToLocalDb(toDB: self.modelSql?.database)
     }
     
     func getCurrentUser(callback:@escaping (User)->Void){
@@ -94,6 +100,15 @@ class Model{
                 callback(user!)
             }
         }
+    }
+    
+    func setLastUpdateToLocalDB(username: String, lastUpdate: Date){
+        LastUpdateTable.setLastUpdate(database: self.modelSql!.database, username: username, lastUpdate: lastUpdate)
+
+    }
+    
+    func getLastUpdateFromLocalDB(username:String) -> Date {
+        return LastUpdateTable.getLastUpdateDate(database: self.modelSql?.database, username: username)!
     }
     
     func getCurrentUserUid() -> String {
@@ -121,12 +136,16 @@ class Model{
         }
     }
     
-    func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String){
-        userFirebase?.updateUserInfo(fName:fName, lName:lName, email:email, phoneNum:phoneNum, gender:gender)
+    func updateUserInfo(fName:String, lName:String, email:String, phoneNum:String, gender:String, completionBlock:@escaping (Error?)->Void){
+        userFirebase?.updateUserInfo(fName:fName, lName:lName, email:email, phoneNum:phoneNum, gender:gender) { (error) in
+            completionBlock(error)
+        }
     }
     
-    func updatePassword(newPassword:String){
-        userFirebase?.updatePassword(newPassword: newPassword)
+    func updatePassword(newPassword:String, completionBlock:@escaping (Error?)->Void){
+        userFirebase?.updatePassword(newPassword: newPassword) { (error) in
+            completionBlock(error)
+        }
     }
     
      /****** Images ******/
@@ -237,73 +256,4 @@ class Model{
     func removeObserver() {
         messageFirebase?.removeObserver()
     }
-    
-    
-    
-    /* func getAllStudents(callback:@escaping ([Student])->Void){
-     // get last update date from SQL
-     let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: modelSql?.database, table: Student.ST_TABLE)
-     
-     // get all updated records from firebase
-     userFirebase?.getAllStudents(lastUpdateDate, callback: { (students) in
-     //update the local db
-     print("got \(students.count) new records from FB")
-     var lastUpdate:Date?
-     for st in students{
-     st.addStudentToLocalDb(database: self.modelSql?.database)
-     if lastUpdate == nil{
-     lastUpdate = st.lastUpdate
-     }else{
-     if lastUpdate!.compare(st.lastUpdate!) == ComparisonResult.orderedAscending{
-     lastUpdate = st.lastUpdate
-     }
-     }
-     }
-     
-     //upadte the last update table
-     if (lastUpdate != nil){
-     LastUpdateTable.setLastUpdate(database: self.modelSql!.database, table: Student.ST_TABLE, lastUpdate: lastUpdate!)
-     }
-     
-     //get the complete list from local DB
-     let totalList = Student.getAllStudentsFromLocalDb(database: self.modelSql?.database)
-     
-     //return the list to the caller
-     callback(totalList)
-     })
-     } */
-    
-    /* func getAllStudentsAndObserve(){
-     // get last update date from SQL
-     let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: modelSql?.database, table: Student.ST_TABLE)
-     
-     // get all updated records from firebase
-     userFirebase?.getAllStudentsAndObserve(lastUpdateDate, callback: { (students) in
-     //update the local db
-     print("got \(students.count) new records from FB")
-     var lastUpdate:Date?
-     for st in students{
-     st.addStudentToLocalDb(database: self.modelSql?.database)
-     if lastUpdate == nil{
-     lastUpdate = st.lastUpdate
-     }else{
-     if lastUpdate!.compare(st.lastUpdate!) == ComparisonResult.orderedAscending{
-     lastUpdate = st.lastUpdate
-     }
-     }
-     }
-     
-     //upadte the last update table
-     if (lastUpdate != nil){
-     LastUpdateTable.setLastUpdate(database: self.modelSql!.database, table: Student.ST_TABLE, lastUpdate: lastUpdate!)
-     }
-     
-     //get the complete list from local DB
-     let totalList = Student.getAllStudentsFromLocalDb(database: self.modelSql?.database)
-     
-     //return the list to the observers using notification center
-     NotificationCenter.default.post(name: Notification.Name(rawValue:
-     notifyStudentListUpdate), object:nil , userInfo:["students":totalList])
-     })
-     } */
 }
