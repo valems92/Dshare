@@ -9,16 +9,18 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
     var users:[String]? // An array of the recievers ids
     var userAvatarImg:JSQMessagesAvatarImage?
     
+    let EXIT_MESSAGE:String = " has left the chat"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.setHidesBackButton(true, animated: false)
+
         self.senderDisplayName = ""
         //Get user image for the chat
         Model.instance.getCurrentUser(){ (user) in
             self.senderDisplayName = user.fName + " " + user.lName
             Model.instance.getImage(urlStr: user.imagePath!) { (image) in
                 self.userAvatarImg = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: 30)
-                
             }
         }
         
@@ -27,6 +29,8 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
         
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize(width: 5, height: 5)
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize(width: 5, height: 5)
+        
+        inputToolbar.contentView.leftBarButtonItem = nil
     }
     
     //set the message text color
@@ -67,14 +71,14 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
     
     //override the following method to make the “Send” button save a message to the Firebase database.
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        Model.instance.sendMessage(senderID: senderId, senderName: senderDisplayName, recieversIds: users!, text: text)
+        Model.instance.sendMessage(senderID: senderId, senderName: senderDisplayName, recieversIds: users!, text: text, exitMessage: false)
         collectionView.reloadData()
         //Remove the text from the text field
         finishSendingMessage()
     }
     
     //Delegation function
-    func messageRecieved(senderID: String, senderName:String, recieversIds:[String], text: String) {
+    func messageRecieved(senderID:String, senderName:String, recieversIds:[String], text:String, exitMessage:Bool) {
         if senderID == Model.instance.getCurrentUserUid() { // If the sender is the current user
             for recieverId in recieversIds {
                 for user in users! {
@@ -92,6 +96,10 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
                     for userID in users! {
                         if senderID == userID { // If someone of the users sent the message
                             messages.append(JSQMessage(senderId: senderID, displayName: senderName, text: text))
+                            if exitMessage {
+                                inputToolbar.contentView.rightBarButtonItem = nil
+                                inputToolbar.contentView.textView.isEditable = false
+                            }
                             collectionView.reloadData()
                             break
                         }
@@ -117,6 +125,22 @@ class ChatViewController: JSQMessagesViewController, MessageReceivedDelegate {
         if self.isMovingFromParentViewController {
             Model.instance.removeObserver()
         }
+    }
+    
+    @IBAction func onDone(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title:"Match Founded", message:"Congratulations! you found a match. we look forward to helping you in future searches", preferredStyle:.alert)
+        
+        let okAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
+             Model.instance.sendMessage(senderID: self.senderId, senderName: self.senderDisplayName, recieversIds: self.users!, text: self.senderDisplayName + self.EXIT_MESSAGE, exitMessage: true)
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyBoard.instantiateViewController(withIdentifier: "SearchPage") as! SearchViewController
+            
+            self.navigationController!.pushViewController(viewController, animated: true)
+        }
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated:true, completion:nil)
     }
 }
 

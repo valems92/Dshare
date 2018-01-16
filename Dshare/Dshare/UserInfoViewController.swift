@@ -14,6 +14,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     var searches:[Search]?
     var selectedSearch:Search?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
+    var observerId:Any?
     
     let genderOptions = ["Male", "Female"]
     
@@ -38,19 +39,36 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         newPassword.isSecureTextEntry = true
         
         Model.instance.getCurrentUser() {(user) in
-            if user != nil {
-                self.user = user
-                self.updateAllTextFields(user: user)
-                self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
-                Model.instance.getCorrentUserSearches() {(error, searches) in
-                    if error == nil {
-                        self.searches = searches
-                        self.searchesTableView.reloadData()
-                        self.stopAnimatingActivityIndicator()
-                    }
+            self.user = user
+            self.updateAllTextFields(user: user)
+            self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
+            Model.instance.getCorrentUserSearches() {(error, searches) in
+                if error == nil {
+                    self.searches = searches
+                    self.searchesTableView.reloadData()
+                    self.stopAnimatingActivityIndicator()
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        observerId = ModelNotification.SearchUpdate.observe(callback: { (suggestionsId, params) in
+            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, controller: self)
+        })
+        
+        Model.instance.startObserveCurrentUserSearches()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if observerId != nil {
+            ModelNotification.removeObserver(observer: observerId!)
+            observerId = nil
+        }
+        
+        Model.instance.clear()
     }
     
     override func didReceiveMemoryWarning() {

@@ -42,6 +42,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.navigationItem.hidesBackButton = false
         
+        Utils.instance.initActivityIndicator(activityIndicator: activityIndicator, controller: self)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         enabledChatBtn(false)
         getAllSuggestions()
     }
@@ -58,13 +62,11 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+        clear()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        clear()
     }
     
     func clear() {
@@ -184,6 +186,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             group.notify(queue: .main) {
                 self.orderSuggestions()
                 self.table.reloadData()
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 Model.instance.startObserveSearches()
             }
         }

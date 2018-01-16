@@ -249,8 +249,8 @@ class Model{
     
     
     
-    func sendMessage(senderID:String, senderName:String, recieversIds:[String], text:String) {
-        messageFirebase?.sendMessage(senderID: senderID, senderName: senderName, recieversIds:recieversIds, text: text)
+    func sendMessage(senderID:String, senderName:String, recieversIds:[String], text:String, exitMessage:Bool) {
+        messageFirebase?.sendMessage(senderID: senderID, senderName: senderName, recieversIds:recieversIds, text: text, exitMessage: exitMessage)
     }
     
     func removeObserver() {
