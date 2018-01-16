@@ -23,6 +23,8 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var newPassword: UITextField!
     @IBOutlet weak var searchesTableView: UITableView!
     @IBOutlet weak var genderPickerView: UIPickerView!
+
+    @IBOutlet weak var submitPasswordButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
