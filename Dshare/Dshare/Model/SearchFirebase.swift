@@ -6,7 +6,6 @@ import FirebaseAuth
 class SearchFirebase {
     let searchesRef = Database.database().reference().child("searches")
     var observers:[DatabaseReference] = []
-    var newChanges:Bool = false
 
     func addNewSearch(search: Search, completionBlock:@escaping (Error?)->Void){
         let searchRef = searchesRef.child(search.id)
@@ -81,20 +80,18 @@ class SearchFirebase {
         }
     }
     
-    func startObserveCurrentUserSearches(id:String, callback:@escaping([String])->Void) {
-        newChanges = false
+    func removeSuggestionsIdOfSearch(searchId:String) {
+        searchesRef.child(searchId).child("suggestionsId").removeValue()
+    }
+    
+    func startObserveCurrentUserSearches(id:String, callback:@escaping([String], String)->Void) {
         getSearchesByUserId(id: id) { (error, searches) in
             if error == nil {
                 for search in searches {
                     self.searchesRef.child(search.id).observe(.childAdded, with: { (snapshot) in
-                        if self.newChanges {
-                            if snapshot.key == "suggestionsId" {
-                                callback(snapshot.value as! [String])
-                            }
+                        if snapshot.key == "suggestionsId", let value = snapshot.value as? [String] {
+                            callback(value, search.id)
                         }
-                    })
-                    self.searchesRef.child(search.id).observeSingleEvent(of: .value, with: { (snapshot) in
-                        self.newChanges = true
                     })
                     self.observers.append(self.searchesRef.child(search.id))
                 }

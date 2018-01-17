@@ -190,13 +190,17 @@ class Model{
     
     func startObserveCurrentUserSearches() {
         let id = getCurrentUserUid()
-        searchFirebase?.startObserveCurrentUserSearches(id: id, callback: { (suggestionsId) in
-            ModelNotification.SearchUpdate.post(data: suggestionsId, params: nil)
+        searchFirebase?.startObserveCurrentUserSearches(id: id, callback: { (suggestionsId, search) in
+            ModelNotification.SearchUpdate.post(data: suggestionsId, params: search)
         })
     }
     
     func updateSearch(searchId:String, value:[AnyHashable : Any]) {
         searchFirebase?.updateSearch(searchId:searchId, value:value)
+    }
+    
+    func removeSuggestionsIdOfSearch(searchId:String) {
+        searchFirebase?.removeSuggestionsIdOfSearch(searchId: searchId)
     }
     
     /*************************** Message ***************************/

@@ -58,7 +58,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         observerId = ModelNotification.SearchUpdate.observe(callback: { (suggestionsId, params) in
-            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, controller: self)
+            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, searchId: params as! String, controller: self)
         })
         
         Model.instance.startObserveCurrentUserSearches()

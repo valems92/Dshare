@@ -32,7 +32,7 @@ class Utils {
         controller.present(alertController, animated:true, completion:nil);
     }
     
-    func currentUserSearchChanged(suggestionsId:[String], controller:UIViewController) {
+    func currentUserSearchChanged(suggestionsId:[String], searchId:String, controller:UIViewController) {
         let alertController = UIAlertController(title:"Message", message:"A match was found for one of your searches!", preferredStyle:.alert);
         let OKAction = UIAlertAction(title:"Open Chat", style:.default) { (action:UIAlertAction!) in
             let storyBoard = UIStoryboard(name: "Main", bundle: nil);
@@ -40,6 +40,8 @@ class Utils {
             
             viewController.users = suggestionsId
             viewController.senderId = Model.instance.getCurrentUserUid()
+            
+            Model.instance.removeSuggestionsIdOfSearch(searchId: searchId)
             
             controller.navigationController!.pushViewController(viewController, animated: true)
         }

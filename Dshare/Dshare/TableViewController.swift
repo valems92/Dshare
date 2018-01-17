@@ -54,7 +54,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         suggestionUpdateObserverId = ModelNotification.SuggestionsUpdate.observe(callback: self.searchesChanged)
         
         searchUpdateObserverId = ModelNotification.SearchUpdate.observe(callback: { (suggestionsId, params) in
-            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, controller: self)
+            Utils.instance.currentUserSearchChanged(suggestionsId: suggestionsId!, searchId: params as! String, controller: self)
         })
         
         Model.instance.startObserveCurrentUserSearches()
@@ -102,9 +102,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 nextViewController.senderId = cuurentUserId
                 
                 self.clear()
+                 Model.instance.updateSearch(searchId: self.search.id, value: ["foundSuggestion": true])
                 
-                searches.append(self.search)
                 users.append(cuurentUserId)
+                
                 for i in 0...searches.count - 1 {
                     let s = searches[i]
                     Model.instance.updateSearch(searchId: s.id, value: ["foundSuggestion": true, "suggestionsId": users.filter({ (user) -> Bool in
