@@ -196,8 +196,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private func addSuggestion(_ suggestion:Search, _ group:DispatchGroup?)->Void {
         if suggestion.userId == self.search.userId ||  suggestion.foundSuggestion { return }
         
-        let destDistance = self.calcDistance(suggestion.destinationCoordinate)
-        let stDistance = self.calcDistance(suggestion.startingPointCoordinate)
+        let destDistance = self.calcDistance(search.destinationCoordinate, suggestion.destinationCoordinate)
+        let stDistance = self.calcDistance(search.startingPointCoordinate, suggestion.startingPointCoordinate)
         
         if (destDistance > self.MAX_KM_DISTANCE_DESTINATION || stDistance > self.MAX_KM_DISTANCE_STARTING_POINT) { return }
         
@@ -215,8 +215,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    private func calcDistance(_ coordinate:CLLocationCoordinate2D)->Double {
-        let searchLocation = CLLocation(latitude: search.destinationCoordinate.latitude, longitude: search.destinationCoordinate.longitude)
+    private func calcDistance(_ searchCoordinate:CLLocationCoordinate2D ,_ coordinate:CLLocationCoordinate2D)->Double {
+        let searchLocation = CLLocation(latitude: searchCoordinate.latitude, longitude: searchCoordinate.longitude)
         let suggestionLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         return (searchLocation.distance(from: suggestionLocation) / 1000)
     }
