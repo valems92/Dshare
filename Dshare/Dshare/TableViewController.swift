@@ -50,7 +50,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         getAllSuggestions()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         suggestionUpdateObserverId = ModelNotification.SuggestionsUpdate.observe(callback: self.searchesChanged)
         
         searchUpdateObserverId = ModelNotification.SearchUpdate.observe(callback: { (suggestionsId, params) in
