@@ -33,8 +33,6 @@ class ModelNotification{
 class Model{
     static let instance = Model()
 
-    let modelSql = ModelSql()
-
     lazy private var userFirebase:UserFirebase? = UserFirebase()
     lazy var messageFirebase:MessageFirebase? = MessageFirebase()
     lazy private var searchFirebase:SearchFirebase? = SearchFirebase()
@@ -67,14 +65,6 @@ class Model{
                 callback(user!)
             }
         }
-    }
-    
-    func setLastUpdateToLocalDB(username: String, lastUpdate: Date){
-        LastUpdateTable.setLastUpdate(database: self.modelSql!.database, username: username, lastUpdate: lastUpdate)
-    }
-    
-    func getLastUpdateFromLocalDB(username:String) -> Date {
-        return LastUpdateTable.getLastUpdateDate(database: self.modelSql?.database, username: username)!
     }
     
     func getCurrentUserUid() -> String {

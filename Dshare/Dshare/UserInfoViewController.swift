@@ -26,8 +26,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var searchesTableView: UITableView!
     @IBOutlet weak var genderPickerView: UIPickerView!
     
-    @IBOutlet weak var lastUpdatedlabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,8 +42,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             self.user = user
             self.updateAllTextFields(user: user)
             self.genderPickerView.selectRow(Int((self.user?.gender)!)!, inComponent: 0, animated: true)
-            let lastUpdate = Model.instance.getLastUpdateFromLocalDB(username: user.fName + " " + user.lName)
-            self.lastUpdatedlabel.text = "last updated at: " + lastUpdate.stringValue
             Model.instance.getCorrentUserSearches() {(error, searches) in
                 if error == nil {
                     self.searches = searches
@@ -112,16 +108,10 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                     let username = self.fName.text! + " " + self.lName.text!
                     var currentDate:Date?
                     currentDate = Date()
-                    Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
-                    
-                    print(Model.instance.getLastUpdateFromLocalDB(username: username))
-                    
                     Model.instance.getCurrentUser() {(user) in
                         if user != nil{
                             self.user = user
                             self.updateAllTextFields(user: user)
-                            let lastUpdate = Model.instance.getLastUpdateFromLocalDB(username: user.fName + " " + user.lName)
-                            self.lastUpdatedlabel.text = "last updated at: " + lastUpdate.stringValue
                             Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
                         }
                     }
@@ -141,10 +131,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                     let username = (self.user?.fName)! + " " + (self.user?.lName)!
                     var currentDate:Date?
                     currentDate = Date()
-                    Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
-                    print(Model.instance.getLastUpdateFromLocalDB(username: username))
-                    let lastUpdate = Model.instance.getLastUpdateFromLocalDB(username: (self.user?.fName)! + " " + (self.user?.lName)!)
-                    self.lastUpdatedlabel.text = "last updated at: " + lastUpdate.stringValue
                     Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
                 }
                 else {

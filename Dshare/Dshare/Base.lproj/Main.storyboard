@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jr6-m0-rfa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -869,13 +869,13 @@
                                                 <rect key="frame" x="10" y="337" width="354" height="227"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Searches :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCy-FN-HdG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="26"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="26.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-6C-3cJ">
-                                                        <rect key="frame" x="0.0" y="31" width="354" height="196"/>
+                                                        <rect key="frame" x="0.0" y="31.5" width="354" height="195.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="44" id="Oiz-Zk-DjU" customClass="LastSearchesViewCell" customModule="Dshare" customModuleProvider="target">
@@ -886,19 +886,19 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="destination_address" text="Destination: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hs-GS-JFq">
-                                                                            <rect key="frame" x="44" y="5" width="315" height="14.5"/>
+                                                                            <rect key="frame" x="37" y="2" width="328" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="start_point_address" text="Starting point: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17H-6X-Akz">
-                                                                            <rect key="frame" x="45" y="22" width="315" height="14.5"/>
+                                                                            <rect key="frame" x="38" y="19" width="328" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="isDone" translatesAutoresizingMaskIntoConstraints="NO" id="WD8-Nc-a4m">
-                                                                            <rect key="frame" x="11" y="12" width="25" height="21"/>
+                                                                            <rect key="frame" x="4" y="9" width="25" height="27"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="25" id="o8n-bH-3dt"/>
                                                                             </constraints>
@@ -952,12 +952,6 @@
                                                     <action selector="logOutUser:" destination="gmC-DV-hb7" eventType="touchUpInside" id="mgC-27-xJN"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated at: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2q-7H-hUc">
-                                                <rect key="frame" x="10" y="700" width="355" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -971,7 +965,6 @@
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="centerX" secondItem="GDI-Jy-bCD" secondAttribute="centerX" id="F32-E0-Dy8"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="FPU-Zo-BJc"/>
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="Fiv-wR-y4w"/>
-                                            <constraint firstAttribute="trailing" secondItem="U2q-7H-hUc" secondAttribute="trailing" constant="10" id="Fzx-yF-lA1"/>
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="top" secondItem="Zhd-Af-X5B" secondAttribute="top" constant="10" id="GHf-Gg-0xZ"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="Jzh-ny-ZPh"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="Vv0-Mk-tiD" secondAttribute="leading" id="K3C-bo-X3S"/>
@@ -1009,13 +1002,11 @@
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="centerX" secondItem="IpL-JS-iiQ" secondAttribute="centerX" id="qOm-uX-3L9"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="trailing" secondItem="GDI-Jy-bCD" secondAttribute="trailing" id="s6N-wb-EUH"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="centerX" secondItem="IpL-JS-iiQ" secondAttribute="centerX" id="say-Ba-Dp1"/>
-                                            <constraint firstItem="U2q-7H-hUc" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="sgU-ag-bqS"/>
                                             <constraint firstItem="0Gc-W4-tBw" firstAttribute="top" secondItem="Zhd-Af-X5B" secondAttribute="top" constant="10" id="tNj-Fe-Scg"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="leading" secondItem="GDI-Jy-bCD" secondAttribute="leading" id="tgW-Bq-Ewc"/>
                                             <constraint firstAttribute="trailing" secondItem="GDI-Jy-bCD" secondAttribute="trailing" constant="10" id="uVq-8D-tSk"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="udo-pY-vNd"/>
                                             <constraint firstItem="GDI-Jy-bCD" firstAttribute="leading" secondItem="0Gc-W4-tBw" secondAttribute="leading" id="uiB-IZ-7Lx"/>
-                                            <constraint firstItem="U2q-7H-hUc" firstAttribute="top" secondItem="IpL-JS-iiQ" secondAttribute="bottom" constant="20" id="vcp-0N-5Gs"/>
                                             <constraint firstAttribute="trailing" secondItem="0Gc-W4-tBw" secondAttribute="trailing" constant="10" id="wbQ-aO-D8T"/>
                                             <constraint firstItem="IpL-JS-iiQ" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="wqT-uB-kxL"/>
                                             <constraint firstItem="Vv0-Mk-tiD" firstAttribute="leading" secondItem="Zhd-Af-X5B" secondAttribute="leading" constant="10" id="xpp-Ca-nrg"/>
@@ -1049,7 +1040,6 @@
                         <outlet property="fName" destination="f6Z-NW-UmH" id="X27-18-H0Z"/>
                         <outlet property="genderPickerView" destination="e8g-zU-lKZ" id="vgt-WW-uAF"/>
                         <outlet property="lName" destination="Rbo-tz-3le" id="Zl4-ru-sLj"/>
-                        <outlet property="lastUpdatedlabel" destination="U2q-7H-hUc" id="Ouv-XS-1vb"/>
                         <outlet property="newPassword" destination="imS-Np-hSF" id="bfo-C8-Op6"/>
                         <outlet property="phoneNum" destination="cVE-u1-rxr" id="LUv-qD-RNX"/>
                         <outlet property="searchesTableView" destination="Dkt-6C-3cJ" id="7Wm-Bq-ocv"/>
@@ -1068,6 +1058,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="E3S-iy-diP"/>
         <segue reference="3oI-0G-4aq"/>
-        <segue reference="f5Q-8l-bfg"/>
+        <segue reference="IWC-pX-nDy"/>
     </inferredMetricsTieBreakers>
 </document>

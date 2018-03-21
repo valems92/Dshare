@@ -112,9 +112,6 @@ class RegisterViewController: UIViewController,UIPickerViewDataSource, UIPickerV
             let username = user.fName + " " + user.lName
             var currentDate:Date?
             currentDate = Date()
-            
-            //Upadte or create the last update table in local DB (SQL)
-            Model.instance.setLastUpdateToLocalDB(username: username, lastUpdate: currentDate!)
         }
     }
     
