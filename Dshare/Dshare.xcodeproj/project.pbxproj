@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3C11C770FBEA994507BD3B4C /* Pods_DshareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4C0984DC52259046C0E93B /* Pods_DshareTests.framework */; };
 		5FB42ECE87049262EC18ACEC /* Pods_DshareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34E82EDC6CA1E146AE5CF7D /* Pods_DshareUITests.framework */; };
-		84D7E2C71FE13FCD0032154C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84D7E2C61FE13FCD0032154C /* GoogleService-Info.plist */; };
 		84D7E2C91FE92C8F0032154C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D7E2C81FE92C8E0032154C /* User.swift */; };
 		84D7E2CC1FE94EBD0032154C /* UserFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D7E2CB1FE94EBD0032154C /* UserFirebase.swift */; };
 		AEF7BB031FD7FA0E007BCD62 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA401FD7E49B00E5CD33 /* Info.plist */; };
@@ -18,7 +17,6 @@
 		B3E9AA371FD7E49B00E5CD33 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA361FD7E49B00E5CD33 /* ViewController.swift */; };
 		B3E9AA3A1FD7E49B00E5CD33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA381FD7E49B00E5CD33 /* Main.storyboard */; };
 		B3E9AA3C1FD7E49B00E5CD33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA3B1FD7E49B00E5CD33 /* Assets.xcassets */; };
-		B3E9AA3F1FD7E49B00E5CD33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA3D1FD7E49B00E5CD33 /* LaunchScreen.storyboard */; };
 		B3E9AA4A1FD7E49B00E5CD33 /* DshareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA491FD7E49B00E5CD33 /* DshareTests.swift */; };
 		B3E9AA551FD7E49B00E5CD33 /* DshareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA541FD7E49B00E5CD33 /* DshareUITests.swift */; };
 		B3E9AA631FD7E4D900E5CD33 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA621FD7E4D900E5CD33 /* ChatViewController.swift */; };
@@ -28,6 +26,14 @@
 		B3E9AA6B1FD7E53D00E5CD33 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA6A1FD7E53D00E5CD33 /* LoginViewController.swift */; };
 		B3E9AA6D1FD7E55000E5CD33 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA6C1FD7E55000E5CD33 /* RegisterViewController.swift */; };
 		B3E9AA6F1FD7E59600E5CD33 /* UIViewExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA6E1FD7E59600E5CD33 /* UIViewExtentions.swift */; };
+		B3FCEEAA206E5AC90072EAB6 /* SearchFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA5206E5AC80072EAB6 /* SearchFirebase.swift */; };
+		B3FCEEAB206E5AC90072EAB6 /* MessageFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA6206E5AC80072EAB6 /* MessageFirebase.swift */; };
+		B3FCEEAC206E5AC90072EAB6 /* Date+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA7206E5AC80072EAB6 /* Date+Firebase.swift */; };
+		B3FCEEAD206E5AC90072EAB6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA8206E5AC80072EAB6 /* Model.swift */; };
+		B3FCEEAE206E5AC90072EAB6 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA9206E5AC80072EAB6 /* Search.swift */; };
+		B3FCEEB0206E5AD60072EAB6 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEAF206E5AD60072EAB6 /* UserInfoViewController.swift */; };
+		B3FCEEB2206E5B010072EAB6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEB1206E5B010072EAB6 /* Utils.swift */; };
+		B3FCEEB4206E5B1E0072EAB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3FCEEB3206E5B1E0072EAB6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +60,6 @@
 		7A4C0984DC52259046C0E93B /* Pods_DshareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DshareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8060322E55801630D6571F04 /* Pods-DshareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.release.xcconfig"; sourceTree = "<group>"; };
 		84183DCB7DD65FE89AF9EE29 /* Pods_Dshare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dshare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		84D7E2C61FE13FCD0032154C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84D7E2C81FE92C8E0032154C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84D7E2CB1FE94EBD0032154C /* UserFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFirebase.swift; sourceTree = "<group>"; };
 		947962076203A3B82A2E0B3A /* Pods-Dshare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dshare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dshare/Pods-Dshare.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +84,14 @@
 		B3E9AA6A1FD7E53D00E5CD33 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B3E9AA6C1FD7E55000E5CD33 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B3E9AA6E1FD7E59600E5CD33 /* UIViewExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtentions.swift; sourceTree = "<group>"; };
+		B3FCEEA5206E5AC80072EAB6 /* SearchFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFirebase.swift; sourceTree = "<group>"; };
+		B3FCEEA6206E5AC80072EAB6 /* MessageFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageFirebase.swift; sourceTree = "<group>"; };
+		B3FCEEA7206E5AC80072EAB6 /* Date+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Firebase.swift"; sourceTree = "<group>"; };
+		B3FCEEA8206E5AC80072EAB6 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B3FCEEA9206E5AC80072EAB6 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		B3FCEEAF206E5AD60072EAB6 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		B3FCEEB1206E5B010072EAB6 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B3FCEEB3206E5B1E0072EAB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1C3E3046FBA4903BA87629C /* Pods-DshareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +126,11 @@
 		84D7E2CA1FE94E200032154C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B3FCEEA7206E5AC80072EAB6 /* Date+Firebase.swift */,
+				B3FCEEA6206E5AC80072EAB6 /* MessageFirebase.swift */,
+				B3FCEEA8206E5AC80072EAB6 /* Model.swift */,
+				B3FCEEA9206E5AC80072EAB6 /* Search.swift */,
+				B3FCEEA5206E5AC80072EAB6 /* SearchFirebase.swift */,
 				84D7E2C81FE92C8E0032154C /* User.swift */,
 				84D7E2CB1FE94EBD0032154C /* UserFirebase.swift */,
 			);
@@ -157,8 +175,10 @@
 		B3E9AA331FD7E49B00E5CD33 /* Dshare */ = {
 			isa = PBXGroup;
 			children = (
+				B3FCEEB3206E5B1E0072EAB6 /* GoogleService-Info.plist */,
+				B3FCEEB1206E5B010072EAB6 /* Utils.swift */,
+				B3FCEEAF206E5AD60072EAB6 /* UserInfoViewController.swift */,
 				84D7E2CA1FE94E200032154C /* Model */,
-				84D7E2C61FE13FCD0032154C /* GoogleService-Info.plist */,
 				B3E9AA341FD7E49B00E5CD33 /* AppDelegate.swift */,
 				B3E9AA361FD7E49B00E5CD33 /* ViewController.swift */,
 				B3E9AA381FD7E49B00E5CD33 /* Main.storyboard */,
@@ -321,10 +341,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEF7BB031FD7FA0E007BCD62 /* Info.plist in Resources */,
-				B3E9AA3F1FD7E49B00E5CD33 /* LaunchScreen.storyboard in Resources */,
-				84D7E2C71FE13FCD0032154C /* GoogleService-Info.plist in Resources */,
 				B3E9AA3C1FD7E49B00E5CD33 /* Assets.xcassets in Resources */,
 				B3E9AA3A1FD7E49B00E5CD33 /* Main.storyboard in Resources */,
+				B3FCEEB4206E5B1E0072EAB6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,15 +531,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3FCEEAD206E5AC90072EAB6 /* Model.swift in Sources */,
 				B3E9AA6B1FD7E53D00E5CD33 /* LoginViewController.swift in Sources */,
 				B3E9AA371FD7E49B00E5CD33 /* ViewController.swift in Sources */,
 				B3E9AA691FD7E52600E5CD33 /* TableViewController.swift in Sources */,
 				B3E9AA6D1FD7E55000E5CD33 /* RegisterViewController.swift in Sources */,
 				B3E9AA631FD7E4D900E5CD33 /* ChatViewController.swift in Sources */,
 				B3E9AA671FD7E50E00E5CD33 /* LoadingViewController.swift in Sources */,
+				B3FCEEAC206E5AC90072EAB6 /* Date+Firebase.swift in Sources */,
+				B3FCEEAA206E5AC90072EAB6 /* SearchFirebase.swift in Sources */,
+				B3FCEEB0206E5AD60072EAB6 /* UserInfoViewController.swift in Sources */,
 				B3E9AA6F1FD7E59600E5CD33 /* UIViewExtentions.swift in Sources */,
+				B3FCEEB2206E5B010072EAB6 /* Utils.swift in Sources */,
+				B3FCEEAB206E5AC90072EAB6 /* MessageFirebase.swift in Sources */,
 				84D7E2CC1FE94EBD0032154C /* UserFirebase.swift in Sources */,
 				B3E9AA651FD7E4F300E5CD33 /* SearchViewController.swift in Sources */,
+				B3FCEEAE206E5AC90072EAB6 /* Search.swift in Sources */,
 				84D7E2C91FE92C8F0032154C /* User.swift in Sources */,
 				B3E9AA351FD7E49B00E5CD33 /* AppDelegate.swift in Sources */,
 			);
