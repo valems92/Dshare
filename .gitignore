@@ -1,15 +1,9 @@
-# OS X temporary files that should never be committed
+# OS / Xcode temporary files that should never be committed
 Dshare/.DS_Store
+*~.nib
 
 # Pods
-Dshare/Pods/
-Dshare/Dshare/GoogleService-Info.plist
-Dshare/Podfile.lock
-*.xcworkspace
 
 # Xcode build files 
-Dshare/DerivedData/
-Dshare/build/
 
-# Xcode temporary files that should never be committed
-*~.nib
+
