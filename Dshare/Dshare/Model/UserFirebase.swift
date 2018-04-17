@@ -92,6 +92,20 @@ class UserFirebase {
         }
     }
     
+    func updateUserInfoWithPhoto(fName:String, lName:String, email:String, phoneNum:String, gender:String, imagePath:String, completionBlock:@escaping (Error?)->Void){
+        let id:String? = getCurrentUserUid()
+        let db = Database.database().reference().child("users").child(id!)
+        db.updateChildValues(["fName":fName])
+        db.updateChildValues(["lName":lName])
+        db.updateChildValues(["email":email])
+        db.updateChildValues(["phoneNum":phoneNum])
+        db.updateChildValues(["gender":gender])
+        db.updateChildValues(["imagePath":imagePath])
+        Auth.auth().currentUser?.updateEmail(to: email) { (error) in
+            completionBlock(error)
+        }
+    }
+    
     func updatePassword(newPassword:String, completionBlock:@escaping (Error?)->Void){
         Auth.auth().currentUser?.updatePassword(to: newPassword) { (error) in
             completionBlock(error)

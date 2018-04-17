@@ -98,6 +98,12 @@ class Model{
         }
     }
     
+    func updateUserInfoWithPhoto(fName:String, lName:String, email:String, phoneNum:String, gender:String, imagePath:String, completionBlock:@escaping (Error?)->Void){
+        userFirebase?.updateUserInfoWithPhoto(fName:fName, lName:lName, email:email, phoneNum:phoneNum, gender:gender, imagePath:imagePath) { (error) in
+            completionBlock(error)
+        }
+    }
+    
     func updatePassword(newPassword:String, completionBlock:@escaping (Error?)->Void){
         userFirebase?.updatePassword(newPassword: newPassword) { (error) in
             completionBlock(error)

@@ -8,9 +8,10 @@ class LastSearchesViewCell: UITableViewCell {
     var search:Search?
 }
 
-class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var user:User?
-    
+    var userImage:UIImage?
+
     var searches:[Search]?
     var selectedSearch:Search?
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0, y:100, width:50, height:50))
@@ -25,6 +26,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var newPassword: UITextField!
     @IBOutlet weak var searchesTableView: UITableView!
     @IBOutlet weak var genderPickerView: UIPickerView!
+    @IBOutlet weak var image: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,18 +105,31 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func submitNewInfo(_ sender: Any) {
         if self.validateTextFieldsInput() == true {
-            Model.instance.updateUserInfo(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: genderPickerView.selectedRow(inComponent: 0).description) { (error) in
-                if error == nil {
-                    let username = self.fName.text! + " " + self.lName.text!
-                    var currentDate:Date?
-                    currentDate = Date()
-                    Model.instance.getCurrentUser() {(user) in
-                        if user != nil{
-                            self.user = user
-                            self.updateAllTextFields(user: user)
-                            Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
-                        }
+            if userImage != nil { // User changed his photo
+                Model.instance.saveImage(image: userImage!, name: (user?.id)!){(url) in
+                    self.user?.imagePath = url
+                    Model.instance.updateUserInfoWithPhoto(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: self.genderPickerView.selectedRow(inComponent: 0).description, imagePath: url!) { (error) in
+                        self.updateUserInfo(error: error)
                     }
+                }
+            } else { // User didn't change his photo
+                Model.instance.updateUserInfo(fName: self.fName.text!, lName: self.lName.text!, email: self.email.text!, phoneNum: self.phoneNum.text!, gender: self.genderPickerView.selectedRow(inComponent: 0).description) { (error) in
+                    self.updateUserInfo(error: error)
+                }
+            }
+        }
+    }
+    
+    func updateUserInfo(error:Error?){
+        if error == nil {
+            let username = self.fName.text! + " " + self.lName.text!
+            var currentDate:Date?
+            currentDate = Date()
+            Model.instance.getCurrentUser() {(user) in
+                if user != nil{
+                    self.user = user
+                    self.updateAllTextFields(user: user)
+                    Utils.instance.displayMessageToUser(messageToDisplay:"Your changes has been saved", controller:self)
                 }
             }
         }
@@ -201,6 +216,25 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         self.lName.text = user.lName
         self.email.text = user.email
         self.phoneNum.text = user.phoneNum
+        if user.imagePath != "https://firebasestorage.googleapis.com/v0/b/dshare-ac2cb.appspot.com/o/defaultIcon.png?alt=media&token=c72d96c9-f431-4fe6-968e-54df749475cf" { // If the user has a photo
+            Model.instance.getImage(urlStr: user.imagePath!, callback: { (image) in
+                self.image.image = image
+            })
+        }
+    }
+    
+    @IBAction func changePhoto(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) || UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let controller = UIImagePickerController()
+            controller.delegate = self
+            present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        userImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        self.image.image = userImage
+        dismiss(animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
