@@ -15,10 +15,10 @@ class Search {
     var foundSuggestion:Bool
     var suggestionsId:[String]?
     var waitingTime:Int?
-    var flightNumber:String?
+    var flightId:Int?
     var createdOn:Date?
     
-    init(userId:String, startingPointCoordinate:CLLocationCoordinate2D, startingPointAddress:String, destinationCoordinate:CLLocationCoordinate2D, destinationAddress:String, passengers:Int, baggage:Int, leavingTime:Date, waitingTime:Int?, flightNumber:String?) {
+    init(userId:String, startingPointCoordinate:CLLocationCoordinate2D, startingPointAddress:String, destinationCoordinate:CLLocationCoordinate2D, destinationAddress:String, passengers:Int, baggage:Int, leavingTime:Date, waitingTime:Int?, flightId:Int?) {
         self.id = UUID().uuidString
         self.userId = userId
         self.startingPointCoordinate = startingPointCoordinate
@@ -34,8 +34,8 @@ class Search {
             self.waitingTime = waitingTime!
         }
         
-        if flightNumber != nil {
-            self.flightNumber = flightNumber!
+        if flightId != nil {
+            self.flightId = flightId!
         }
     }
     
@@ -67,8 +67,8 @@ class Search {
             waitingTime = wt
         }
         
-        if let fn = fromJson["flightNumber"] as? String {
-            flightNumber = fn
+        if let fId = fromJson["flightId"] as? Int {
+            flightId = fId
         }
         
         if let ts = fromJson["createdOn"] as? Double {
@@ -100,8 +100,8 @@ class Search {
             json["waitingTime"] = waitingTime
         }
         
-        if flightNumber != nil {
-            json["flightNumber"] = flightNumber
+        if flightId != nil {
+            json["flightId"] = flightId
         }
         
         json["createdOn"] = ServerValue.timestamp()

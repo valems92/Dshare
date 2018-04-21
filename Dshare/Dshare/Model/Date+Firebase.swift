@@ -1,7 +1,6 @@
 import Foundation
 
 extension Date {
-    
     func toFirebase()->Double{
         return self.timeIntervalSince1970 * 1000
     }

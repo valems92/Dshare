@@ -1,11 +1,13 @@
 import UIKit
 import GooglePlaces
+import Foundation
 
 class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var startingPoint: UITextField!
     @IBOutlet weak var destination: UITextField!
     @IBOutlet weak var timePicker: UIDatePicker!
+    @IBOutlet weak var airlineCode: UITextField!
     @IBOutlet weak var flightNumber: UITextField!
     @IBOutlet weak var waitingTime: UITextField!
     @IBOutlet weak var passangers: UITextField!
@@ -22,10 +24,15 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     var nowDate:Date!
     var search:Search!
     var observerId:Any?
+    var flightId:Int?
+    var flightArrivalDate:Date?
 
     let LEAVE_NOW_CONSTANT:CGFloat = 75
-    let LEAVE_LATER_FLIGHT_CONSTANT:CGFloat = 315
+    let LEAVE_LATER_FLIGHT_CONSTANT:CGFloat = 365
     let LEAVE_LATER_NO_FLIGHT_CONSTANT:CGFloat = 250
+    
+    let APP_ID:String = "579fdea6"
+    let APP_KEY:String = "1eaa8f62ff8400e4871b7ed7a49de045"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +82,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func tap(gesture: UITapGestureRecognizer) {
+        airlineCode.resignFirstResponder()
         flightNumber.resignFirstResponder()
         waitingTime.resignFirstResponder()
         passangers.resignFirstResponder()
@@ -84,10 +92,10 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func onLeaveTimeChange(_ sender: UISegmentedControl) {
         leaveNow = (sender.selectedSegmentIndex == 0) ? true : false
         
+        showSelectFlight(place: startingPointPlace)
+        
         waitingTime.isHidden = !leaveNow
         timePicker.isHidden = leaveNow
-        
-        showSelectFlight(place: startingPointPlace)
     }
     
     func onChangeStartingPoint() {
@@ -105,9 +113,17 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func onSearch(_ sender: Any) {
-        if (validateUserInput()) {
-            self.setSearch();
-            self.addSearchToFirebase()
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        validateUserInput { (valid) in
+            if valid {
+                self.setSearch()
+                self.addSearchToFirebase()
+            } else {
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
         }
     }
     
@@ -143,13 +159,16 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
         
-        if isAirport && !leaveNow {
-            flightNumber.isHidden = false
-            searchTopConstraint.constant = LEAVE_LATER_FLIGHT_CONSTANT
-            
+        if isAirport {
+            flightNumber.isHidden = leaveNow
+            airlineCode.isHidden = leaveNow
+            timePicker.datePickerMode = UIDatePickerMode.date
+            searchTopConstraint.constant = (!leaveNow) ? LEAVE_LATER_FLIGHT_CONSTANT: LEAVE_NOW_CONSTANT;
         } else {
-            searchTopConstraint.constant = (leaveNow) ? LEAVE_NOW_CONSTANT : LEAVE_LATER_NO_FLIGHT_CONSTANT
             flightNumber.isHidden = true
+            airlineCode.isHidden = true
+            timePicker.datePickerMode = UIDatePickerMode.dateAndTime
+            searchTopConstraint.constant = LEAVE_LATER_NO_FLIGHT_CONSTANT
         }
     }
     
@@ -164,25 +183,109 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         self.destinationPlace = place
     }
     
-    func validateUserInput() -> Bool {
+    func validateUserInput(completionHandler: @escaping (_ valid: Bool) -> Void) {
+        // Validate starting point, destination, passangrs and baggage are not empty
         if ((startingPoint.text?.isEmpty)! || (destination.text?.isEmpty)! || (passangers.text?.isEmpty)! || (baggage.text?.isEmpty)!
             || (leaveNow && (waitingTime.text?.isEmpty)!)) {
             Utils.instance.displayAlertMessage(messageToDisplay:"Please fill out the mandatory fields to proceed", controller: self)
-            return false
+            completionHandler(false)
+            return
         }
         
+        // Validate passangers, baggage and waiting time are integers
         if (Int(passangers.text!) == nil || Int(baggage.text!) == nil || (leaveNow && Int(waitingTime.text!) == nil)) {
             Utils.instance.displayAlertMessage(messageToDisplay:"Passangers, Baggage and Waiting time should be an integer", controller: self)
-            return false
+            completionHandler(false)
+            return
         }
         
-        return true
+        // Validate flight number if needed
+        if (flightNumber.isHidden == false) {
+            if ((flightNumber.text?.isEmpty)! || (airlineCode.text?.isEmpty)!) {
+                Utils.instance.displayAlertMessage(messageToDisplay:"Please fill out the airline code and flight number", controller: self)
+                completionHandler(false)
+                return
+            } else {
+                validateFlightNumber(completionHandler: completionHandler)
+                return
+            }
+        } else {
+            flightId = nil
+            flightArrivalDate = nil
+        }
+        
+        completionHandler(true)
+    }
+    
+    func validateFlightNumber(completionHandler: @escaping (_ valid: Bool) -> Void) {
+        let airlineCode = self.airlineCode.text
+        let flightNumber = self.flightNumber.text
+        
+        // Get date selected
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        let date = dateFormatter.string(from: self.timePicker.date)
+        
+        // Create URL
+        let baseUrl = "https://api.flightstats.com/flex/flightstatus/rest/v2/json/flight/status/\(airlineCode!)/\(flightNumber!)/arr/\(date)?appId=\(self.APP_ID)&appKey=\(self.APP_KEY)&utc=false"
+        
+        getFlightData(baseUrl: baseUrl) { (res) in
+            if let data = res {
+                let flightsArray:NSArray = data["flightStatuses"] as! NSArray
+                if flightsArray.count == 0 {
+                    Utils.instance.displayAlertMessage(messageToDisplay:"Invalid Flight", controller: self)
+                    completionHandler(false)
+                } else {
+                    let flightData = flightsArray[0] as? NSDictionary
+                    self.flightId = flightData!["flightId"] as? Int
+                    
+                    let operationalTimes = flightData!["operationalTimes"] as? NSDictionary
+                    let estimatedRunwayArrival = operationalTimes!["estimatedRunwayArrival"] as? NSDictionary
+                    let dateLocal = (estimatedRunwayArrival!["dateLocal"] as? String)!
+                    
+                    // TODO: Convert dateLocal to Date
+                    /*let df = DateFormatter()
+                    df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    guard let flightDate = df.date(from: dateLocal) else {
+                        completionHandler(false)
+                        return
+                    }
+                    self.flightArrivalDate = flightDate*/
+                    completionHandler(true)
+                }
+            } else {
+                Utils.instance.displayAlertMessage(messageToDisplay:"Error ocurred while verifing the flight", controller: self)
+                completionHandler(false)
+            }
+        }
+    }
+    
+    func getFlightData(baseUrl:String, completionHandler: @escaping (_ data: NSDictionary?) -> Void) {
+        guard let endpoint = URL(string: baseUrl) else {
+            completionHandler(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: endpoint) { (data, response, error) in
+            do {
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
+                }
+                guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary else {
+                    completionHandler(nil)
+                    return
+                }
+                completionHandler(json)
+            } catch _ as NSError {
+                completionHandler(nil)
+                return
+            }
+        }
+        task.resume()
     }
     
     func addSearchToFirebase() {
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
         Model.instance.addNewSearch(search: self.search) { (error) in
             self.activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
@@ -207,17 +310,15 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         let userId = Model.instance.getCurrentUserUid()
         var lt:Date
         var wt:Int? = nil
-        var fn:String? = nil
         
         if (leaveNow) {
             lt = nowDate
             wt = Int(waitingTime.text!)!
         } else {
-            lt = timePicker.date
-            fn = flightNumber.text
+            lt = ((flightArrivalDate) != nil) ? flightArrivalDate! : timePicker.date;
         }
         
-        self.search = Search(userId: userId, startingPointCoordinate: startingPointPlace.coordinate, startingPointAddress: startingPointPlace.formattedAddress!, destinationCoordinate: destinationPlace.coordinate, destinationAddress: destinationPlace.formattedAddress!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: lt, waitingTime: wt, flightNumber: fn)
+        self.search = Search(userId: userId, startingPointCoordinate: startingPointPlace.coordinate, startingPointAddress: startingPointPlace.formattedAddress!, destinationCoordinate: destinationPlace.coordinate, destinationAddress: destinationPlace.formattedAddress!, passengers: Int(passangers.text!)!, baggage: Int(baggage.text!)!, leavingTime: lt, waitingTime: wt, flightId: flightId)
     }
 }
 

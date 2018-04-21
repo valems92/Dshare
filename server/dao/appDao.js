@@ -23,7 +23,7 @@ class AppDao {
             Object.keys(data).forEach(function (searchId) {
                 search = data[searchId];
                 // Keep future searches with flight number
-                if (search.flightNumber && search.leavingTime > Date.now()) {
+                if (search.flightId && search.leavingTime > Date.now()) {
                     searches.push(search);
                 }
             });
