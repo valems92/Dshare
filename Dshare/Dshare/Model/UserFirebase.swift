@@ -188,4 +188,11 @@ class UserFirebase {
             }
         })
     }
+    
+    func reauthenticateUser(withEmail: String, password: String, completion: @escaping (Error?)->Void) {
+        let credential = EmailAuthProvider.credential(withEmail: withEmail, password: password)
+        Auth.auth().currentUser?.reauthenticate(with: credential) { (error) in
+            completion(error)
+        }
+    }
 }

@@ -110,6 +110,12 @@ class Model{
         }
     }
     
+    func reauthenticateUser(withEmail: String, password: String, completion: @escaping (Error?)->Void) {
+        userFirebase?.reauthenticateUser(withEmail: withEmail, password: password) { (error) in
+            completion(error)
+        }
+    }
+    
      /**************** Images ******************/
     
     func saveImage(image:UIImage, name:String, callback:@escaping (String?)->Void){
