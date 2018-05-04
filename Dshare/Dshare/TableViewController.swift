@@ -191,7 +191,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 UIApplication.shared.endIgnoringInteractionEvents()
                 Model.instance.startObserveSearches()
             }
+            if self.suggestions.count == 0 {
+                self.table.alpha = 0
+                self.alertNoSuggestions()
+            }
         }
+    }
+    
+    func alertNoSuggestions(){
+        let alertController = UIAlertController(title:"", message: "Oops! there are no suggestions for you right now. Please try again later", preferredStyle:.alert)
+        let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
+            //print("OK tapped");
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated:true, completion:nil)
     }
     
     private func addSuggestion(_ suggestion:Search, _ group:DispatchGroup?)->Void {

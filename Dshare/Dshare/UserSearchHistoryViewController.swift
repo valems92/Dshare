@@ -37,6 +37,10 @@ class UserSearchHistoryViewController: UIViewController, UITableViewDelegate, UI
                     self.searches = searches
                     self.searchesTableView.reloadData()
                     self.stopAnimatingActivityIndicator()
+                    if self.searches?.count == 0 {
+                        self.searchesTableView.alpha = 0
+                        self.alertNoSearches()
+                    }
                 }
             }
         }
@@ -63,6 +67,16 @@ class UserSearchHistoryViewController: UIViewController, UITableViewDelegate, UI
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func alertNoSearches(){
+        let alertController = UIAlertController(title:"", message: "Oops! There are no recent searches to show", preferredStyle:.alert)
+        let OKAction = UIAlertAction(title:"OK", style:.default) { (action:UIAlertAction!) in
+            //print("OK tapped");
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated:true, completion:nil)
     }
     
     func stopAnimatingActivityIndicator() {
@@ -101,12 +115,12 @@ class UserSearchHistoryViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedSearch = searches?[indexPath.row]
         if self.selectedSearch?.foundSuggestion == false {
-            self.performSegue(withIdentifier: "toSuggestionsFromUserInfo", sender: self)
+            self.performSegue(withIdentifier: "toSuggestionsFromUserSearchHistory", sender: self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toSuggestionsFromUserInfo" {
+        if segue.identifier == "toSuggestionsFromUserSearchHistory" {
             if let nextViewController = segue.destination as? TableViewController {
                 nextViewController.search = self.selectedSearch;
             }
