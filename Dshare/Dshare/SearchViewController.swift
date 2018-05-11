@@ -47,6 +47,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         var oneWeekfromNow: Date { return (Calendar.current as NSCalendar).date(byAdding: .day, value: 7, to: timePicker.minimumDate!, options: [])! }
         timePicker.maximumDate = oneWeekfromNow
         timePicker.date = timePicker.minimumDate!
+        timePicker.setValue(UIColor.white, forKeyPath: "textColor")
         
         setCurrentPlace()
         

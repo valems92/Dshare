@@ -129,8 +129,13 @@ class UserDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         return genderOptions.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return genderOptions[row]
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return genderOptions[row]
+//    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let attributedString = NSAttributedString(string: genderOptions[row], attributes: [NSForegroundColorAttributeName : UIColor.white])
+        return attributedString
     }
     
 }
