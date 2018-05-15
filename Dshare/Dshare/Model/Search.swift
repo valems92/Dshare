@@ -15,6 +15,7 @@ class Search {
     var foundSuggestion:Bool
     var suggestionsId:[String]?
     var waitingTime:Int?
+   // var currentTime:Int?
     var flightId:Int?
     var createdOn:Date?
     
@@ -33,6 +34,11 @@ class Search {
         if waitingTime != nil {
             self.waitingTime = waitingTime!
         }
+        
+        /*if currentTime != nil {
+            self.currentTime = waitingTime!
+        }*/
+        
         
         if flightId != nil {
             self.flightId = flightId!

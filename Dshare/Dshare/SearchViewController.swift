@@ -186,9 +186,17 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     
     func validateUserInput(completionHandler: @escaping (_ valid: Bool) -> Void) {
         // Validate starting point, destination, passangrs and baggage are not empty
-        if ((startingPoint.text?.isEmpty)! || (destination.text?.isEmpty)! || (passangers.text?.isEmpty)! || (baggage.text?.isEmpty)!
-            || (leaveNow && (waitingTime.text?.isEmpty)!)) {
+        if ((startingPoint.text?.isEmpty)! || (destination.text?.isEmpty)! || (passangers.text?.isEmpty)!  || (baggage.text?.isEmpty)!
+            || (leaveNow && (waitingTime.text?.isEmpty)!) || Int((passangers.text)!)!<=0) {
+            
             Utils.instance.displayAlertMessage(messageToDisplay:"Please fill out the mandatory fields to proceed", controller: self)
+            completionHandler(false)
+            return
+        }
+        
+        // Validate the passangrs number
+        if (Int((passangers.text)!)!>3 ) {
+            Utils.instance.displayAlertMessage(messageToDisplay:"The maximun number of the passangers for sharing one taxi is four, ", controller: self)
             completionHandler(false)
             return
         }

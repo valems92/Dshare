@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B5D818320AB35A8004F2E2A /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D817E20AB35A7004F2E2A /* UserDetailsViewController.swift */; };
+		3B5D818420AB35A8004F2E2A /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D817F20AB35A7004F2E2A /* UserAccountViewController.swift */; };
+		3B5D818520AB35A8004F2E2A /* UserPasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D818020AB35A8004F2E2A /* UserPasswordChangeViewController.swift */; };
+		3B5D818620AB35A8004F2E2A /* UserSearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D818120AB35A8004F2E2A /* UserSearchHistoryViewController.swift */; };
+		3B5D818720AB35A8004F2E2A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D818220AB35A8004F2E2A /* UserProfileViewController.swift */; };
+		3B5D818920AB3906004F2E2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */; };
+		3B5D818A20AB3915004F2E2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */; };
+		3B5D818B20AB3916004F2E2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */; };
 		3C11C770FBEA994507BD3B4C /* Pods_DshareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4C0984DC52259046C0E93B /* Pods_DshareTests.framework */; };
 		5FB42ECE87049262EC18ACEC /* Pods_DshareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34E82EDC6CA1E146AE5CF7D /* Pods_DshareUITests.framework */; };
 		84D7E2C91FE92C8F0032154C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D7E2C81FE92C8E0032154C /* User.swift */; };
@@ -31,9 +39,7 @@
 		B3FCEEAC206E5AC90072EAB6 /* Date+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA7206E5AC80072EAB6 /* Date+Firebase.swift */; };
 		B3FCEEAD206E5AC90072EAB6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA8206E5AC80072EAB6 /* Model.swift */; };
 		B3FCEEAE206E5AC90072EAB6 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEA9206E5AC80072EAB6 /* Search.swift */; };
-		B3FCEEB0206E5AD60072EAB6 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEAF206E5AD60072EAB6 /* UserInfoViewController.swift */; };
 		B3FCEEB2206E5B010072EAB6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FCEEB1206E5B010072EAB6 /* Utils.swift */; };
-		B3FCEEB4206E5B1E0072EAB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3FCEEB3206E5B1E0072EAB6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +62,12 @@
 /* Begin PBXFileReference section */
 		1F5A582536E96B8DB1BD7B99 /* Pods-Dshare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dshare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dshare/Pods-Dshare.release.xcconfig"; sourceTree = "<group>"; };
 		290AA1108604C7661A82A977 /* Pods-DshareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3B5D817E20AB35A7004F2E2A /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
+		3B5D817F20AB35A7004F2E2A /* UserAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
+		3B5D818020AB35A8004F2E2A /* UserPasswordChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPasswordChangeViewController.swift; sourceTree = "<group>"; };
+		3B5D818120AB35A8004F2E2A /* UserSearchHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchHistoryViewController.swift; sourceTree = "<group>"; };
+		3B5D818220AB35A8004F2E2A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57156A62EAC903A5F1DE8F86 /* Pods-DshareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4C0984DC52259046C0E93B /* Pods_DshareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DshareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8060322E55801630D6571F04 /* Pods-DshareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,9 +101,7 @@
 		B3FCEEA7206E5AC80072EAB6 /* Date+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Firebase.swift"; sourceTree = "<group>"; };
 		B3FCEEA8206E5AC80072EAB6 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		B3FCEEA9206E5AC80072EAB6 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		B3FCEEAF206E5AD60072EAB6 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		B3FCEEB1206E5B010072EAB6 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		B3FCEEB3206E5B1E0072EAB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1C3E3046FBA4903BA87629C /* Pods-DshareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,9 +185,13 @@
 		B3E9AA331FD7E49B00E5CD33 /* Dshare */ = {
 			isa = PBXGroup;
 			children = (
-				B3FCEEB3206E5B1E0072EAB6 /* GoogleService-Info.plist */,
+				3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */,
+				3B5D817F20AB35A7004F2E2A /* UserAccountViewController.swift */,
+				3B5D817E20AB35A7004F2E2A /* UserDetailsViewController.swift */,
+				3B5D818020AB35A8004F2E2A /* UserPasswordChangeViewController.swift */,
+				3B5D818220AB35A8004F2E2A /* UserProfileViewController.swift */,
+				3B5D818120AB35A8004F2E2A /* UserSearchHistoryViewController.swift */,
 				B3FCEEB1206E5B010072EAB6 /* Utils.swift */,
-				B3FCEEAF206E5AD60072EAB6 /* UserInfoViewController.swift */,
 				84D7E2CA1FE94E200032154C /* Model */,
 				B3E9AA341FD7E49B00E5CD33 /* AppDelegate.swift */,
 				B3E9AA361FD7E49B00E5CD33 /* ViewController.swift */,
@@ -255,8 +269,6 @@
 				B3E9AA411FD7E49B00E5CD33 /* Sources */,
 				B3E9AA421FD7E49B00E5CD33 /* Frameworks */,
 				B3E9AA431FD7E49B00E5CD33 /* Resources */,
-				A8E755B6FBD163DC55B768F9 /* [CP] Embed Pods Frameworks */,
-				EAB4DFE655B8E4F132AE3F52 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,8 +288,6 @@
 				B3E9AA4C1FD7E49B00E5CD33 /* Sources */,
 				B3E9AA4D1FD7E49B00E5CD33 /* Frameworks */,
 				B3E9AA4E1FD7E49B00E5CD33 /* Resources */,
-				6CDBC03A476BFD893D8DA23E /* [CP] Embed Pods Frameworks */,
-				84D6D4216484503392F766B6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -341,9 +351,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEF7BB031FD7FA0E007BCD62 /* Info.plist in Resources */,
+				3B5D818920AB3906004F2E2A /* GoogleService-Info.plist in Resources */,
 				B3E9AA3C1FD7E49B00E5CD33 /* Assets.xcassets in Resources */,
 				B3E9AA3A1FD7E49B00E5CD33 /* Main.storyboard in Resources */,
-				B3FCEEB4206E5B1E0072EAB6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B5D818A20AB3915004F2E2A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B5D818B20AB3916004F2E2A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,21 +412,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6CDBC03A476BFD893D8DA23E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7CE2B2C74C724F07E2D0E011 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,21 +428,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		84D6D4216484503392F766B6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A7DC7ED137019FB432A93119 /* [CP] Embed Pods Frameworks */ = {
@@ -476,21 +458,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dshare/Pods-Dshare-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A8E755B6FBD163DC55B768F9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B877AAE68F619F72A30C723B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -509,21 +476,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dshare/Pods-Dshare-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EAB4DFE655B8E4F132AE3F52 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -535,15 +487,19 @@
 				B3E9AA6B1FD7E53D00E5CD33 /* LoginViewController.swift in Sources */,
 				B3E9AA371FD7E49B00E5CD33 /* ViewController.swift in Sources */,
 				B3E9AA691FD7E52600E5CD33 /* TableViewController.swift in Sources */,
+				3B5D818720AB35A8004F2E2A /* UserProfileViewController.swift in Sources */,
 				B3E9AA6D1FD7E55000E5CD33 /* RegisterViewController.swift in Sources */,
+				3B5D818420AB35A8004F2E2A /* UserAccountViewController.swift in Sources */,
 				B3E9AA631FD7E4D900E5CD33 /* ChatViewController.swift in Sources */,
 				B3E9AA671FD7E50E00E5CD33 /* LoadingViewController.swift in Sources */,
 				B3FCEEAC206E5AC90072EAB6 /* Date+Firebase.swift in Sources */,
 				B3FCEEAA206E5AC90072EAB6 /* SearchFirebase.swift in Sources */,
-				B3FCEEB0206E5AD60072EAB6 /* UserInfoViewController.swift in Sources */,
 				B3E9AA6F1FD7E59600E5CD33 /* UIViewExtentions.swift in Sources */,
 				B3FCEEB2206E5B010072EAB6 /* Utils.swift in Sources */,
 				B3FCEEAB206E5AC90072EAB6 /* MessageFirebase.swift in Sources */,
+				3B5D818620AB35A8004F2E2A /* UserSearchHistoryViewController.swift in Sources */,
+				3B5D818520AB35A8004F2E2A /* UserPasswordChangeViewController.swift in Sources */,
+				3B5D818320AB35A8004F2E2A /* UserDetailsViewController.swift in Sources */,
 				84D7E2CC1FE94EBD0032154C /* UserFirebase.swift in Sources */,
 				B3E9AA651FD7E4F300E5CD33 /* SearchViewController.swift in Sources */,
 				B3FCEEAE206E5AC90072EAB6 /* Search.swift in Sources */,
