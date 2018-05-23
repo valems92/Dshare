@@ -21,7 +21,7 @@ class UserFirebase {
     //The function adds a new User to the firebase database
     func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
         Auth.auth().createUser(withEmail: user.email, password: user.password) { (newUser, error) in
-            user.id = (newUser?.uid)!
+            user.id = (newUser?.user.uid)!
             if newUser == nil {
                 completionBlock(user.id, error)
             }
@@ -161,7 +161,7 @@ class UserFirebase {
     }
     
     lazy var storageRef = Storage.storage().reference(forURL:
-        "gs://dshare-ac2cb.appspot.com")
+        "gs://dsharefinalproject.appspot.com")
     
     func saveImageToFirebase(image:UIImage, name:(String), callback:@escaping (String?)->Void){
         let filesRef = storageRef.child(name)
@@ -170,8 +170,14 @@ class UserFirebase {
                 if (error != nil) {
                     callback(nil)
                 } else {
-                    let downloadURL = metadata!.downloadURL()
-                    callback(downloadURL?.absoluteString)
+                    filesRef.downloadURL(completion: { (url, error) in
+                        if error == nil && url != nil {
+                            callback(url!.absoluteString)
+                        } else {
+                            callback(nil)
+                        }
+                    })
+                    
                 }
             }
         }

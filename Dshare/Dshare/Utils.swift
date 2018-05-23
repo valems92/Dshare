@@ -3,7 +3,7 @@ import UIKit
 
 class Utils {
     static let instance = Utils();
-    public let defaultIconUrl = "https://firebasestorage.googleapis.com/v0/b/dshare-ac2cb.appspot.com/o/defaultIcon.png?alt=media&token=c72d96c9-f431-4fe6-968e-54df749475cf"
+    public let defaultIconUrl = "https://firebasestorage.googleapis.com/v0/b/dsharefinalproject.appspot.com/o/defaultIcon.png?alt=media&token=0c2f430f-0b38-4ff0-8853-736c96f357db"
     
     func initActivityIndicator(activityIndicator:UIActivityIndicatorView, controller:UIViewController) {
         activityIndicator.center = controller.view.center;

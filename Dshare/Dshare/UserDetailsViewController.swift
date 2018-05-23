@@ -83,7 +83,7 @@ class UserDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         self.lName.text = user.lName
         self.email.text = user.email
         self.phone.text = user.phoneNum
-        if user.imagePath != "https://firebasestorage.googleapis.com/v0/b/dshare-ac2cb.appspot.com/o/defaultIcon.png?alt=media&token=c72d96c9-f431-4fe6-968e-54df749475cf" { // If the user has a photo
+        if user.imagePath != "https://firebasestorage.googleapis.com/v0/b/dsharefinalproject.appspot.com/o/defaultIcon.png?alt=media&token=0c2f430f-0b38-4ff0-8853-736c96f357db" { // If the user has a photo
             Model.instance.getImage(urlStr: user.imagePath!, callback: { (image) in
                 self.image.image = image
             })
