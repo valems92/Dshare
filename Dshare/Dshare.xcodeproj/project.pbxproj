@@ -12,9 +12,14 @@
 		3B5D818520AB35A8004F2E2A /* UserPasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D818020AB35A8004F2E2A /* UserPasswordChangeViewController.swift */; };
 		3B5D818620AB35A8004F2E2A /* UserSearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D818120AB35A8004F2E2A /* UserSearchHistoryViewController.swift */; };
 		3B5D818720AB35A8004F2E2A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D818220AB35A8004F2E2A /* UserProfileViewController.swift */; };
-		3B5D818920AB3906004F2E2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */; };
-		3B5D818A20AB3915004F2E2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */; };
-		3B5D818B20AB3916004F2E2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */; };
+		3BA73B0620C01AB500EC2416 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BA73B0520C01AB500EC2416 /* GoogleService-Info.plist */; };
+		3BA73B0720C01AB500EC2416 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BA73B0520C01AB500EC2416 /* GoogleService-Info.plist */; };
+		3BA73B0820C01AB500EC2416 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BA73B0520C01AB500EC2416 /* GoogleService-Info.plist */; };
+		3BA73B0920C01ACB00EC2416 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA621FD7E4D900E5CD33 /* ChatViewController.swift */; };
+		3BA73B0A20C01ACC00EC2416 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9AA621FD7E4D900E5CD33 /* ChatViewController.swift */; };
+		3BA73B0B20C01B3000EC2416 /* DshareTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA451FD7E49B00E5CD33 /* DshareTests.xctest */; };
+		3BA73B0C20C01B3100EC2416 /* DshareTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA451FD7E49B00E5CD33 /* DshareTests.xctest */; };
+		3BA73B0D20C01B3200EC2416 /* DshareTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AA451FD7E49B00E5CD33 /* DshareTests.xctest */; };
 		3C11C770FBEA994507BD3B4C /* Pods_DshareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4C0984DC52259046C0E93B /* Pods_DshareTests.framework */; };
 		5FB42ECE87049262EC18ACEC /* Pods_DshareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34E82EDC6CA1E146AE5CF7D /* Pods_DshareUITests.framework */; };
 		84D7E2C91FE92C8F0032154C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D7E2C81FE92C8E0032154C /* User.swift */; };
@@ -67,7 +72,7 @@
 		3B5D818020AB35A8004F2E2A /* UserPasswordChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPasswordChangeViewController.swift; sourceTree = "<group>"; };
 		3B5D818120AB35A8004F2E2A /* UserSearchHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchHistoryViewController.swift; sourceTree = "<group>"; };
 		3B5D818220AB35A8004F2E2A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3BA73B0520C01AB500EC2416 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57156A62EAC903A5F1DE8F86 /* Pods-DshareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DshareUITests/Pods-DshareUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4C0984DC52259046C0E93B /* Pods_DshareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DshareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8060322E55801630D6571F04 /* Pods-DshareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DshareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DshareTests/Pods-DshareTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,7 +190,7 @@
 		B3E9AA331FD7E49B00E5CD33 /* Dshare */ = {
 			isa = PBXGroup;
 			children = (
-				3B5D818820AB3906004F2E2A /* GoogleService-Info.plist */,
+				3BA73B0520C01AB500EC2416 /* GoogleService-Info.plist */,
 				3B5D817F20AB35A7004F2E2A /* UserAccountViewController.swift */,
 				3B5D817E20AB35A7004F2E2A /* UserDetailsViewController.swift */,
 				3B5D818020AB35A8004F2E2A /* UserPasswordChangeViewController.swift */,
@@ -351,8 +356,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEF7BB031FD7FA0E007BCD62 /* Info.plist in Resources */,
-				3B5D818920AB3906004F2E2A /* GoogleService-Info.plist in Resources */,
+				3BA73B0620C01AB500EC2416 /* GoogleService-Info.plist in Resources */,
 				B3E9AA3C1FD7E49B00E5CD33 /* Assets.xcassets in Resources */,
+				3BA73B0C20C01B3100EC2416 /* DshareTests.xctest in Resources */,
 				B3E9AA3A1FD7E49B00E5CD33 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,7 +367,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B5D818A20AB3915004F2E2A /* GoogleService-Info.plist in Resources */,
+				3BA73B0720C01AB500EC2416 /* GoogleService-Info.plist in Resources */,
+				3BA73B0B20C01B3000EC2416 /* DshareTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +376,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B5D818B20AB3916004F2E2A /* GoogleService-Info.plist in Resources */,
+				3BA73B0820C01AB500EC2416 /* GoogleService-Info.plist in Resources */,
+				3BA73B0D20C01B3200EC2416 /* DshareTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BA73B0920C01ACB00EC2416 /* ChatViewController.swift in Sources */,
 				B3E9AA4A1FD7E49B00E5CD33 /* DshareTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BA73B0A20C01ACC00EC2416 /* ChatViewController.swift in Sources */,
 				B3E9AA551FD7E49B00E5CD33 /* DshareUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
