@@ -21,7 +21,9 @@ class UserFirebase {
     //The function adds a new User to the firebase database
     func addNewUser(user:User, completionBlock:@escaping (String?, Error?)->Void){
         Auth.auth().createUser(withEmail: user.email, password: user.password) { (newUser, error) in
-            user.id = (newUser?.user.uid)!
+            //fix an error
+            //user.id = (newUser?.user.uid)!
+            user.id = (newUser?.uid)!
             if newUser == nil {
                 completionBlock(user.id, error)
             }

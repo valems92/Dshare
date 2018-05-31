@@ -112,6 +112,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         user != s.userId
                     })])
                 }
+                
             }
         }
     }
@@ -147,17 +148,20 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 if self.suggestions[search!.id] != nil {
                     self.removeSuggestionOnListening(search!)
                 }
+                
                 break;
             default:
                 if suggestions[search!.id] != nil && search!.foundSuggestion {
                     self.removeSuggestionOnListening(search!)
                 } else if suggestions[search!.id] == nil && search!.foundSuggestion == false {
+                  //  validateSuggestion(searchDate: (search?.leavingTime)!,waitingTime: (search?.waitingTime)!);
+                    
                     self.addSuggestionOnListening(search!)
                 }
                 break;
+                }
             }
         }
-    }
     
     private func removeSuggestionOnListening(_ search:Search) {
         self.suggestions.removeValue(forKey: search.id)
@@ -221,9 +225,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //validate number of passengers
         if ((suggestion.passengers+self.search.passengers)>=5){ return }
         
-        //validate the time
-      //  if ((suggestion.passengers<self.search.time)>=5){ return }
-        
+        //validate the leavingTime in the late section
+        if (suggestion.leavingTime != self.search.leavingTime && suggestion.waitingTime==nil && self.search.waitingTime==nil){
+            return}
+       
         group?.enter()
         self.suggestions[suggestion.id] = SuggestionData(userId: suggestion.userId, search: suggestion, distance: destDistance)
         

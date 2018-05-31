@@ -48,6 +48,28 @@ class SearchFirebase {
         }
     }
     
+    /*
+    private func validateSuggestion(searchDate:Date, waitingTime:Int)->Bool
+    {
+        let nowDate = Date();
+        let calendar = Calendar.current
+        let hourOfNowDate = calendar.component(.hour, from: nowDate)
+        let minutesOfNowDate = calendar.component(.minute, from: nowDate)
+        
+        let hourSuggestions = calendar.component(.hour, from: searchDate)
+        let minutesSuggestions = calendar.component(.minute, from: searchDate)
+        
+        if(hourSuggestions==hourOfNowDate)
+        {
+            if(minutesOfNowDate-minutesSuggestions<waitingTime){
+                return true;
+                
+            }
+            
+        }
+        return false;
+    }*/
+    
     func startObserveSearches(callback:@escaping(Search?,String)->Void) {
         let ref = Database.database().reference()
         ref.child("searches").observe(.childAdded, with: { (snapshot) in

@@ -196,7 +196,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
         
         // Validate the passangrs number
         if (Int((passangers.text)!)!>3 ) {
-            Utils.instance.displayAlertMessage(messageToDisplay:"The maximun number of the passangers for sharing one taxi is four, ", controller: self)
+            Utils.instance.displayAlertMessage(messageToDisplay:"The maximun number of the passangers for sharing one taxi is four ", controller: self)
             completionHandler(false)
             return
         }
