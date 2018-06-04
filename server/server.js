@@ -1,21 +1,33 @@
 const
-    schedule = require('node-schedule'),
     express = require('express'),
-    AppDao = require('./dao/appDao'),
-    app = express();
+    app = express(),
+    bodyParser = require('body-parser'),
+    admin = require('./dao/admin'),
+    flightsUpdate = require('./lib/flightsUpdate');
 
-// Every hour - check for flights updates
-schedule.scheduleJob('2 * * * *', async () => {
-    let searches = await AppDao.getAllSearches();
+// Get request and return response as JSON
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
-    let search;
-    for (let i = 0; i < searches.length; i++) {
-        search = searches[i];
+//flightsUpdate(admin);
 
-        //TODO: check if flight arrival time has changed
-        //TODO:     update arrival time search in DB
-        //TODO:     change notification to search.suggestionSearch
-    }
+app.post('/newMessage', (req, res) => {
+    let body = req.body;
+
+    let payload = {
+        notification: {
+            title: body.title,
+            body: body.body
+        }
+    };
+
+    admin.sendNotification(body.tokens, payload).then(() => {
+        // Response is a message ID string.
+        res.send("Success");
+    }).catch(() => {
+        res.status(500).send("Failed");
+    });
+
 });
 
 app.listen(3000, function () {
